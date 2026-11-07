@@ -1035,7 +1035,11 @@
      ========================================================= */
   window.pantalla_home = function () {
     if (!C.Store.hayPerfiles()) {
-      C.Nav.reemplazar("perfil");
+      /* Con el sistema de cuentas: deja decidir a la puerta de entrada
+         (cuenta si corresponde, o el formulario de crear perfil). */
+      C.Nav.reemplazar(
+        window.CUENTAS ? window.CUENTAS.arranque() : "perfil"
+      );
       return;
     }
     const d = C.Store.data;

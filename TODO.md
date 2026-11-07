@@ -257,6 +257,20 @@
       próximas actualizaciones; publica con "node deploy/publicar-mucho-mundo.js
       &quot;mensaje&quot;"). Los assets de diseño que faltaban en git (marca, tema-infantil,
       algebrario, gestos, kiko-vivo, pruebas) quedaron commiteados en el repo principal.
+- [x] Login como entrada principal de la web (v191):
+      → arranque() en cuentas.js: si el equipo no tiene cuentas NI perfiles (primera
+      visita) también entra por la puerta de la cuenta (además del caso cuentas+sin
+      sesión). Guarda de pantalla_home en app.js cuando no hay perfiles: ahora decide
+      window.CUENTAS.arranque() (cuenta o formulario de crear perfil) en vez de saltar
+      siempre a "perfil". Vista "entrar" con cabecera dinámica: "👋 Bienvenido" +
+      explicación (crear cuenta con adulto / importar copia / continuar sin cuenta)
+      cuando el equipo no tiene cuentas; "🔐 Iniciar sesión" cuando sí hay. Voz
+      acompañante ajustada. Probado en vivo con localStorage limpio: primera visita →
+      pantalla cuenta ("👋 Bienvenido"); "usar sin cuenta" → crear perfil → home;
+      crear cuenta (aviso → usuario → teclado 4 números, repetir) → creada con sesión
+      abierta y copia en la cuenta (autoRespaldo); con cuentas y sin sesión → "🔐
+      Iniciar sesión". Pruebas Node de cuentas y sw.test.js 13/13 OK. Datos de prueba
+      eliminados del navegador al terminar.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

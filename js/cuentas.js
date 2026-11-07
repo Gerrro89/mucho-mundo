@@ -199,9 +199,13 @@ window.CUENTAS = (function () {
   }
 
   /* En qué pantalla comienza la app:
-     login de cuenta cuando hay cuentas pero nadie inició sesión. */
+     - si hay cuentas y nadie inició sesión → puerta de la cuenta,
+     - si el equipo está completamente nuevo (sin cuentas ni perfiles)
+       también entra por la puerta de la cuenta: es la entrada principal. */
   function arranque() {
-    if (hay() && !sesion()) return "cuenta";
+    const o = leer();
+    if (o.lista.length && !sesion()) return "cuenta";
+    if (!o.lista.length && !C.Store.hayPerfiles()) return "cuenta";
     return C.Store.hayPerfiles() ? "home" : "perfil";
   }
 
@@ -615,10 +619,14 @@ window.CUENTAS = (function () {
     /* ----------------- vista: ENTRAR ----------------- */
     if (estado.vista === "entrar") {
       const o = leer();
+      const sinCuentas = !o.lista.length;
       cont.appendChild(
         minCabc(
-          "🔐 Iniciar sesión",
-          "La cuenta guarda el progreso con una copia automática."
+          sinCuentas ? "👋 Bienvenido" : "🔐 Iniciar sesión",
+          sinCuentas
+            ? "Aquí empieza la aventura: crea una cuenta con un adulto, " +
+              "importa una copia o continúa sin cuenta."
+          : "La cuenta guarda el progreso con una copia automática."
         )
       );
       const caja = el("div", "perfil-form");
@@ -748,7 +756,11 @@ window.CUENTAS = (function () {
         )
       );
       cont.appendChild(caja);
-      C.Voz.decir("Escribe tu usuario para entrar en tu cuenta, o crea una con un adulto.");
+      C.Voz.decir(
+        sinCuentas
+          ? "¡Bienvenido! Puedes crear una cuenta con un adulto, o continuar sin cuenta."
+          : "Escribe tu usuario para entrar en tu cuenta, o crea una con un adulto."
+      );
     }
 
     /* ----------------- vista: AVISO (+ registro) ----------------- */
