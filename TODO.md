@@ -247,6 +247,16 @@
       completa (estrellas 17 y practicas 9 de vuelta), login con clave equivocada
       rechazada, confirmación de reemplazo, "usar sin cuenta" y cero errores de consola.
       Datos de prueba limpiados al terminar.
+- [x] Despliegue en GitHub Pages: repo público Gerrro89/mucho-mundo con la web en la raíz
+      → https://gerrro89.github.io/mucho-mundo/ (verificado en vivo: carga con CUENTAS,
+      0 errores de consola; HTTP 200 en index, sw.js y js/cuentas.js). Instalación de
+      GitHub CLI (portable) + login de dispositivo (cuenta Gerrro89) + gh auth setup-git
+      para push con git normal. Repositorio de despliegue: deploy/mucho-mundo (web
+      espejo de la lista ARCHIVOS de sw.js, sin Documentos/ ni datos de usuarios) y
+      script deploy/publicar-mucho-mundo.js (armado, commit y push en un paso para las
+      próximas actualizaciones; publica con "node deploy/publicar-mucho-mundo.js
+      &quot;mensaje&quot;"). Los assets de diseño que faltaban en git (marca, tema-infantil,
+      algebrario, gestos, kiko-vivo, pruebas) quedaron commiteados en el repo principal.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
