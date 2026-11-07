@@ -1,0 +1,379 @@
+/* =========================================================
+   TEMA INFANTIL — capa de acabado (se carga AL FINAL)
+   Solo suma y afina: no reemplaza ni borra reglas anteriores.
+   Criterios: el movimiento sirve para atraer la mirada o para
+   confirmar una acción; lo que se ve a todas horas se calma.
+   ========================================================= */
+
+:root {
+  /* Vocabulario único de movimiento */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --t-toque: 140ms;
+  --t-ui: 220ms;
+}
+
+/* ---------- 1. Fondo decorativo: vivo en los menús, quieto al concentrarse ---------- */
+body[data-pantalla="actividad"] .deco-flota,
+body[data-pantalla="actividad"] .deco-nube,
+body[data-pantalla="actividad"] .deco-rayos,
+body[data-pantalla="repaso"] .deco-flota,
+body[data-pantalla="repaso"] .deco-nube,
+body[data-pantalla="repaso"] .deco-rayos,
+body[data-pantalla="tema"] .deco-flota,
+body[data-pantalla="tema"] .deco-nube {
+  animation: none;
+}
+body[data-pantalla="actividad"] .deco-flota,
+body[data-pantalla="repaso"] .deco-flota {
+  opacity: 0.2;
+}
+/* Pestaña oculta: todo en pausa (batería y calma) */
+html.pausa-ambiente *,
+html.pausa-ambiente *::before,
+html.pausa-ambiente *::after {
+  animation-play-state: paused !important;
+}
+
+/* ---------- 2. Brillos permanentes que repintaban cada cuadro ---------- */
+.barra-superior::after,          /* franja de color que desfilaba */
+.cabecera-pantalla h1,           /* título que brillaba sin parar */
+.logo-titulo,
+.logo-brillo {
+  animation: none;
+}
+.tab-area.activa {               /* la pestaña activa ya se ve por su color */
+  animation: none;
+}
+
+/* ---------- 3. Latidos que animaban box-shadow → ahora transform/opacity ---------- */
+@keyframes ctaLatido {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.025); }
+}
+@keyframes anilloInvita {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.03); }
+}
+@keyframes tabRespira {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.02); }
+}
+/* Barra de carga de la puerta adulta: escala en vez de ancho */
+@keyframes cargarX {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.gate-progreso.corriendo i {
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: cargarX 3s linear forwards;
+}
+
+/* ---------- 4. El botón responde al dedo (propiedad scale: no pisa transform) ---------- */
+:where(button, [role="button"], .btn, .btn-huge, .opcion, .cur-op, .cur-chip):not(:disabled):active {
+  scale: 0.97;
+}
+:where(button, [role="button"]) {
+  transition-property: scale;
+  transition-duration: var(--t-toque);
+  transition-timing-function: var(--ease-out);
+}
+
+/* ---------- 5. Caminito de la lección: sello ✓ al volver de una fase ---------- */
+@keyframes selloHecho {
+  from { scale: 0.9; opacity: 0.6; }
+  to   { scale: 1;   opacity: 1; }
+}
+.paso-hecho .paso-num {
+  animation: selloHecho 240ms var(--ease-out);
+}
+
+/* ---------- 6. Lectura cómoda ---------- */
+h1, h2, h3, .hero-subtitulo { text-wrap: balance; }
+p, .cur-explicacion, .cur-pista { text-wrap: pretty; }
+.hero-subtitulo { max-width: 60ch; }
+.chip-indicador strong,
+.estrellas-grandes,
+.fmh-prog { font-variant-numeric: tabular-nums; }
+
+/* Foco de teclado visible y uniforme */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 4px solid var(--azul-osc);
+  outline-offset: 3px;
+}
+
+/* ---------- 7. Móvil / táctil ---------- */
+@media (pointer: coarse) {
+  body { background-attachment: scroll; } /* el fondo fijo repinta al desplazar */
+}
+
+/* ---------- 8. Menos movimiento: más suave, no cero ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .paso-hecho .paso-num { animation: none; }
+  :where(button, [role="button"]):not(:disabled):active { scale: 1; }
+}
+
+
+/* =========================================================
+   RONDA 2 — MUY INFANTIL, MUY VIVO
+   Idea: todo se siente como un juguete de goma. Aprieta (se
+   hunde), suelta (rebota pasándose un poquito) y celebra.
+   Curva de rebote = easeOutBack estándar.
+   ========================================================= */
+:root {
+  --resorte: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --rosa-fresa: #ff6b8b;
+  --uva-suave: #a855f7;
+}
+
+/* ---------- Tarjetas: respuesta al toque (propósito: feedback) ----------
+   Pulsar: rápido (100 ms). Soltar: un pequeño muelle, solo en `scale`.
+   Hover (solo con ratón): casi imperceptible, ease-out. */
+.tarjeta-area, .tarjeta-materia-home, .tarjeta-grado, .chip-indicador,
+.lugar-mision, .ficha-mision-home, .tarjeta-mision-av, .tarjeta-invento,
+.tarjeta-explorar, .insignia, .btn-huge, .opcion, .cur-op {
+  transition-property: transform, scale, box-shadow, background-color, border-color;
+  transition-duration: 180ms, 360ms, 180ms, 160ms, 160ms;
+  transition-timing-function: var(--ease-out), var(--resorte), var(--ease-out), ease, ease;
+}
+.tarjeta-area:not(:disabled):active, .tarjeta-materia-home:active, .tarjeta-grado:active,
+.chip-indicador:active, .lugar-mision:active, .ficha-mision-home:active,
+.tarjeta-mision-av:active, .tarjeta-invento:active, .tarjeta-explorar:active,
+.btn-huge:active, .opcion:not(:disabled):active, .cur-op:not(:disabled):active {
+  scale: 0.96;
+  transition-duration: 100ms;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta-area:hover, .tarjeta-materia-home:hover, .tarjeta-grado:hover,
+  .lugar-mision:hover, .ficha-mision-home:hover, .tarjeta-mision-av:hover,
+  .tarjeta-invento:hover, .tarjeta-explorar:hover {
+    transform: translateY(-3px) scale(1.015);
+  }
+  .chip-indicador:hover { transform: translateY(-2px); }
+}
+
+/* ---------- Portada: indicadores como pegatinas de colores ---------- */
+.indicadores-inicio .chip-indicador {
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 999px;
+}
+.indicadores-inicio .chip-indicador:nth-child(1) { --c: #ffb703; --f: #fff4cc; }
+.indicadores-inicio .chip-indicador:nth-child(2) { --c: #06b87f; --f: #dcfbef; }
+.indicadores-inicio .chip-indicador:nth-child(3) { --c: #2f80ed; --f: #e0eeff; }
+.indicadores-inicio .chip-indicador:nth-child(4) { --c: #e0457b; --f: #ffe2ec; }
+.indicadores-inicio .chip-indicador {
+  border-color: var(--c, #2f80ed);
+  background: var(--f, #fff);
+  box-shadow: 0 5px 0 var(--c, #2f80ed);
+}
+/* ---------- Pegatinas: la tarjeta de bienvenida rebota al aparecer ---------- */
+.hero-tarjeta .saludo { transform-origin: 50% 100%; }
+
+/* ---------- Respuestas: acierto brilla, error se ladea ---------- */
+.opcion.correcto, .cur-op.correcto {
+  box-shadow: 0 0 0 6px rgba(6, 214, 160, 0.35), 0 6px 0 #049a76;
+}
+.opcion.mal, .cur-op.mal {
+  box-shadow: 0 0 0 6px rgba(255, 107, 139, 0.25);
+}
+
+/* ---------- Cartel de recompensa: aparece con rebote ---------- */
+@keyframes cartelBota {
+  0%   { transform: scale(0.92); opacity: 0; }
+  60%  { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+#overlay-recompensa.visible .caja-overlay {
+  animation: cartelBota 360ms var(--ease-out) both;
+}
+
+/* ---------- Capa de chispas y estrellas (la crea js/tema-infantil.js) ---------- */
+#chispas {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none;
+  overflow: hidden;
+}
+#chispas .chispa {
+  position: absolute;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ---------- Menos movimiento: más suave, no cero ----------
+   Se quita todo desplazamiento/escala; el cartel solo se desvanece. */
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-area:active, .tarjeta-materia-home:active, .tarjeta-grado:active,
+  .chip-indicador:active, .btn-huge:active { scale: 1; }
+  #overlay-recompensa.visible .caja-overlay { animation: cartelFade 150ms ease both; }
+  @keyframes cartelFade { from { opacity: 0; } to { opacity: 1; } }
+  #chispas { display: none; }
+}
+
+
+/* =========================================================
+   RONDA 3 — gestos, ventanas, progreso, accesibilidad
+   ========================================================= */
+
+/* Texto solo para lectores de pantalla (anuncios de acierto/error) */
+.sr-solo {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Ventanas: ahora también SALEN (200 ms, solo opacity) ----------
+   Antes pasaban de display:none a flex y desaparecían de golpe. */
+.overlay {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-out), visibility 0s linear 180ms;
+}
+.overlay.visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 180ms var(--ease-out), visibility 0s;
+}
+
+/* ---------- Barras de progreso: crecen al aparecer (transform, no width) ---------- */
+@keyframes barraCrece {
+  from { transform: scaleX(0); }
+}
+.barra i, .barra-mini i, .progreso-barra i, .barra-trazo i {
+  transform-origin: left center;
+  animation: barraCrece 420ms var(--ease-out) 120ms backwards;
+}
+
+/* ---------- Estrellas del cartel de recompensa ---------- */
+.estrellas-grandes .est { display: inline-block; }
+
+/* ---------- Acierto y error: además del color, un símbolo ----------
+   Va EN el flujo del contenido (no flotando en una esquina), así que nunca se recorta
+   ni se superpone, en cualquier tamaño de pantalla. */
+.opcion.correcto::before, .cur-op.correcto::before, .opcion.mal::before, .cur-op.mal::before {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.9em;
+  font-weight: 900;
+  line-height: 1;
+  vertical-align: middle;
+}
+.opcion.correcto::before, .cur-op.correcto::before { content: "✓"; background: #049a76; }
+.opcion.mal::before, .cur-op.mal::before { content: "✕"; background: #d63a6c; }
+
+/* ---------- Arrastrar y soltar: la pieza sigue al dedo ---------- */
+.fantasma-arrastre {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  margin: 0 !important;
+  z-index: 3500;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  box-shadow: 0 14px 26px rgba(24, 100, 156, 0.3);
+}
+.arrastrado-origen { opacity: 0.35; }
+.destino-valido {
+  outline: 3px dashed var(--azul-osc, #2f80ed);
+  outline-offset: 3px;
+}
+.destino-sobre {
+  outline-style: solid;
+  outline-color: #049a76;
+  background-color: rgba(6, 214, 160, 0.16);
+}
+body.arrastrando-pieza {
+  cursor: grabbing;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* las piezas se pueden tocar o arrastrar; el desplazamiento vertical de la página sigue funcionando */
+.cur-chip, .cur-par {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: 48px;
+}
+.cur-secuencia-hecha {
+  min-height: 56px;
+  padding: 6px;
+  border: 3px dashed #bcd8ee;
+  border-radius: 18px;
+}
+.cur-ayuda-arrastre {
+  margin: 4px 0 8px;
+  font-size: 0.9rem;
+  color: #445566;
+  text-align: center;
+}
+
+/* ---------- Deslizar y carruseles ---------- */
+.deslizando { cursor: grabbing; -webkit-user-select: none; user-select: none; }
+.tira-misiones, .fila-materias {
+  overscroll-behavior-x: contain; /* el gesto "atrás" del móvil no se cuela al llegar al borde */
+  scrollbar-width: thin;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tira-misiones, .fila-materias { cursor: grab; }
+}
+.arrastrando-carrusel {
+  cursor: grabbing !important;
+  scroll-snap-type: none !important;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.arrastrando-carrusel * { pointer-events: none; }
+.tira-misiones:focus-visible, .fila-materias:focus-visible {
+  outline: 4px solid var(--azul-osc, #2f80ed);
+  outline-offset: 3px;
+  border-radius: 18px;
+}
+
+/* ---------- Kiko señala: un anillo que late 3 veces (transform + opacity) ---------- */
+.senalado { position: relative; }
+.senalado::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 5px solid #ffd23f;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: senalaAnillo 800ms var(--ease-out) 3;
+}
+@keyframes senalaAnillo {
+  0%   { transform: scale(0.94); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: scale(1.08); opacity: 0; }
+}
+
+
+/* ---------- Modo ligero (teléfonos modestos / ahorro de datos): sin decoración animada ---------- */
+.modo-ligero .deco-flota, .modo-ligero .deco-nube, .modo-ligero .deco-rayos, .modo-ligero .deco-montanas,
+.modo-ligero .btn-huge.primario, .modo-ligero .tab-area, .modo-ligero .logo-titulo {
+  animation: none;
+}
+.modo-ligero body { background-attachment: scroll; }
+
+/* La ficha que se arrastra sigue al dedo sin transición (se mueve con transform) */
+.ficha.arrastrando { transition: none; }

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Algebrario — Aprende jugando 🦜</title>
+    <meta
+      name="description"
+      content="Algebrario: plataforma educativa para niños de 6 a 11 años: letras, números, materias del colegio por grados (Colombia), aventuras, misiones y un profesor virtual que te acompaña."
+    />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#06d6a0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="img/marca/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="img/marca/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="img/marca/apple-touch-icon-180.png" /><text y='.9em' font-size='90'>🦜</text></svg>" />
+    <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/unidades.css" />
+<link rel="stylesheet" href="css/tema-infantil.css" />
+<link rel="stylesheet" href="css/algebrario.css" />
+    <style>
+      #carga-inicial{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(180deg,#8fdcff,#e8f8ff 60%,#d9f6c6);font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif}
+      #carga-inicial img{width:min(62vw,260px);height:auto;animation:cgBota 1.1s ease-in-out infinite}
+      #carga-inicial b{font-size:2rem;color:#1454a2;letter-spacing:1px}
+      #carga-inicial i{display:inline-block;width:14px;height:14px;margin:0 5px;border-radius:50%;animation:cgPunto 1s ease-in-out infinite}
+      #carga-inicial i:nth-child(1){background:#ff6b8b}#carga-inicial i:nth-child(2){background:#ffd23f;animation-delay:.15s}#carga-inicial i:nth-child(3){background:#06d6a0;animation-delay:.3s}
+      @keyframes cgBota{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+      @keyframes cgPunto{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-9px);opacity:1}}
+      @media (prefers-reduced-motion:reduce){#carga-inicial img,#carga-inicial i{animation:none}}
+    </style>
+  </head>
+  <body>
+    <div id="carga-inicial" role="status" aria-label="Cargando Algebrario"><img src="img/marca/logo-vivo-450.webp" alt="" width="260" height="258" /><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <!-- Fondo infantil: cielo, sol, nubes, montañas y garabatos animados -->
+    <div class="deco-fondo" aria-hidden="true">
+      <span class="deco-sol">
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <g class="deco-rayos" stroke="#ffd23f" stroke-width="8" stroke-linecap="round">
+            <line x1="60" y1="4" x2="60" y2="18" />
+            <line x1="60" y1="102" x2="60" y2="116" />
+            <line x1="4" y1="60" x2="18" y2="60" />
+            <line x1="102" y1="60" x2="116" y2="60" />
+            <line x1="20" y1="20" x2="30" y2="30" />
+            <line x1="90" y1="90" x2="100" y2="100" />
+            <line x1="100" y1="20" x2="90" y2="30" />
+            <line x1="30" y1="90" x2="20" y2="100" />
+          </g>
+          <circle cx="60" cy="60" r="33" fill="#ffd93b" stroke="#f7a52b" stroke-width="4" />
+          <circle cx="49" cy="54" r="4.5" fill="#7a4c12" />
+          <circle cx="71" cy="54" r="4.5" fill="#7a4c12" />
+          <path d="M47 68 Q60 82 73 68" fill="none" stroke="#7a4c12" stroke-width="4" stroke-linecap="round" />
+          <circle cx="43" cy="65" r="5.5" fill="#ff9db1" opacity="0.75" />
+          <circle cx="77" cy="65" r="5.5" fill="#ff9db1" opacity="0.75" />
+        </svg>
+      </span>
+      <span class="deco-nube n1">☁️</span>
+      <span class="deco-nube n2">☁️</span>
+      <span class="deco-nube n3">☁️</span>
+      <span class="deco-flota f1">🎈</span>
+      <span class="deco-flota f2">✏️</span>
+      <span class="deco-flota f3">⭐</span>
+      <span class="deco-flota f4">🌈</span>
+      <span class="deco-flota f5">🖍️</span>
+      <span class="deco-flota f6">🎨</span>
+      <span class="deco-flota f7">🔢</span>
+      <span class="deco-flota f8">🔤</span>
+      <span class="deco-flota f9">🧩</span>
+      <span class="deco-montanas">
+        <svg viewBox="0 0 1440 220" preserveAspectRatio="none">
+          <path d="M0 150 C 180 90 340 150 520 130 C 700 110 860 160 1040 132 C 1200 108 1330 150 1440 128 L1440 220 L0 220 Z" fill="#a8e6a3" opacity="0.5" />
+          <path d="M0 178 C 160 132 330 182 520 166 C 720 150 900 190 1090 168 C 1260 148 1360 180 1440 166 L1440 220 L0 220 Z" fill="#86d772" opacity="0.55" />
+        </svg>
+      </span>
+    </div>
+
+    <!-- Barra superior: siempre en la misma posición -->
+    <header class="barra-superior">
+      <!-- Zona 1: volver y nombre de la app -->
+      <div class="barra-izq">
+        <button id="btn-inicio" class="btn-icono" title="Ir al inicio" aria-label="Ir al inicio">🏠</button>
+        <div class="logo">
+          <span class="logo-icone" aria-hidden="true"><img src="img/marca/emblema-240.webp" alt="" width="55" height="38" /></span>
+          <span class="logo-texto">
+            <span class="logo-titulo">Algebrario</span>
+            <span class="logo-sub">Aprende jugando</span>
+          </span>
+          <span class="logo-brillo" aria-hidden="true">✨</span>
+        </div>
+      </div>
+
+      <!-- Botones organizados: herramientas y perfil -->
+      <div class="barra-derecha">
+        <div class="barra-acciones">
+          <button id="btn-aventura" class="btn-icono" title="Mi aventura y mi progreso" aria-label="Mi aventura y mi progreso">🗺️</button>
+          <button id="btn-aventurero" class="btn-icono" title="Mi personaje" aria-label="Mi personaje">🧑‍🚀</button>
+          <button id="btn-letra" class="btn-icono" title="Cambiar la forma de las letras" aria-label="Cambiar la forma de las letras">🅰️</button>
+          <button id="btn-silencio" class="btn-icono" title="Silenciar" aria-label="Activar o silenciar el sonido">🔊</button>
+          <button id="btn-adulto" class="btn-icono" title="Área para personas adultas" aria-label="Área para personas adultas">🔧</button>
+        </div>
+        <span class="barra-separador" aria-hidden="true"></span>
+        <button id="btn-perfil" class="btn-perfil" title="Mi perfil" aria-label="Mi perfil">
+          <span class="perfil-avatar-chico" id="btn-perfil-avatar">🦜</span>
+          <span class="perfil-nombre-chico" id="btn-perfil-nombre">Perfil</span>
+          <span class="perfil-flecha" aria-hidden="true">▾</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="contenedor">
+      <!-- INICIO -->
+      <section id="pantalla-home" class="pantalla activa">
+        <div id="contenido-home" class="contenido"></div>
+      </section>
+
+      <!-- PERFIL (¿quién está jugando?) -->
+      <section id="pantalla-perfil" class="pantalla">
+        <div id="contenido-perfil" class="contenido"></div>
+      </section>
+
+      <!-- CUENTA (iniciar sesión / respaldo del progreso) -->
+      <section id="pantalla-cuenta" class="pantalla"><div id="contenido-cuenta" class="contenido"></div>
+      </section>
+
+      <!-- PANTALLAS GENÉRICAS -->
+      <section id="pantalla-aprender" class="pantalla"><div id="contenido-aprender" class="contenido"></div>
+      </section>
+      <section id="pantalla-nivel" class="pantalla"><div id="contenido-nivel" class="contenido"></div>
+      </section>
+      <section id="pantalla-escuchar" class="pantalla"><div id="contenido-escuchar" class="contenido"></div>
+      </section>
+      <section id="pantalla-jugar" class="pantalla"><div id="contenido-jugar" class="contenido"></div>
+      </section>
+      <section id="pantalla-practicar" class="pantalla"><div id="contenido-practicar" class="contenido"></div>
+      </section>
+      <section id="pantalla-aventura" class="pantalla"><div id="contenido-aventura" class="contenido"></div>
+      </section>
+      <section id="pantalla-mundo" class="pantalla"><div id="contenido-mundo" class="contenido"></div>
+      </section>
+      <section id="pantalla-mision" class="pantalla"><div id="contenido-mision" class="contenido"></div>
+      </section>
+      <section id="pantalla-mascota" class="pantalla"><div id="contenido-mascota" class="contenido"></div>
+      </section>
+      <section id="pantalla-cultura" class="pantalla"><div id="contenido-cultura" class="contenido"></div>
+      </section>
+      <section id="pantalla-escape" class="pantalla"><div id="contenido-escape" class="contenido"></div>
+      </section>
+      <section id="pantalla-sala" class="pantalla"><div id="contenido-sala" class="contenido"></div>
+      </section>
+      <section id="pantalla-taller" class="pantalla"><div id="contenido-taller" class="contenido"></div>
+      </section>
+      <section id="pantalla-invento" class="pantalla"><div id="contenido-invento" class="contenido"></div>
+      </section>
+      <section id="pantalla-detective" class="pantalla"><div id="contenido-detective" class="contenido"></div>
+      </section>
+      <section id="pantalla-caso" class="pantalla"><div id="contenido-caso" class="contenido"></div>
+      </section>
+      <section id="pantalla-concurso" class="pantalla"><div id="contenido-concurso" class="contenido"></div>
+      </section>
+      <section id="pantalla-ronda" class="pantalla"><div id="contenido-ronda" class="contenido"></div>
+      </section>
+      <section id="pantalla-laboratorio" class="pantalla"><div id="contenido-laboratorio" class="contenido"></div>
+      </section>
+      <section id="pantalla-experimento" class="pantalla"><div id="contenido-experimento" class="contenido"></div>
+      </section>
+      <section id="pantalla-aventurero" class="pantalla"><div id="contenido-aventurero" class="contenido"></div>
+      </section>
+      <section id="pantalla-armario" class="pantalla"><div id="contenido-armario" class="contenido"></div>
+      </section>
+      <section id="pantalla-misiones_av" class="pantalla"><div id="contenido-misiones_av" class="contenido"></div>
+      </section>
+      <section id="pantalla-adulto" class="pantalla"><div id="contenido-adulto" class="contenido"></div>
+      </section>
+
+      <!-- MATERIAS Y LECCIONES (grado y materias del perfil) -->
+      <section id="pantalla-grados" class="pantalla"><div id="contenido-grados" class="contenido"></div>
+      </section>
+      <section id="pantalla-materias" class="pantalla"><div id="contenido-materias" class="contenido"></div>
+      </section>
+      <section id="pantalla-materia" class="pantalla"><div id="contenido-materia" class="contenido"></div>
+      </section>
+      <section id="pantalla-tema" class="pantalla"><div id="contenido-tema" class="contenido"></div>
+      </section>
+      <section id="pantalla-repaso" class="pantalla"><div id="contenido-repaso" class="contenido"></div>
+      </section>
+
+      <!-- ACTIVIDAD -->
+      <section id="pantalla-actividad" class="pantalla">
+        <div class="actividad-marco">
+          <div class="actividad-barra">
+            <button id="btn-volver-act" class="btn-icono" title="Volver" aria-label="Volver">↩️</button>
+            <h2 id="act-titulo" class="act-titulo"></h2>
+            <div class="actividad-barra-derecha">
+              <button id="btn-repetir" class="btn-icono" title="Escuchar otra vez" aria-label="Repetir audio">🔊</button>
+              <button id="btn-ayuda" class="btn-icono" title="Ayuda" aria-label="Ayuda">❓</button>
+            </div>
+          </div>
+          <div id="actividad-cuerpo" class="actividad-cuerpo"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Personaje guía -->
+    <div id="guia" role="button" tabindex="0" title="Tócame para escuchar otra vez">
+      <div id="burbuja-guia" class="burbuja"></div>
+      <div id="guia-svg"></div>
+    </div>
+
+    <!-- Capa de confeti -->
+    <div id="confeti" aria-hidden="true"></div>
+
+    <!-- Recompensa -->
+    <div id="overlay-recompensa" class="overlay">
+      <div class="caja-overlay" id="recompensa-cuerpo"></div>
+    </div>
+
+    <!-- Puerta del área adulta (PIN) -->
+    <div id="overlay-adulto" class="overlay">
+      <div class="caja-overlay pin-caja">
+        <h2 id="pin-titulo">🔒 Área para personas adultas</h2>
+        <p id="gate-msg">Escribe el PIN de 4 números.</p>
+        <div class="pin-puntos" id="pin-puntos" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div class="pin-teclado" id="pin-teclado"></div>
+        <div class="fila-botones">
+          <button id="gate-aceptar" class="btn grande primario">✅ Entrar</button>
+          <button id="gate-cerrar" class="btn grande">↩️ Volver</button>
+        </div>
+        <button id="gate-olvido" class="btn-mini">🔑 Olvidé el PIN</button>
+      </div>
+    </div>
+
+    <!-- Cuenta de usuario: clave secreta de 4 números (se usa para
+         iniciar sesión en la cuenta con respaldo del progreso) -->
+    <div id="overlay-cuenta" class="overlay">
+      <div class="caja-overlay pin-caja">
+        <div id="cte-agree" hidden></div>
+        <div id="cte-zona">
+          <h2 id="cte-titulo">🔑 Clave de la cuenta</h2>
+          <p id="cte-msg">Escribe los 4 números de la cuenta.</p>
+          <div class="pin-puntos" id="cte-puntos" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </div>
+          <div class="pin-teclado" id="cte-teclado"></div>
+        </div>
+        <div class="fila-botones">
+          <button id="cte-aceptar" class="btn grande primario">✅ Entrar</button>
+          <button id="cte-cerrar" class="btn grande">↩️ Volver</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dibujar el avatar -->
+    <div id="overlay-dibujo" class="overlay">
+      <div class="caja-overlay dibujo-caja">
+        <h2>🎨 Dibuja tu cara</h2>
+        <canvas id="lienzo-avatar" width="300" height="300"></canvas>
+        <div id="dibujo-colores" class="dibujo-colores"></div>
+        <div class="fila-botones">
+          <button id="dibujo-listo" class="btn grande primario">✅ Usar mi dibujo</button>
+          <button id="dibujo-borrar" class="btn grande">🧽 Borrar todo</button>
+          <button id="dibujo-cancelar" class="btn grande">↩️ Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Imagen de la foto de perfil (oculta) -->
+    <input id="archivo-foto" type="file" accept="image/*" hidden />
+
+    <!-- Archivo de respaldo de cuenta (oculto; lo abren los botones importar) -->
+    <input id="archivo-cuenta" type="file" accept="application/json,.json,text/plain" hidden />
+
+    <!-- Informe para imprimir o guardar en PDF (oculto en pantalla) -->
+    <div id="informe-impresion"></div>
+
+    <script defer src="js/data.js"></script>
+    <!-- Contenido DBA por grado (datos compactos que curriculo.js convierte en temas) -->
+    <script defer src="js/curriculo-dba-g1.js"></script>
+    <script defer src="js/curriculo-dba-g2.js"></script>
+    <script defer src="js/curriculo-dba-g3.js"></script>
+    <script defer src="js/curriculo-dba-g4.js"></script>
+    <script defer src="js/curriculo-dba-g5.js"></script>
+    <script defer src="js/curriculo.js"></script>
+<script defer src="js/unidades.js"></script>
+<script defer src="js/profe.js"></script>
+    <script defer src="js/core.js"></script>
+    <script defer src="js/cuentas.js"></script>
+    <script defer src="js/activities.js"></script>
+    <script defer src="js/juegos.js"></script>
+    <script defer src="js/misiones.js"></script>
+    <script defer src="js/mascota.js"></script>
+    <script defer src="js/escape.js"></script>
+    <script defer src="js/taller.js"></script>
+    <script defer src="js/detective.js"></script>
+    <script defer src="js/concurso.js"></script>
+    <script defer src="js/laboratorio.js"></script>
+    <script defer src="js/aventurero/accesorios.js"></script>
+    <script defer src="js/aventurero/motor3d.js"></script>
+    <script defer src="js/aventurero/gltf.js"></script>
+    <script defer src="js/aventurero/modelo.js"></script>
+    <script defer src="js/aventurero/personaje.js"></script>
+    <script defer src="js/aventurero/misiones.js"></script>
+    <script defer src="js/aventurero/progreso.js"></script>
+    <script defer src="js/cultura.js"></script>
+    <script defer src="js/criaturas-dibujo.js"></script>
+    <script defer src="js/app.js"></script>
+    <script defer src="js/curriculo-ui.js"></script>
+<script defer src="js/materias-home.js"></script>
+    <script defer src="js/tema-infantil.js"></script>
+    <script defer src="js/algebrario.js"></script>
+    <script defer src="js/gestos.js"></script>
+    <script defer src="js/kiko-vivo.js"></script>
+    <script>setTimeout(function(){var c=document.getElementById("carga-inicial");if(c)c.remove()},9000)</script>
+  </body>
+</html>

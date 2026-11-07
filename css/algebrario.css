@@ -1,0 +1,196 @@
+/* =========================================================
+   ALGEBRARIO — entrega A: identidad y portada
+   Se carga al final. Solo suma reglas; no borra las anteriores.
+   Paleta: Sol #ffd23f · Hoja #06d6a0 · Mar #2f80ed · Fresa #ff6b8b
+           Uva #a855f7 · Tinta #26364a (+ un color por materia).
+   ========================================================= */
+
+/* ---------- Logo ---------- */
+.logo-icone { display: inline-flex; align-items: center; }
+.logo-icone img {
+  display: block;
+  height: 2.4rem;
+  width: auto; /* el emblema es apaisado (1,44:1) */
+}
+@media (max-width: 380px) {
+  .logo-icone img { height: 2rem; }
+}
+
+/* ---------- Iconos ilustrados de materia ---------- */
+.ico-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.con-svg { line-height: 0; }
+.materia-home-icono.con-svg { padding: 9px; }
+.materia-icono.con-svg { padding: 6px; }
+.materia-icono-mini.con-svg {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.35em;
+}
+
+/* ---------- Portada: el orden cuenta una historia ----------
+   Saludo → botón grande para seguir → logros → mundos → resto.
+   (Solo reordena visualmente; el contenido y sus acciones no cambian.) */
+#contenido-home {
+  display: flex;
+  flex-direction: column;
+}
+#contenido-home > * { order: 10; width: 100%; }
+#contenido-home > .hero-inicio { order: 0; }
+#contenido-home > .botones-principales { order: 1; }
+#contenido-home > .indicadores-inicio { order: 2; }
+
+/* ---------- Mundos (las 10 materias) ---------- */
+.rejilla-materias-home {
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 16px;
+}
+.tarjeta-materia-home {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 8px solid var(--mc, #4cc9f0);
+}
+/* cada mundo se tiñe con su propio color (si el navegador no lo soporta, queda la tarjeta blanca) */
+@supports (background: color-mix(in srgb, red 10%, white)) {
+  .tarjeta-materia-home {
+    background:
+      radial-gradient(circle at 85% 8%, color-mix(in srgb, var(--mc, #4cc9f0) 28%, #fff) 0 26px, transparent 27px),
+      linear-gradient(180deg, color-mix(in srgb, var(--mc, #4cc9f0) 16%, #fff) 0, #fff 70%);
+  }
+}
+.tarjeta-materia-home .materia-home-icono {
+  width: 80px;
+  height: 80px;
+  border-radius: 26px;
+  background: #fff;
+  border: 4px solid var(--mc, #4cc9f0);
+  box-shadow: 0 5px 0 var(--mc, #4cc9f0);
+  opacity: 1;
+}
+.tarjeta-materia-home .materia-home-nombre { font-size: 1.08rem; }
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta-materia-home:hover .materia-home-icono { transform: rotate(-3deg) scale(1.04); }
+}
+.tarjeta-materia-home .materia-home-icono {
+  transition: transform 200ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+}
+
+/* ---------- Pantalla de carga ---------- */
+#carga-inicial.salida { opacity: 0; transition: opacity 400ms ease; pointer-events: none; }
+
+/* ---------- Navegación inferior (móvil y tablet vertical) ---------- */
+#nav-inferior { display: none; }
+@media (max-width: 820px) {
+  #nav-inferior {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    position: fixed;
+    left: calc(8px + env(safe-area-inset-left, 0px));
+    right: calc(8px + env(safe-area-inset-right, 0px));
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    z-index: 55;
+    padding: 6px;
+    border: 4px solid #fff;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 6px 0 rgba(24, 100, 156, 0.14), 0 14px 28px rgba(24, 100, 156, 0.22);
+  }
+  /* pastilla de color que se desliza hasta el botón activo (solo transform) */
+  #nav-inferior::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 0;
+    width: var(--pw, calc((100% - 24px) / 4));
+    box-sizing: border-box;
+    border: 3px solid var(--pc, #2f80ed);
+    border-radius: 22px;
+    background: var(--pf, #eaf6ff);
+    transform: translateX(var(--px, calc(6px + var(--i, 0) * (100% + 4px))));
+    transition: transform 220ms var(--ease-in-out, cubic-bezier(0.77, 0, 0.175, 1)), background-color 160ms ease, border-color 160ms ease;
+  }
+  #nav-inferior button {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 58px;
+    padding: 4px 2px;
+    border: 3px solid transparent;
+    border-radius: 22px;
+    background: transparent;
+    color: #1454a2;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 900;
+    line-height: 1.1;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+  #nav-inferior button svg { width: 30px; height: 30px; display: block; }
+  #nav-inferior button[aria-current="page"] {
+    color: #0b3c78;
+  }
+  /* espacio para que la barra no tape el contenido ni a Kiko */
+  body.con-nav-inferior .contenedor { margin-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+  body.con-nav-inferior #guia { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+  /* en ejercicios y áreas de adultos, la barra se oculta para concentrarse */
+  body[data-pantalla="actividad"] #nav-inferior,
+  body[data-pantalla="repaso"] #nav-inferior,
+  body[data-pantalla="perfil"] #nav-inferior,
+  body[data-pantalla="adulto"] #nav-inferior { display: none; }
+  body[data-pantalla="actividad"] .contenedor,
+  body[data-pantalla="repaso"] .contenedor,
+  body[data-pantalla="perfil"] .contenedor,
+  body[data-pantalla="adulto"] .contenedor { margin-bottom: 48px; }
+  body[data-pantalla="actividad"] #guia,
+  body[data-pantalla="repaso"] #guia,
+  body[data-pantalla="perfil"] #guia,
+  body[data-pantalla="adulto"] #guia { bottom: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #carga-inicial.salida { transition: none; }
+  .tarjeta-materia-home .materia-home-icono { transition: none; }
+}
+
+/* ---------- Espacios seguros (muescas y bordes redondeados) ---------- */
+body {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+.barra-superior { padding-top: max(11px, env(safe-area-inset-top, 0px)); }
+
+/* ---------- Tableta vertical: la barra inferior no se estira a todo el ancho ---------- */
+@media (min-width: 600px) and (max-width: 820px) {
+  #nav-inferior {
+    left: 50%;
+    right: auto;
+    width: min(560px, calc(100% - 24px));
+    translate: -50% 0;
+  }
+}
+
+/* ---------- Móvil en horizontal: todo más compacto (poco alto disponible) ---------- */
+@media (max-width: 820px) and (max-height: 480px) {
+  #nav-inferior button { min-height: 44px; flex-direction: row; gap: 6px; font-size: 0.72rem; }
+  #nav-inferior button svg { width: 22px; height: 22px; }
+  body.con-nav-inferior .contenedor { margin-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  body.con-nav-inferior #guia { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nav-inferior::before { transition: none; }
+}
+
+/* Kiko también respeta los bordes seguros (muescas, esquinas redondeadas) */
+#guia { margin-right: env(safe-area-inset-right, 0px); }
