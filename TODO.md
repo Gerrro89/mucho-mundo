@@ -320,6 +320,21 @@
       en producción (registrar y entrar; verificar subida del respaldo a
       la nube y traída a otro equipo). Verificar que gerrro89.github.io
       esté en Authorized domains.
+- [x] Cuenta OBLIGATORIA + logo oficial de Gmail (v196):
+      → ya no existe "➡️ Usar sin cuenta": la puerta de la cuenta es la
+      única entrada (crear con adulto / entrar / importar copia / Gmail de
+      ahora en adelante con el ícono oficial en img/marca/gmail-logo.svg,
+      agregado al precache del SW). arranque() devuelve "cuenta" SIEMPRE
+      que no haya sesión; app.js: pantalla_home y pantalla_perfil exigen
+      sesión (si no, reemplazan a "cuenta"). Texto de Bienvenido y de la
+      voz ajustados. Tests actualizados (8. arranque obligatorio) y PASS:
+      test-cuentas + sw.test.js 13/13. En vivo: intento de ir a home sin
+      sesión vuelve a la puerta; logo gmail cargando (naturalWidth 200);
+      0 errores de consola. Publicado (v196, 153 archivos) y verificado
+      en producción (gmail-logo.svg 200; cuentas.js sin "Usar sin cuenta").
+      Compatibilidad: los perfiles viejos sin cuenta en un equipo siguen
+      existiendo y se conservan, pero para entrar hac� falta abrir sesión
+      de cuenta con ellos (copia viva o nueva).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
