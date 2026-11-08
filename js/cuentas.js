@@ -48,6 +48,12 @@ window.CUENTAS = (function () {
     '<img src="img/marca/gmail-logo.svg" alt="Gmail" ' +
     'style="height:1.15em;width:auto;vertical-align:-0.22em;margin-right:2px" />';
 
+  /* Flecha del botón "Importar una copia" (cuadrito azul de la imagen) */
+  const FLECHA_ARRIBA =
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M12 3l7 7h-4v11h-6V10H5z"/></svg>';
+
+
   /* Producto y formato del archivo de respaldo
      (sirve para rechazar archivos que no son de esta app).
      El tipo nuevo es mucho-mundo-respaldo; se sigue aceptando
@@ -973,6 +979,13 @@ window.CUENTAS = (function () {
     if (!cont) return;
     cont.innerHTML = "";
 
+    /* Cielo solo detrás de la puerta (vista entrar); las demás
+       vistas de la cuenta vuelven al fondo normal. */
+    const secCuenta = cont.closest(".pantalla");
+    if (secCuenta) {
+      secCuenta.classList.toggle("puerta-dia", estado.vista === "entrar");
+    }
+
     function minCabc(titulo, sub) {
       const c = el("div", "cabecera-pantalla");
       c.appendChild(el("h1", "", titulo));
@@ -982,6 +995,18 @@ window.CUENTAS = (function () {
 
     function nota(texto) {
       return el("p", "nota-adulto", texto);
+    }
+
+    /* Botón grande y redondo de la puerta (estilo de la imagen) */
+    function botonPuerta(clase, html, alTocar) {
+      const b = el("button", "puerta-btn" + (clase ? " " + clase : ""));
+      b.type = "button";
+      b.innerHTML = html;
+      b.onclick = () => {
+        C.Sfx.clic();
+        alTocar();
+      };
+      return b;
     }
 
     /* Botón de Gmail: solo cuando la nube está configurada con
@@ -1047,149 +1072,186 @@ window.CUENTAS = (function () {
       return { caja: caja, chk: chk };
     }
 
-    /* ----------------- vista: ENTRAR ----------------- */
+    /* ------------- vista: ENTRAR (la puerta ilustrada) ------------- */
     if (estado.vista === "entrar") {
       const o = leer();
       const sinCuentas = !o.lista.length;
-      cont.appendChild(
-        minCabc(
-          sinCuentas ? "👋 Bienvenido" : "🔐 Iniciar sesión",
+
+      /* La escena (img/marca/puerta-vivo.webp) trae el logo, el
+         castillo y los niños leyendo; los botones de la imagen van
+         flotando encima cuando el equipo aún no tiene cuentas. */
+      const puerta = el("div", "puerta");
+      puerta.appendChild(
+        el(
+          "h1",
+          "puerta-oculto",
           sinCuentas
-            ? "Aquí empieza la aventura: para entrar hay que crear una " +
-              "cuenta con un adulto o importar una copia."
-          : "La cuenta guarda el progreso con una copia automática."
+            ? "Mucho Mundo: bienvenido. Para entrar, crea una cuenta con un adulto o importa una copia."
+            : "Mucho Mundo: iniciar sesión en la cuenta"
         )
       );
-      const caja = el("div", "perfil-form");
-      if (o.lista.length) {
-        const campo = el("label", "campo-perfil");
-        campo.appendChild(el("span", "", "👤 Usuario"));
-        const input = document.createElement("input");
-        input.className = "input-perfil";
-        input.type = "text";
-        input.maxLength = 15;
-        input.autocomplete = "off";
-        input.placeholder = "Escribe tu usuario";
-        input.value = estado.usuario;
-        campo.appendChild(input);
-        caja.appendChild(campo);
+      const escena = el("div", "puerta-escena");
+      escena.setAttribute("role", "img");
+      escena.setAttribute(
+        "aria-label",
+        "Ilustración de Mucho Mundo: dos niños leyendo un libro entre el cielo, un castillo, montañas y un globo sonriente"
+      );
+      puerta.appendChild(escena);
 
-        const error = el("p", "nota-adulto", "");
-        error.style.display = estado.error ? "" : "none";
-        error.textContent = estado.error || "";
-        error.style.color = "#b3261e";
-        caja.appendChild(error);
+      const botones = el("div", "puerta-botones");
 
-        const fila = el("div", "fila-botones");
-        const btn = el("button", "btn grande primario", "✅ Entrar");
-        btn.onclick = () => {
+      const bCrear = botonPuerta(
+        "puerta-crear",
+        '<span class="puerta-new">NEW</span><span>Crear una cuenta</span>',
+        () => {
           estado.error = "";
-          const usuario = input.value.trim();
-          if (!usuario) {
-            estado.error = "Escribe primero tu usuario.";
-            repintar();
-            return;
-          }
-          const c = porUsuario(usuario);
-          if (!c) {
-            estado.error =
-              "No hay una cuenta con ese usuario en este equipo. ¿La vas a crear o importar?";
-            repintar();
-            return;
-          }
-          estado.usuario = usuario;
-          abrirTeclado({
-            modo: "entrar",
-            titulo: "🔐 Clave de " + usuario,
-            mensaje: "Escribe los 4 números de la cuenta.",
-            entrar: (pin) => {
-              if (entrar(usuario, pin)) {
-                estado.vista = "panel";
-                return true;
-              }
-              return false;
-            },
-            listo: () => {
-              /* Con la sesión abierta: si este equipo no tiene
-                 perfiles, la copia vuelve sin pedir nada más. */
-              let restauro = false;
-              C.Store.load();
-              if (C.Store.perfiles.length === 0 && c.respaldo) {
-                restauro = restaurar(c.respaldo);
-                if (restauro) C.Store.save();
-              } else if (c.respaldo) {
-                const aplicar = confirm(
-                  "En este equipo ya hay perfiles guardados.\n\n" +
-                    "¿Los reemplazas por la copia guardada en la cuenta \"" +
-                    usuario +
-                    "\" (" +
-                    fhc(c.respaldo.fecha) +
-                    ")?"
-                );
-                if (aplicar) {
-                  restauro = restaurar(c.respaldo);
-                  if (restauro) C.Store.save();
-                }
-              }
-              estado.vista = "panel";
-              estado.usuario = usuario;
-              estado.error = "";
-              repintar();
-              if (restauro) alert("Progreso restaurado desde la copia de la cuenta.");
-            },
-          });
-        };
-        fila.appendChild(btn);
-        caja.appendChild(fila);
-        if (nubeLista()) {
-          caja.appendChild(el("p", "", "— o —"));
-          caja.appendChild(botonGmail(true));
+          estado.vista = "aviso";
+          estado.usuario = "";
+          repintar();
         }
+      );
+      const bImport = botonPuerta(
+        "",
+        '<span class="puerta-flecha">' +
+          FLECHA_ARRIBA +
+          '</span><span>Importar una copia</span>',
+        () => $("#archivo-cuenta").click()
+      );
+
+      if (sinCuentas) {
+        if (nubeLista()) {
+          botones.appendChild(
+            botonPuerta(
+              "",
+              LOGO_GMAIL + "<span>Continuar con Gmail (adulto)</span>",
+              () => flujoGmail(false)
+            )
+          );
+        }
+        botones.appendChild(bCrear);
+        botones.appendChild(bImport);
+
+        /* Flotando sobre la escena, como en la imagen */
+        botones.classList.add("puerta-flotar");
+        puerta.appendChild(botones);
+        cont.appendChild(puerta);
+
+        const saludo = nota(
+          "En este equipo todavía no hay cuentas. La manera más fácil es con el " +
+            "Gmail del adulto. La cuenta es local: se guarda en este equipo y su " +
+            "copia de respaldo se puede llevar a otro cuando quieras."
+        );
+        saludo.classList.add("puerta-nota");
+        cont.appendChild(saludo);
       } else {
-        caja.appendChild(
-          el(
-            "p",
-            "",
-            "En este equipo todavía no hay cuentas. Puedes crear una " +
-              "(con un adulto) o importar una copia que hayas descargado."
+        cont.appendChild(
+          minCabc(
+            "🔐 Iniciar sesión",
+            "La cuenta guarda el progreso con una copia automática."
           )
         );
-        if (nubeLista()) {
-          caja.appendChild(
-            el("p", "", "— la manera más fácil: con el Gmail del adulto —")
-          );
-          caja.appendChild(botonGmail(true));
+        cont.appendChild(puerta);
+        const caja = el("div", "perfil-form");
+        if (o.lista.length) {
+          const campo = el("label", "campo-perfil");
+          campo.appendChild(el("span", "", "👤 Usuario"));
+          const input = document.createElement("input");
+          input.className = "input-perfil";
+          input.type = "text";
+          input.maxLength = 15;
+          input.autocomplete = "off";
+          input.placeholder = "Escribe tu usuario";
+          input.value = estado.usuario;
+          campo.appendChild(input);
+          caja.appendChild(campo);
+
+          const error = el("p", "nota-adulto", "");
+          error.style.display = estado.error ? "" : "none";
+          error.textContent = estado.error || "";
+          error.style.color = "#b3261e";
+          caja.appendChild(error);
+
+          const fila = el("div", "fila-botones");
+          const btn = el("button", "btn grande primario", "✅ Entrar");
+          btn.onclick = () => {
+            estado.error = "";
+            const usuario = input.value.trim();
+            if (!usuario) {
+              estado.error = "Escribe primero tu usuario.";
+              repintar();
+              return;
+            }
+            const c = porUsuario(usuario);
+            if (!c) {
+              estado.error =
+                "No hay una cuenta con ese usuario en este equipo. ¿La vas a crear o importar?";
+              repintar();
+              return;
+            }
+            estado.usuario = usuario;
+            abrirTeclado({
+              modo: "entrar",
+              titulo: "🔐 Clave de " + usuario,
+              mensaje: "Escribe los 4 números de la cuenta.",
+              entrar: (pin) => {
+                if (entrar(usuario, pin)) {
+                  estado.vista = "panel";
+                  return true;
+                }
+                return false;
+              },
+              listo: () => {
+                /* Con la sesión abierta: si este equipo no tiene
+                   perfiles, la copia vuelve sin pedir nada más. */
+                let restauro = false;
+                C.Store.load();
+                if (C.Store.perfiles.length === 0 && c.respaldo) {
+                  restauro = restaurar(c.respaldo);
+                  if (restauro) C.Store.save();
+                } else if (c.respaldo) {
+                  const aplicar = confirm(
+                    "En este equipo ya hay perfiles guardados.\n\n" +
+                      "¿Los reemplazas por la copia guardada en la cuenta \"" +
+                      usuario +
+                      "\" (" +
+                      fhc(c.respaldo.fecha) +
+                      ")?"
+                  );
+                  if (aplicar) {
+                    restauro = restaurar(c.respaldo);
+                    if (restauro) C.Store.save();
+                  }
+                }
+                estado.vista = "panel";
+                estado.usuario = usuario;
+                estado.error = "";
+                repintar();
+                if (restauro) alert("Progreso restaurado desde la copia de la cuenta.");
+              },
+            });
+          };
+          fila.appendChild(btn);
+          caja.appendChild(fila);
+          if (nubeLista()) {
+            caja.appendChild(el("p", "", "— o —"));
+            caja.appendChild(botonGmail(true));
+          }
+
+          botones.appendChild(bCrear);
+          botones.appendChild(bImport);
+          botones.classList.add("puerta-tarjeta-botones");
+          caja.appendChild(botones);
         }
+
+        caja.appendChild(
+          nota(
+            "La cuenta es local: se guarda en este equipo y no viaja por internet. " +
+              "Con la copia de respaldo puedes devolver el progreso " +
+              "a este u otro equipo cuando quieras."
+          )
+        );
+        cont.appendChild(caja);
       }
-
-      const fila2 = el("div", "fila-botones");
-      const bCrear = el("button", "btn grande primario", "🆕 Crear una cuenta");
-      bCrear.onclick = () => {
-        C.Sfx.clic();
-        estado.error = "";
-        estado.vista = "aviso";
-        estado.usuario = "";
-        repintar();
-      };
-      fila2.appendChild(bCrear);
-
-      const bImport = el("button", "btn grande", "⬆️ Importar una copia");
-      bImport.onclick = () => {
-        C.Sfx.clic();
-        $("#archivo-cuenta").click();
-      };
-      fila2.appendChild(bImport);
-
-      caja.appendChild(fila2);
-
-      caja.appendChild(
-        nota(
-          "La cuenta es local: se guarda en este equipo y no viaja por internet. " +
-            "Con la copia de respaldo puedes devolver el progreso " +
-            "a este u otro equipo cuando quieras."
-        )
-      );
-      cont.appendChild(caja);
       C.Voz.decir(
         sinCuentas
           ? "¡Bienvenido! Un adulto puede crear la cuenta con su Gmail, o con usuario y clave de cuatro números."

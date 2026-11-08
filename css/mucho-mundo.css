@@ -194,3 +194,186 @@ body {
 
 /* Kiko también respeta los bordes seguros (muescas, esquinas redondeadas) */
 #guia { margin-right: env(safe-area-inset-right, 0px); }
+
+
+/* ==========================================================
+   PUERTA DE LA CUENTA (v197) — escena ilustrada como en la
+   imagen del logo: cielo azul, señal del logo, castillo, globo
+   y los niños leyendo; los botones flotan sobre la escena.
+   ========================================================== */
+
+/* Cielo detrás de toda la pantalla de la cuenta */
+#pantalla-cuenta.puerta-dia {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255, 255, 255, 0.55), transparent 32%),
+    radial-gradient(circle at 8% 90%, rgba(255, 255, 255, 0.4), transparent 30%),
+    linear-gradient(180deg, #77c3f5 0%, #a9e2ff 55%, #dcf7ff 100%);
+  border-radius: 0 0 34px 34px;
+}
+
+.puerta {
+  position: relative;
+  margin-top: 4px;
+}
+
+/* Título accesible sin verse (la escena ya trae el logo) */
+.puerta-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.puerta-escena {
+  position: relative;
+  aspect-ratio: 1100 / 800;
+  border-radius: 28px;
+  border: 5px solid #ffffff;
+  box-shadow: 0 10px 0 rgba(11, 87, 138, 0.16), 0 22px 44px rgba(23, 92, 146, 0.28);
+  background-image: url("../img/marca/puerta-vivo.webp");
+  background-size: cover;
+  background-position: 50% 38%;
+  overflow: hidden;
+}
+
+/* Botones grandes y redondos como en la imagen */
+.puerta-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.puerta-flotar {
+  position: absolute;
+  right: 3.5%;
+  top: 55%;
+  transform: translateY(-46%);
+  width: min(46%, 430px);
+  z-index: 2;
+}
+
+.puerta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1c4f7c;
+  text-shadow: 0 1px 0 #ffffff;
+  border: 4px solid #fbbf4d;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fffdf6, #fff2da);
+  box-shadow: 0 6px 0 rgba(214, 144, 22, 0.35), 0 14px 24px rgba(30, 90, 140, 0.25);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .puerta-btn:hover { transform: translateY(-2px); }
+}
+
+.puerta-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(214, 144, 22, 0.35), 0 8px 14px rgba(30, 90, 140, 0.2);
+}
+
+.puerta-btn:focus-visible {
+  outline: 4px solid #2f7df6;
+  outline-offset: 3px;
+}
+
+.puerta-btn img {
+  height: 1.8em;
+  width: auto;
+  flex: none;
+}
+
+.puerta-btn span:last-child {
+  flex: 1;
+  text-align: left;
+}
+
+/* Verde: "Crear una cuenta" con la etiqueta NEW */
+.puerta-crear {
+  color: #ffffff;
+  text-shadow: 0 2px 0 rgba(9, 97, 51, 0.5);
+  border-color: #ffa53c;
+  background: linear-gradient(180deg, #52d96b, #24b44d 62%, #16a03f);
+  box-shadow: 0 6px 0 #0e7d31, 0 14px 24px rgba(20, 120, 60, 0.35);
+}
+
+.puerta-new {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  background: #2f7df6;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  border-radius: 9px;
+  padding: 4px 9px 5px;
+  box-shadow: 0 2px 0 #1b5cc4, inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Cuadrito azul con la flecha de "Importar una copia" */
+.puerta-flecha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 27%;
+  background: linear-gradient(180deg, #4da3ff, #1f7ae0);
+  color: #ffffff;
+  box-shadow: 0 2px 0 #165fae, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.puerta-flecha svg {
+  height: 0.95em;
+  width: auto;
+}
+
+/* Versión compacta (dentro de la tarjeta de iniciar sesión) */
+.puerta-tarjeta-botones { margin-top: 14px; }
+.puerta-tarjeta-botones .puerta-btn {
+  font-size: 1.02rem;
+  padding: 10px 16px;
+}
+
+/* Nota bajo los botones, legible sobre el cielo */
+.puerta-dia .nota-adulto.puerta-nota {
+  margin: 14px auto 0;
+  max-width: 640px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 18px;
+  padding: 8px 16px;
+  color: #17527e;
+}
+
+/* Móvil/cuadrada: la escena arriba y los botones debajo */
+@media (max-width: 640px) {
+  .puerta-flotar {
+    position: static;
+    transform: none;
+    width: auto;
+    margin-top: 12px;
+  }
+}
+
+/* Landscape de teléfono: escena baja y botones a la derecha */
+@media (max-width: 820px) and (max-height: 480px) {
+  .puerta-escena { aspect-ratio: 16 / 7; background-position: 50% 30%; }
+  .puerta-flotar { right: 2.5%; top: 46%; transform: translateY(-50%); width: min(46%, 400px); }
+  .puerta-btn { font-size: 1rem; padding: 9px 16px; gap: 8px; }
+  .puerta-btn img { height: 1.5em; }
+}

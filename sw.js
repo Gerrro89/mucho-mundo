@@ -1,7 +1,7 @@
 ﻿/* Mucho Mundo — Service Worker
    Permite que el sitio funcione sin conexión después de la primera carga. */
 
-const CACHE = "webleer-v196";
+const CACHE = "webleer-v197";
 
 const ARCHIVOS = [
   "./",
@@ -57,6 +57,7 @@ const ARCHIVOS = [
   "./img/marca/icon-512.png",
   "./img/marca/icon-maskable-512.png",
   "./img/marca/gmail-logo.svg",
+  "./img/marca/puerta-vivo.webp",
   "./img/inicio.jpg",
   "./img/mascota.jpg",
   "./img/lectura.jpg",
