@@ -1,7 +1,7 @@
 ﻿/* Algebrario — Service Worker
    Permite que el sitio funcione sin conexión después de la primera carga. */
 
-const CACHE = "webleer-v191";
+const CACHE = "webleer-v192";
 
 const ARCHIVOS = [
   "./",

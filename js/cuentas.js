@@ -16,8 +16,12 @@
        cambia la dirección del sitio: ahí la cuenta no viaja,
        pero el archivo sí).
 
-   La cuenta es LOCAL: vive en `webleer_cuentas_v1` y nunca
-   envía datos por internet. Crear una cuenta exige el ACEPTO
+   La cuenta es LOCAL: vive en `webleer_cuentas_v1`. Opcionalmente
+   se AMPARRA a un Gmail del adulto (entrando/registrándose con
+   Google): ahí la copia del progreso también se guarda en la
+   nube del proyecto (Firestore) con reglas que solo permiten
+   leer/escribir al dueño de esa cuenta de Google.
+   Crear una cuenta exige el ACEPTO
    de un adulto responsable (pantalla de registro).
 
    Claves propias (no chocan con las de core.js):
@@ -43,6 +47,23 @@ window.CUENTAS = (function () {
      (sirve para rechazar archivos que no son de esta app) */
   const TIPO_ARCHIVO = "algebrario-respaldo";
   const FORMATO = 1;
+
+  /* ---------------- nube (Firebase) + Gmail --------------
+     Las cuentas son locales, pero si el adulto lo prefiere
+     puede amarrar la cuenta a su Gmail: entonces la copia del
+     progreso TAMBIÉN se guarda en la nube del proyecto
+     (Firestore), protegida con reglas que solo permiten leer
+     y escribir al dueño de la cuenta de Google.
+     Las claves de abajo son PÚBLICAS por diseño (Firebase las
+     da para pegarlas en webs); la seguridad real la dan las
+     reglas de Firestore. Con esto vacío, los botones de Gmail
+     no aparecen y la web funciona igual que siempre.        */
+  window.NUBE_CONFIG = window.NUBE_CONFIG || {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    appId: "",
+  };
 
   /* ---------------- bodega ---------------- */
   function leer() {
@@ -183,6 +204,11 @@ window.CUENTAS = (function () {
     c.respaldo = snapshot();
     c.guardado = Date.now();
     escribir(o);
+    /* si la cuenta está amarrada a un Gmail, la copia también
+       viaja a la nube (con retardo; offline no pasa nada) */
+    try {
+      if (c.google) programarSubidaNube(5000);
+    } catch (e) {}
   }
 
   /* Al abrir la web con sesión activa: si los perfiles ya no
@@ -212,6 +238,15 @@ window.CUENTAS = (function () {
   /* ---------------- operaciones ---------------- */
   function crear(usuario, pin) {
     const o = leer();
+    /* blindaje contra doble envío (teclado automático + botón):
+       si ya existe, no duplica: solo reabre su sesión */
+    const ya = porUsuario(usuario);
+    if (ya) {
+      o.sesion = ya.usuario;
+      escribir(o);
+      autoRespaldo();
+      return ya;
+    }
     const c = {
       usuario: String(usuario).trim(),
       hash: hashPin(pin),
@@ -240,6 +275,12 @@ window.CUENTAS = (function () {
     const o = leer();
     o.sesion = null;
     escribir(o);
+    /* también cerrar la sesión de Google en la web (la nube ya
+       recibió su copia al día) */
+    try {
+      if (nubeEstado.auth) nubeEstado.auth.signOut();
+      nubeEstado.usuario = null;
+    } catch (e) {}
   }
 
   function eliminar(usuario, eliminarPerfiles) {
@@ -257,6 +298,17 @@ window.CUENTAS = (function () {
         } catch (e) {}
       });
     }
+    /* la copia de la nube también se borra, si este es su dueño */
+    try {
+      if (
+        c.google &&
+        nubeEstado.init &&
+        nubeEstado.usuario &&
+        nubeEstado.usuario.uid === c.google.uid
+      ) {
+        nubeEstado.db.collection("respaldos").doc(c.google.uid).delete();
+      }
+    } catch (e) {}
     return true;
   }
 
@@ -530,13 +582,373 @@ window.CUENTAS = (function () {
   }
 
   /* =========================================================
+     NUBE (Firebase) + GMAIL
+     - "Continuar con Gmail": sirve para ENTRAR (si la cuenta
+       ya existe en este equipo o en la nube) o para
+       REGISTRAR una cuenta nueva amarrada al Gmail del adulto.
+     - Con sesión de cuenta con Gmail, cada autoRespaldo también
+       sube la copia a Firestore (respaldos/<uid de Google>),
+       con retardo para no escribir en cada clic.
+     - Sin configuración (NUBE_CONFIG vacío) todo queda local
+       y los botones de Gmail no se muestran.
+     ========================================================= */
+  const NUBE = window.NUBE_CONFIG;
+  const nubeLista = () =>
+    !!(NUBE && NUBE.apiKey && NUBE.projectId);
+
+  const nubeEstado = {
+    sdk: false, /* scripts cargados */
+    init: false, /* app inicializada */
+    auth: null,
+    db: null,
+    usuario: null, /* firebase.User actual */
+    ultimaSubida: 0,
+    temporizador: null,
+    subiendo: false,
+  };
+
+  function mensajeGoogle(e) {
+    const c = String((e && (e.code || e.message)) || "");
+    if (c.indexOf("popup-blocked") >= 0)
+      return "Tu navegador bloqueó la ventana de Google. Permite las ventanas emergentes de esta web y vuelve a intentarlo.";
+    if (c.indexOf("popup-closed-by-user") >= 0 || c.indexOf("cancelled-popup") >= 0)
+      return "Cerraste la ventana de Google sin terminar.";
+    if (c.indexOf("network") >= 0)
+      return "No hay internet ahora. Usa la entrada con usuario y clave de 4 números.";
+    if (c.indexOf("unauthorized-domain") >= 0)
+      return "Este dominio todavía no está autorizado en el proyecto de Google. (En Authentication → Settings → Authorized domains agrégalo.)";
+    if (c.indexOf("operation-not-allowed") >= 0)
+      return "El ingreso con Google está desactivado en el proyecto. (En Authentication → Sign-in method, activa Google.)";
+    return "No se pudo conectar con Google. Usa la entrada con usuario y clave de 4 números.";
+  }
+
+  function cargarFirebase(alListo, alFallo) {
+    if (nubeEstado.sdk) return alListo();
+    const base = "https://www.gstatic.com/firebasejs/10.14.1/";
+    const fuentes = [
+      "firebase-app-compat.js",
+      "firebase-auth-compat.js",
+      "firebase-firestore-compat.js",
+    ];
+    let i = 0;
+    const siguiente = () => {
+      if (i >= fuentes.length) {
+        if (!window.firebase) return alFallo("No se pudieron cargar los módulos de Google.");
+        nubeEstado.sdk = true;
+        return alListo();
+      }
+      const s = document.createElement("script");
+      s.src = base + fuentes[i];
+      s.async = true;
+      s.onload = () => { i++; siguiente(); };
+      s.onerror = () => alFallo("No hay internet para usar Gmail ahora. Usa tu clave de 4 números.");
+      document.head.appendChild(s);
+    };
+    siguiente();
+  }
+
+  function nubeIniciar(alListo, alFallo) {
+    if (!nubeLista()) return alFallo("Gmail no está preparado todavía (falta la configuración de la nube).");
+    if (nubeEstado.init && nubeEstado.auth && nubeEstado.db) return alListo();
+    cargarFirebase(() => {
+      try {
+        if (!nubeEstado.init) {
+          firebase.initializeApp(NUBE);
+          nubeEstado.auth = firebase.auth();
+          nubeEstado.db = firebase.firestore();
+          nubeEstado.auth.onAuthStateChanged((u) => {
+            nubeEstado.usuario = u || null;
+            if (u) {
+              /* tal vez la sesión local de cuenta también venga:
+                 si coincide con la cuenta amarrada, sincroniza */
+              programarSubidaNube(1500);
+            }
+          });
+          nubeEstado.init = true;
+        }
+        return alListo();
+      } catch (e) {
+        return alFallo(mensajeGoogle(e));
+      }
+    }, alFallo);
+  }
+
+  const huellaGoogle = (u) => ({
+    uid: u.uid,
+    email: String(u.email || "").toLowerCase(),
+    nombre: u.displayName || "",
+    foto: u.photoURL || "",
+  });
+
+  /* Cuenta local amarrada a ese Google (por uid o correo) */
+  function porGoogle(g) {
+    if (!g) return null;
+    const o = leer();
+    return (
+      o.lista.filter(
+        (c) =>
+          c.google &&
+          ((c.google.uid && c.google.uid === g.uid) ||
+            (c.google.email && c.google.email === g.email))
+      )[0] || null
+    );
+  }
+
+  function abrirSesion(c) {
+    const o = leer();
+    o.sesion = c.usuario;
+    escribir(o);
+  }
+
+  function nubeSubir() {
+    if (!nubeEstado.init || nubeEstado.subiendo) return;
+    if (!nubeEstado.usuario) return;
+    const c = sesion();
+    if (!c || !c.google || c.google.uid !== nubeEstado.usuario.uid) return;
+    nubeEstado.subiendo = true;
+    const paquete = {
+      tipo: TIPO_ARCHIVO,
+      formato: FORMATO,
+      web: "Aventura de Letras y Números",
+      cuenta: {
+        usuario: c.usuario,
+        hash: c.hash,
+        creado: c.creado,
+        google: clone(c.google),
+      },
+      respaldo: snapshot(),
+      guardado: Date.now(),
+    };
+    try {
+      nubeEstado.db
+        .collection("respaldos")
+        .doc(nubeEstado.usuario.uid)
+        .set(paquete)
+        .then(() => {
+          nubeEstado.subiendo = false;
+          nubeEstado.ultimaSubida = Date.now();
+          c.guardadoNube = nubeEstado.ultimaSubida;
+          escribir(leer());
+        })
+        .catch(() => { nubeEstado.subiendo = false; });
+    } catch (e) {
+      nubeEstado.subiendo = false;
+    }
+  }
+
+  /* Debounce: la app guarda muchas veces seguidas; subimos una
+     sola vez cuando se calme el juego. Si la nube no está
+     inicializada (recién abierta la web), la inicializa. */
+  function programarSubidaNube(ms) {
+    if (!nubeLista()) return;
+    if (nubeEstado.temporizador) return;
+    nubeEstado.temporizador = setTimeout(() => {
+      nubeEstado.temporizador = null;
+      try {
+        if (nubeEstado.init) return nubeSubir();
+        const c = sesion();
+        if (!c || !c.google) return;
+        nubeIniciar(
+          () => {
+            /* onAuthStateChanged repondrá el usuario; darle un
+               respiro y subir cuando esté listo */
+            const esperar = () => {
+              if (nubeEstado.usuario) return nubeSubir();
+              nubeEstado.temporizador = setTimeout(() => {
+                nubeEstado.temporizador = null;
+                programarSubidaNube(4000);
+              }, 3000);
+            };
+            esperar();
+          },
+          () => {} /* offline: nada, la copia local ya está */
+        );
+      } catch (e) {}
+    }, ms || 5000);
+  }
+
+  function nubeLeer(alListo, alFallo) {
+    nubeIniciar(() => {
+      if (!nubeEstado.usuario) return alFallo("La sesión de Google no está abierta.");
+      nubeEstado.db
+        .collection("respaldos")
+        .doc(nubeEstado.usuario.uid)
+        .get()
+        .then((doc) => alListo(doc.exists ? doc.data() : null))
+        .catch(() => alFallo("La nube no respondió. Puedes crear la cuenta o entrar con la clave de 4 números."));
+    }, alFallo);
+  }
+
+  /* La cuenta nueva creada con Gmail: usuario = el correo */
+  function crearConGoogle(g, pin) {
+    const o = leer();
+    const c = {
+      usuario: g.email,
+      hash: hashPin(pin),
+      creado: Date.now(),
+      guardado: 0,
+      guardadoNube: 0,
+      respaldo: null,
+      google: clone(g),
+    };
+    o.lista.push(c);
+    o.sesion = c.usuario;
+    escribir(o);
+    autoRespaldo();
+    return c;
+  }
+
+  /* Decide qué hacer al continuar con Gmail:
+     1) cuenta local amarrada → entrar y sincronizar,
+     2) copia de esa cuenta en la nube → traerla a este equipo,
+     3) ninguna → registrar cuenta nueva (con aviso y clave). */
+  function flujoGmail(googleYaAbierto) {
+    if (!nubeLista()) {
+      estadoError(
+        "Gmail todavía no está preparado en esta web. Puedes crear la cuenta con usuario y clave de 4 números."
+      );
+      return;
+    }
+    const listoGmail = (g) => {
+      const local = porGoogle(g);
+      if (local) {
+        abrirSesion(local);
+        despuesEntrarLocal(local);
+        return;
+      }
+      nubeLeer(
+        (doc) => {
+          if (doc && doc.cuenta && doc.respaldo && doc.cuenta.usuario) {
+            /* esta cuenta ya existe en la nube: traerla aquí */
+            const o = leer();
+            const entrada = clone(doc.cuenta);
+            if (!entrada.creado) entrada.creado = Date.now();
+            if (!entrada.google) entrada.google = clone(g);
+            /* si ya existe en este equipo, reemplazarla en vez de duplicar */
+            const golpe = porUsuario(entrada.usuario) || porGoogle(g);
+            if (golpe) o.lista[o.lista.indexOf(golpe)] = entrada;
+            else o.lista.push(entrada);
+            escribir(o);
+            abrirSesion(porGoogle(g) || porUsuario(entrada.usuario) || entrada);
+            despuesEntrarConNube(doc.respaldo);
+            return;
+          }
+          /* cuenta nueva: registrar (aviso → clave → creada) */
+          const e = window.CUENTAS_estado;
+          e.google = g;
+          e.rutaGmail = true;
+          e.error = "";
+          e.vista = "aviso";
+          window.pantalla_cuenta({ vista: "aviso" });
+        },
+        (err) => estadoError(err)
+      );
+    };
+    if (googleYaAbierto && nubeEstado.usuario) {
+      return listoGmail(huellaGoogle(nubeEstado.usuario));
+    }
+    nubeIniciar(() => {
+      const prov = new firebase.auth.GoogleAuthProvider();
+      prov.setCustomParameters({ prompt: "select_account" });
+      nubeEstado.auth
+        .signInWithPopup(prov)
+        .then((r) => {
+          nubeEstado.usuario = r.user;
+          listoGmail(huellaGoogle(r.user));
+        })
+        .catch((e) => estadoError(mensajeGoogle(e)));
+    }, (err) => estadoError(err));
+  }
+
+  /* Después de entrar localmente a una cuenta con Gmail:
+     si este equipo no tiene perfiles, pide la copia de la
+     nube; si hay, pregunta antes de reemplazar. */
+  function despuesEntrarLocal(local) {
+    const aplicarNube = (doc) => {
+      if (doc && doc.respaldo && Array.isArray(doc.respaldo.perfiles)) {
+        C.Store.load();
+        if (C.Store.perfiles.length === 0) {
+          restaurar(doc.respaldo);
+          C.Store.save();
+          alert("Progreso traído de la nube de tu Gmail.");
+        } else {
+          const aplicar = confirm(
+            "La nube tiene una copia de esta cuenta (" +
+              fhc(doc.respaldo.fecha) + ").\n\n" +
+              "¿Reemplazar los perfiles de este equipo por esa copia?"
+          );
+          if (aplicar) {
+            restaurar(doc.respaldo);
+            C.Store.save();
+          }
+        }
+        programarSubidaNube(2000);
+      }
+      irPanelCuenta(local.usuario);
+    };
+    nubeLeer(aplicarNube, () => irPanelCuenta(local.usuario));
+  }
+
+  function despuesEntrarConNube(respaldo) {
+    C.Store.load();
+    if (respaldo && Array.isArray(respaldo.perfiles)) {
+      if (C.Store.perfiles.length === 0) {
+        restaurar(respaldo);
+        C.Store.save();
+        alert("Cuenta traída de la nube, con su progreso.");
+      } else {
+        const aplicar = confirm(
+          "Se trajo la cuenta desde la nube. ¿Reemplazar los perfiles de este equipo por el progreso guardado en la nube?"
+        );
+        if (aplicar) {
+          restaurar(respaldo);
+          C.Store.save();
+        }
+      }
+    }
+    programarSubidaNube(2000);
+    irPanelCuenta(sesion() ? sesion().usuario : "");
+  }
+
+  function irPanelCuenta(usuario) {
+    const e = window.CUENTAS_estado;
+    e.vista = "panel";
+    e.usuario = usuario || "";
+    e.error = "";
+    e.google = null;
+    e.rutaGmail = false;
+    window.pantalla_cuenta({ vista: "panel" });
+  }
+
+  function estadoError(texto) {
+    const e = window.CUENTAS_estado;
+    if (!e) {
+      alert(texto);
+      return;
+    }
+    e.error = texto;
+    if (e.vista === "aviso" || e.vista === "clave-google") {
+      /* conservar la vista para que el adulto reintente */
+    } else {
+      e.vista = "entrar";
+    }
+    window.pantalla_cuenta({ vista: e.vista });
+  }
+
+  /* =========================================================
      Pantalla: cuenta de usuario
      vista: (nada)=entrar · "registrar"=aviso+registro · con sesión=panel
      ========================================================= */
   window.pantalla_cuenta = function (datos) {
     if (!$("#pantalla-cuenta")) return;
     /* El estado de esta pantalla vive aquí entre renders */
-    window.CUENTAS_estado = window.CUENTAS_estado || { vista: "entrar", usuario: "", avisoOk: false };
+    window.CUENTAS_estado = window.CUENTAS_estado || {
+      vista: "entrar",
+      usuario: "",
+      avisoOk: false,
+      google: null,
+      rutaGmail: false,
+    };
     const estado = window.CUENTAS_estado;
 
     if (datos && datos.vista) {
@@ -563,6 +975,21 @@ window.CUENTAS = (function () {
 
     function nota(texto) {
       return el("p", "nota-adulto", texto);
+    }
+
+    /* Botón de Gmail: solo cuando la nube está configurada con
+       sus claves; si no, no se muestra y todo queda local. */
+    function botonGmail(compact) {
+      const b = el(
+        "button",
+        "btn grande" + (compact ? "" : " primario"),
+        "🔴 Continuar con Gmail (adulto)"
+      );
+      b.onclick = () => {
+        C.Sfx.clic();
+        flujoGmail(false);
+      };
+      return b;
     }
 
     function avisoAdulto(msj) {
@@ -710,6 +1137,10 @@ window.CUENTAS = (function () {
         };
         fila.appendChild(btn);
         caja.appendChild(fila);
+        if (nubeLista()) {
+          caja.appendChild(el("p", "", "— o —"));
+          caja.appendChild(botonGmail(true));
+        }
       } else {
         caja.appendChild(
           el(
@@ -719,6 +1150,12 @@ window.CUENTAS = (function () {
               "(con un adulto) o importar una copia que hayas descargado."
           )
         );
+        if (nubeLista()) {
+          caja.appendChild(
+            el("p", "", "— la manera más fácil: con el Gmail del adulto —")
+          );
+          caja.appendChild(botonGmail(true));
+        }
       }
 
       const fila2 = el("div", "fila-botones");
@@ -777,6 +1214,17 @@ window.CUENTAS = (function () {
         const avisel = avisoAdulto(null);
         const caja = el("div", "perfil-form");
         caja.appendChild(avisel.caja);
+        if (estado.rutaGmail && estado.google) {
+          caja.appendChild(
+            nota(
+              "Esta cuenta se amarrará al Gmail " + estado.google.email +
+                ". La copia del progreso también se guardará en la nube " +
+                "(solo la verás con este Gmail). Además eliges una clave " +
+                "de 4 números para entrar en equipos donde el popup de " +
+                "Google falle."
+            )
+          );
+        }
         const fila = el("div", "fila-botones");
         const bContinuar = el("button", "btn grande primario", "➡️ Continuar");
         bContinuar.disabled = !avisel.chk.checked;
@@ -788,7 +1236,11 @@ window.CUENTAS = (function () {
         bContinuar.onclick = () => {
           if (!avisel.chk.checked) return;
           C.Sfx.bien();
-          estado.vista = "datos";
+          if (estado.rutaGmail && estado.google) {
+            estado.vista = "clave-google";
+          } else {
+            estado.vista = "datos";
+          }
           repintar();
         };
         fila.appendChild(bContinuar);
@@ -874,18 +1326,94 @@ window.CUENTAS = (function () {
       }
     }
 
+    /* --------- vista: CLAVE PARA CUENTA CON GMAIL ---------- */
+    /* (la cuenta nueva amarrada al Gmail necesita clave de
+       respaldo de 4 números) */
+    if (estado.vista === "clave-google") {
+      const g = estado.google || {};
+      cont.appendChild(
+        minCabc(
+          "🔴 Cuenta con Gmail",
+          "Registrada como " + g.email +
+            ". Falta la clave de respaldo para entrar sin Google."
+        )
+      );
+      const caja = el("div", "perfil-form");
+      const chip = el("div", "perfil-form");
+      chip.style.textAlign = "center";
+      chip.appendChild(
+        el("p", "", (g.foto ? "🖼️ " : "👤 ") + (g.nombre || "Adulto") + " · " + g.email)
+      );
+      caja.appendChild(chip);
+
+      const error = el("p", "nota-adulto", "");
+      error.style.color = "#b3261e";
+      error.style.display = estado.error ? "" : "none";
+      error.textContent = estado.error || "";
+      caja.appendChild(error);
+
+      const fila = el("div", "fila-botones");
+      const bClave = el(
+        "button",
+        "btn grande primario",
+        "🔑 Crear la clave de respaldo (4 números)"
+      );
+      bClave.onclick = () => {
+        estado.error = "";
+        abrirTeclado({
+          modo: "crear",
+          titulo: "🔑 Clave de " + g.email,
+          crear: (pin) => {
+            try {
+              crearConGoogle(g, pin);
+              estado.vista = "creada";
+              estado.usuario = g.email;
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+          listo: () => repintar(),
+        });
+      };
+      fila.appendChild(bClave);
+      const bOtra = el("button", "btn grande", "↩️ Usar otro Gmail");
+      bOtra.onclick = () => {
+        C.Sfx.clic();
+        estado.google = null;
+        estado.rutaGmail = false;
+        estado.vista = "entrar";
+        repintar();
+      };
+      fila.appendChild(bOtra);
+      caja.appendChild(fila);
+      caja.appendChild(
+        nota(
+          "Con esta cuenta la copia del progreso va al equipo y también " +
+            "a la nube amarrada a tu Gmail: si cambias de equipo, entra " +
+            "con el mismo Gmail y el progreso regresa solo."
+        )
+      );
+      cont.appendChild(caja);
+      C.Voz.decir(
+        "Ahora se crea la clave de respaldo de cuatro números. La guarda el adulto."
+      );
+    }
+
     /* ----------------- vista: CUENTA CREADA ----------------- */
     if (estado.vista === "creada") {
       cont.appendChild(
         minCabc("✅ Cuenta creada", estado.usuario)
       );
       const caja = el("div", "perfil-form");
+      const conGoogle = (sesion() || {}).google;
       caja.appendChild(
         el(
           "p",
           "",
           "La cuenta quedó con sesión abierta. Ahora soy responsable de hacer " +
-            "la copia del progreso cada vez que la app guarda."
+            "la copia del progreso cada vez que la app guarda" +
+            (conGoogle ? " (equipo y nube de tu Gmail)." : ".")
         )
       );
       const fila = el("div", "fila-botones");
@@ -934,6 +1462,30 @@ window.CUENTAS = (function () {
             (c.respaldo ? " · Perfiles en la copia: " + c.respaldo.perfiles.length : "")
         )
       );
+
+      /* Gmail amarrado a la cuenta */
+      if (c.google) {
+        caja.appendChild(
+          el(
+            "p",
+            "",
+            "🔴 Gmail amarrado: " + c.google.email +
+              " · ☁️ Copia en la nube: " +
+              (c.guardadoNube ? "última subida " + fhc(c.guardadoNube) : "pendiente")
+          )
+        );
+        if (nubeLista()) {
+          const bSub = el("button", "btn grande", "☁️ Subir a la nube ahora");
+          bSub.onclick = () => {
+            C.Sfx.clic();
+            nubeIniciar(() => {
+              nubeSubir();
+              alert("La copia va camino a la nube (puede tardar unos segundos).");
+            }, () => alert("No se pudo conectar con la nube: " + "revisa el internet. La copia local ya está guardada."));
+          };
+          caja.appendChild(bSub);
+        }
+      }
 
       if (c.respaldo) {
         const bRest = el("button", "btn grande primario", "🔄 Restaurar el progreso con esta copia");
@@ -1119,6 +1671,24 @@ window.CUENTAS = (function () {
     };
     caja.appendChild(bImport);
 
+    /* Cuentas con Gmail (solo si la nube está configurada) */
+    if (nubeLista && nubeLista()) {
+      const bGmail = el("button", "btn grande", "🔴 Continuar con Gmail");
+      bGmail.onclick = () => {
+        C.Sfx.clic();
+        const preg = s
+          ? confirm("Ya hay la sesión de " + s.usuario + ". ¿La cierras y continuas con tu Gmail?")
+          : true;
+        if (!preg) return;
+        if (s) salir();
+        C.Nav.reemplazar("cuenta", { vista: "entrar" });
+        /* Popup de Google dentro del mismo clic (para que el
+           navegador no lo bloquee) */
+        window.CUENTAS.continuarConGmail(false);
+      };
+      caja.appendChild(bGmail);
+    }
+
     if (leer().lista.length) {
       const bBaja = el("button", "btn grande peligro", "📋 Cuadro de cuentas");
       bBaja.onclick = () => {
@@ -1160,6 +1730,9 @@ window.CUENTAS = (function () {
     abrirTeclado: abrirTeclado,
     cerrarTeclado: cerrarTeclado,
     validarUsuario: validarUsuario,
+    /* nube + gmail */
+    nubeLista: nubeLista,
+    continuarConGmail: flujoGmail,
   };
 })();
 
