@@ -308,7 +308,18 @@
       se conserva como bitácora histórica. Pruebas: node --check, sw.test.js
       13/13, gestos.test.js OK, test-cuentas OK (importa el tipo viejo).
       Publicado y verificado.
-      Publicado (commit `1b212fc`) y build de Pages confirmado.
+- [x] Gmail + nube ACTIVADOS con el proyecto real (v195):
+      → el usuario creó el proyecto Firebase mucho-mundo-72df0 y pasaron
+      las claves; van integradas en NUBE_CONFIG (cuentas.js). Las claves
+      son públicas por diseño; la seguridad la dan las reglas de Firestore
+      (solo el dueño del uid de Google lee/escribe respaldos/{uid}).
+      Validado en vivo: nubeLista() true y botón "Continuar con Gmail"
+      visible; inicialización de Firebase OK; Firestore responde
+      "permission-denied" a una lectura sin sesión (reglas activas).
+      PENDIENTE: prueba del popup real de Google con el Gmail del usuario
+      en producción (registrar y entrar; verificar subida del respaldo a
+      la nube y traída a otro equipo). Verificar que gerrro89.github.io
+      esté en Authorized domains.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
