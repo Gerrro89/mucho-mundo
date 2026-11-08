@@ -271,6 +271,21 @@
       abierta y copia en la cuenta (autoRespaldo); con cuentas y sin sesión → "🔐
       Iniciar sesión". Pruebas Node de cuentas y sw.test.js 13/13 OK. Datos de prueba
       eliminados del navegador al terminar.
+- [x] Registro y entrada con Gmail + copia del progreso en la nube (v192):
+      → cuentas.js NUBE_CONFIG (Firebase) con hueco para las claves; feature
+      "Continuar con Gmail" que sirve para ENTRAR (cuenta local amarrada, o
+      copia traída de la nube con su progreso) o REGISTRAR cuenta nueva
+      (aviso del adulto → Gmail → clave de respaldo 4 números → creada).
+      La copia también sube a Firestore respaldos/&lt;uid&gt; con debounce (5s);
+      al entrar trae la copia si el equipo no tiene perfiles (con confirm
+      si hay); salir() cierra la sesión de Google; eliminar() también borra
+      el doc de la nube; panel muestra "Gmail amarrado" + botón subir ahora;
+      blindaje en crear() contra cuenta duplicada (doble envío del teclado).
+      Sin configurar: botones ocultos, cero cambios de comportamiento
+      (probado en vivo; 0 errores). Pruebas Node + sw.test.js 13/13 OK.
+      PENDIENTE: crear el proyecto Firebase (console), pegar claves, reglas
+      Firestore (solo dueño lee/escribe respaldos/{uid}) y autorizar
+      dominio gerrro89.github.io; después probar el Gmail real en producción.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
