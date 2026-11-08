@@ -1,7 +1,7 @@
 {
-  "name": "Algebrario — Aprende jugando",
-  "short_name": "Algebrario",
-  "description": "Algebrario: plataforma educativa para aprender jugando, con mundos por materia, misiones y un profesor virtual.",
+  "name": "Mucho Mundo — Aprende jugando",
+  "short_name": "Mucho Mundo",
+  "description": "Mucho Mundo: plataforma educativa para aprender jugando, con mundos por materia, misiones y un profesor virtual.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

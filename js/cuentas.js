@@ -331,7 +331,7 @@ window.CUENTAS = (function () {
     const paquete = {
       tipo: TIPO_ARCHIVO,
       formato: FORMATO,
-      web: "Aventura de Letras y Números",
+      web: "Mucho Mundo",
       cuenta: clone(c),
     };
     paquete.cuenta.respaldo = snapshot();
@@ -709,7 +709,7 @@ window.CUENTAS = (function () {
     const paquete = {
       tipo: TIPO_ARCHIVO,
       formato: FORMATO,
-      web: "Aventura de Letras y Números",
+      web: "Mucho Mundo",
       cuenta: {
         usuario: c.usuario,
         hash: c.hash,

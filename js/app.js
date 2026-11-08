@@ -6991,7 +6991,7 @@
         : "<p>Sin dificultades destacadas.</p>") +
       "<h2>Observaciones de la familia o del colegio</h2>" +
       "<p class='linea'></p><p class='linea'></p><p class='linea'></p>" +
-      "<p class='pie'>Algebrario — informe generado automáticamente.</p>";
+      "<p class='pie'>Mucho Mundo — informe generado automáticamente.</p>";
 
     window.print();
   }

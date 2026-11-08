@@ -1,5 +1,5 @@
 /* =========================================================
-   MATERIAS EN EL INICIO — Aventura de Letras y Números
+   MATERIAS EN EL INICIO — Mucho Mundo (Aventura de Letras y Números)
    Añade a la página de inicio:
      1. La franja del grado actual (con botón para cambiarlo).
      2. El catálogo visual de las 10 materias del colegio.
