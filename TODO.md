@@ -336,6 +336,32 @@
       existiendo y se conservan, pero para entrar hace falta abrir sesión
       de cuenta con ellos (copia viva o nueva). El zip ahora suma 153
       archivos (gmail-logo.svg en precache, verificado).
+- [x] Puerta de la cuenta REDISEÑADA con la ilustración pedida (v197):
+      → con las dos imágenes que mandó el usuario (una con los botones
+      de muestra y una limpia) se montó la puerta siguiendo la imagen:
+      el arte es img/marca/puerta-vivo.webp (155 KB, generado desde la
+      imagen limpia con ffmpeg a 1100px, sin marcas de agua) y en
+      css/mucho-mundo.css viven los estilos .puerta-*: pantalla con
+      cielo (#pantalla-cuenta.puerta-dia, activo solo en la vista
+      "entrar"), escena redondeada con la ilustración (aspect
+      1100/800, borde blanco, sombra) y los tres botones grandes y
+      redondos flotando a la derecha: blanco "Continuar con Gmail
+      (adulto)" con el logo Gmail, verde "Crear una cuenta" con la
+      etiqueta NEW azul, y blanco "Importar una copia" con cuadrito
+      azul y flecha (SVG inline). Debajo, la nota en pastilla blanca
+      ("en este equipo todavía no hay cuentas…"). Con cuentas
+      existentes, el formulario de sesión va en tarjeta sobre el
+      mismo arte, con los dos botones en versión compacta. En
+      pantallas angostas los botones bajan bajo la escena (media
+      query 640px; versión compacta en landscape 820x480). Título
+      accesible oculto (h1 .puerta-oculto). En vivo (servidor 8791
+      con Cache-Control no-store): 3 botones tocables dentro de la
+      escena (43% del ancho), NEW y flecha presentes, tocar "Crear
+      una cuenta" abre el aviso del adulto, el cielo se retira al
+      pasar a otra vista, rama con cuentas verificada, 0 errores de
+      consola. SW v197 con la imagen en precache (152 entradas).
+      Publicado (154 archivos) y verificado en producción (hash del
+      webp en prod = disco; cuentas.js y css con el código nuevo).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
