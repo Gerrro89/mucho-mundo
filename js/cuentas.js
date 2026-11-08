@@ -63,10 +63,10 @@ window.CUENTAS = (function () {
      reglas de Firestore. Con esto vacío, los botones de Gmail
      no aparecen y la web funciona igual que siempre.        */
   window.NUBE_CONFIG = window.NUBE_CONFIG || {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    appId: "",
+    apiKey: "AIzaSyDtzBs0LpD0BS2Vx_ojEjAV04yh44P-oSs",
+    authDomain: "mucho-mundo-72df0.firebaseapp.com",
+    projectId: "mucho-mundo-72df0",
+    appId: "1:387097286593:web:a01cc05148521c44be0140",
   };
 
   /* ---------------- bodega ---------------- */
