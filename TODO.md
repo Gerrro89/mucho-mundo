@@ -333,8 +333,9 @@
       0 errores de consola. Publicado (v196, 153 archivos) y verificado
       en producción (gmail-logo.svg 200; cuentas.js sin "Usar sin cuenta").
       Compatibilidad: los perfiles viejos sin cuenta en un equipo siguen
-      existiendo y se conservan, pero para entrar hac� falta abrir sesión
-      de cuenta con ellos (copia viva o nueva).
+      existiendo y se conservan, pero para entrar hace falta abrir sesión
+      de cuenta con ellos (copia viva o nueva). El zip ahora suma 153
+      archivos (gmail-logo.svg en precache, verificado).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
