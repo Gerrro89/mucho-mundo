@@ -286,6 +286,17 @@
       PENDIENTE: crear el proyecto Firebase (console), pegar claves, reglas
       Firestore (solo dueño lee/escribe respaldos/{uid}) y autorizar
       dominio gerrro89.github.io; después probar el Gmail real en producción.
+- [x] El sitio se renombra "Mucho Mundo" (v193):
+      → título de pestaña, meta description, aria de la carga inicial,
+      logo en la navegación, manifest.webmanifest (name/short_name/description),
+      manus-routes.json, pie del informe docente (app.js), paquete de
+      respaldo de cuentas.js (local y nube, campo "web"), comentarios de
+      sw.js/curriculo.js/materias-home.js/icono.svg. SIN tocar: nombres de
+      archivo (css/algebrario.css, js/algebrario.js), la constante TIPO_ARCHIVO
+      ("algebrario-respaldo", para que los respaldos ya descargados sigan
+      importando) ni documentos históricos (CAMBIOS.md, reportes generados).
+      Pruebas Node de cuentas + sw.test.js 13/13 OK; JSON del manifest OK.
+      Publicado (commit `1b212fc`) y build de Pages confirmado.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
