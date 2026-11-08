@@ -1,7 +1,7 @@
 ﻿/* Mucho Mundo — Service Worker
    Permite que el sitio funcione sin conexión después de la primera carga. */
 
-const CACHE = "webleer-v193";
+const CACHE = "webleer-v194";
 
 const ARCHIVOS = [
   "./",
@@ -44,8 +44,8 @@ const ARCHIVOS = [
   "./css/unidades.css",
   "./css/tema-infantil.css",
   "./js/tema-infantil.js",
-  "./css/algebrario.css",
-  "./js/algebrario.js",
+  "./css/mucho-mundo.css",
+  "./js/mucho-mundo.js",
   "./js/gestos.js",
   "./js/kiko-vivo.js",
   "./img/marca/logo-vivo-450.webp",

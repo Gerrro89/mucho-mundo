@@ -44,8 +44,12 @@ window.CUENTAS = (function () {
   const K_PAPELERA = "webleer_papelera_v1";
 
   /* Producto y formato del archivo de respaldo
-     (sirve para rechazar archivos que no son de esta app) */
-  const TIPO_ARCHIVO = "algebrario-respaldo";
+     (sirve para rechazar archivos que no son de esta app).
+     El tipo nuevo es mucho-mundo-respaldo; se sigue aceptando
+     el viejo (algebrario-respaldo) para que los respaldos
+     descargados antes del cambio de nombre sigan entrando. */
+  const TIPO_ARCHIVO = "mucho-mundo-respaldo";
+  const TIPO_ARCHIVO_VIEJO = "algebrario-respaldo";
   const FORMATO = 1;
 
   /* ---------------- nube (Firebase) + Gmail --------------
@@ -365,7 +369,7 @@ window.CUENTAS = (function () {
     }
     if (
       !e ||
-      e.tipo !== TIPO_ARCHIVO ||
+      (e.tipo !== TIPO_ARCHIVO && e.tipo !== TIPO_ARCHIVO_VIEJO) ||
       !e.cuenta ||
       !e.cuenta.usuario ||
       !e.cuenta.hash

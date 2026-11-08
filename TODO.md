@@ -291,11 +291,23 @@
       logo en la navegación, manifest.webmanifest (name/short_name/description),
       manus-routes.json, pie del informe docente (app.js), paquete de
       respaldo de cuentas.js (local y nube, campo "web"), comentarios de
-      sw.js/curriculo.js/materias-home.js/icono.svg. SIN tocar: nombres de
-      archivo (css/algebrario.css, js/algebrario.js), la constante TIPO_ARCHIVO
-      ("algebrario-respaldo", para que los respaldos ya descargados sigan
-      importando) ni documentos históricos (CAMBIOS.md, reportes generados).
+      sw.js/curriculo.js/materias-home.js/icono.svg. SIN tocar: la constante
+      TIPO_ARCHIVO (se mantenía "algebrario-respaldo" para compatibilidad; ver
+      ronda siguiente), documentos históricos (CAMBIOS.md, reportes generados)
+      ni nombres de archivo en esta ronda (ver v194).
       Pruebas Node de cuentas + sw.test.js 13/13 OK; JSON del manifest OK.
+- [x] Barrido total del nombre Algebrario → "Mucho Mundo" (v194):
+      → renombrados físicamente css/algebrario.css → css/mucho-mundo.css y
+      js/algebrario.js → js/mucho-mundo.js (git mv, commit con renombrado).
+      Referencias actualizadas en index.html (link + script), ARCHIVOS de
+      sw.js, pruebas/sw.test.js y pruebas/gestos.test.js. La marca de
+      respaldo pasa a "mucho-mundo-respaldo" y el importar() acepta TAMBIÉN
+      el viejo "algebrario-respaldo" (algebrario ninguno visible; los
+      respaldos ya descargados no se pierden). Encabezados de comentarios
+      y reportes docente estáticos actualizados ("Mucho Mundo"). CAMBIOS.md
+      se conserva como bitácora histórica. Pruebas: node --check, sw.test.js
+      13/13, gestos.test.js OK, test-cuentas OK (importa el tipo viejo).
+      Publicado y verificado.
       Publicado (commit `1b212fc`) y build de Pages confirmado.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las

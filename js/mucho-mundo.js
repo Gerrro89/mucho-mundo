@@ -1,4 +1,4 @@
-/* ALGEBRARIO — identidad y navegación (entrega A)
+/* MUCHO MUNDO - identidad y navegación (entrega A)
    · Iconos ilustrados (SVG) para las 10 materias, con el emoji como respaldo.
    · Navegación inferior en móvil: reutiliza los botones y la navegación que
      ya existen; no duplica pantallas ni lógica.

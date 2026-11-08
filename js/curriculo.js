@@ -1,5 +1,5 @@
 /* =========================================================
-   CURRICULO — Mucho Mundo (Aventura de Letras y Números)
+   CURRICULO — Mucho Mundo
    Contenido por GRADO (1° a 5° de primaria) y por MATERIA,
    organizado como lo piden los Derechos Básicos de Aprendizaje
    (DBA) del Ministerio de Educación Nacional de Colombia:
