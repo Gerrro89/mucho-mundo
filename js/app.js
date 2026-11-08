@@ -1034,9 +1034,9 @@
      Pantalla: Inicio
      ========================================================= */
   window.pantalla_home = function () {
-    if (!C.Store.hayPerfiles()) {
-      /* Con el sistema de cuentas: deja decidir a la puerta de entrada
-         (cuenta si corresponde, o el formulario de crear perfil). */
+    /* La cuenta es OBLIGATORIA: sin sesión abierta, la puerta
+       de la cuenta manda. También si no hay perfiles todavía. */
+    if (!C.Store.hayPerfiles() || (window.CUENTAS && !window.CUENTAS.sesion())) {
       C.Nav.reemplazar(
         window.CUENTAS ? window.CUENTAS.arranque() : "perfil"
       );
@@ -6666,6 +6666,11 @@
 
   window.pantalla_perfil = function (datos) {
     datos = datos || {};
+    /* La cuenta es OBLIGATORIA: sin sesión, a la puerta. */
+    if (window.CUENTAS && !window.CUENTAS.sesion()) {
+      C.Nav.reemplazar("cuenta");
+      return;
+    }
     const cont = $("#contenido-perfil");
     if (!cont) return;
     cont.innerHTML = "";

@@ -43,6 +43,11 @@ window.CUENTAS = (function () {
   const K_PROGRESO = "webleer_progreso_v3";
   const K_PAPELERA = "webleer_papelera_v1";
 
+  /* Logo oficial de Gmail (img/marca/gmail-logo.svg, en precache) */
+  const LOGO_GMAIL =
+    '<img src="img/marca/gmail-logo.svg" alt="Gmail" ' +
+    'style="height:1.15em;width:auto;vertical-align:-0.22em;margin-right:2px" />';
+
   /* Producto y formato del archivo de respaldo
      (sirve para rechazar archivos que no son de esta app).
      El tipo nuevo es mucho-mundo-respaldo; se sigue aceptando
@@ -228,14 +233,12 @@ window.CUENTAS = (function () {
     return ok;
   }
 
-  /* En qué pantalla comienza la app:
-     - si hay cuentas y nadie inició sesión → puerta de la cuenta,
-     - si el equipo está completamente nuevo (sin cuentas ni perfiles)
-       también entra por la puerta de la cuenta: es la entrada principal. */
+  /* En qué pantalla comienza la app: LA CUENTA ES OBLIGATORIA.
+     Sin sesión abierta, SIEMPRE se entra por la puerta de la
+     cuenta (crear con adulto, entrar o importar copia). Con
+     sesión abierta: home si hay perfiles, o crear el primero. */
   function arranque() {
-    const o = leer();
-    if (o.lista.length && !sesion()) return "cuenta";
-    if (!o.lista.length && !C.Store.hayPerfiles()) return "cuenta";
+    if (!sesion()) return "cuenta";
     return C.Store.hayPerfiles() ? "home" : "perfil";
   }
 
@@ -984,11 +987,8 @@ window.CUENTAS = (function () {
     /* Botón de Gmail: solo cuando la nube está configurada con
        sus claves; si no, no se muestra y todo queda local. */
     function botonGmail(compact) {
-      const b = el(
-        "button",
-        "btn grande" + (compact ? "" : " primario"),
-        "🔴 Continuar con Gmail (adulto)"
-      );
+      const b = el("button", "btn grande" + (compact ? "" : " primario"));
+      b.innerHTML = LOGO_GMAIL + " Continuar con Gmail (adulto)";
       b.onclick = () => {
         C.Sfx.clic();
         flujoGmail(false);
@@ -1055,8 +1055,8 @@ window.CUENTAS = (function () {
         minCabc(
           sinCuentas ? "👋 Bienvenido" : "🔐 Iniciar sesión",
           sinCuentas
-            ? "Aquí empieza la aventura: crea una cuenta con un adulto, " +
-              "importa una copia o continúa sin cuenta."
+            ? "Aquí empieza la aventura: para entrar hay que crear una " +
+              "cuenta con un adulto o importar una copia."
           : "La cuenta guarda el progreso con una copia automática."
         )
       );
@@ -1180,13 +1180,6 @@ window.CUENTAS = (function () {
       };
       fila2.appendChild(bImport);
 
-      const bSeguir = el("button", "btn grande", "➡️ Usar sin cuenta");
-      bSeguir.onclick = () => {
-        C.Sfx.clic();
-        C.Store.load();
-        C.Nav.reemplazar(C.Store.hayPerfiles() ? "home" : "perfil");
-      };
-      fila2.appendChild(bSeguir);
       caja.appendChild(fila2);
 
       caja.appendChild(
@@ -1199,7 +1192,7 @@ window.CUENTAS = (function () {
       cont.appendChild(caja);
       C.Voz.decir(
         sinCuentas
-          ? "¡Bienvenido! Puedes crear una cuenta con un adulto, o continuar sin cuenta."
+          ? "¡Bienvenido! Un adulto puede crear la cuenta con su Gmail, o con usuario y clave de cuatro números."
           : "Escribe tu usuario para entrar en tu cuenta, o crea una con un adulto."
       );
     }
@@ -1345,9 +1338,13 @@ window.CUENTAS = (function () {
       const caja = el("div", "perfil-form");
       const chip = el("div", "perfil-form");
       chip.style.textAlign = "center";
-      chip.appendChild(
-        el("p", "", (g.foto ? "🖼️ " : "👤 ") + (g.nombre || "Adulto") + " · " + g.email)
-      );
+      const lineaChip = el("p", "");
+      lineaChip.innerHTML =
+        (g.foto
+          ? '<img src="' + String(g.foto).replace(/"/g, "") + '" alt=" " style="height:1.5em;width:auto;vertical-align:-0.4em;border-radius:50%" /> '
+          : LOGO_GMAIL + " ") +
+        (g.nombre || "Adulto") + " · " + g.email;
+      chip.appendChild(lineaChip);
       caja.appendChild(chip);
 
       const error = el("p", "nota-adulto", "");
@@ -1469,15 +1466,13 @@ window.CUENTAS = (function () {
 
       /* Gmail amarrado a la cuenta */
       if (c.google) {
-        caja.appendChild(
-          el(
-            "p",
-            "",
-            "🔴 Gmail amarrado: " + c.google.email +
-              " · ☁️ Copia en la nube: " +
-              (c.guardadoNube ? "última subida " + fhc(c.guardadoNube) : "pendiente")
-          )
-        );
+        const lineaGoogle = el("p", "");
+        lineaGoogle.innerHTML =
+          LOGO_GMAIL +
+          " Gmail amarrado: " + c.google.email +
+          " · ☁️ Copia en la nube: " +
+          (c.guardadoNube ? "última subida " + fhc(c.guardadoNube) : "pendiente");
+        caja.appendChild(lineaGoogle);
         if (nubeLista()) {
           const bSub = el("button", "btn grande", "☁️ Subir a la nube ahora");
           bSub.onclick = () => {
@@ -1580,7 +1575,8 @@ window.CUENTAS = (function () {
         nota(
           "La copia vive en este equipo. Si va a borrar el navegador o " +
             "va a cambiar de equipo/dirección de esta web, primero descarga el respaldo. " +
-            "Sin cuenta, el progreso sigue guardándose normal en los perfiles."
+            "Sin sesión de cuenta abierta no se puede entrar: la web " +
+              "queda en la puerta de la cuenta."
         )
       );
       cont.appendChild(caja);
@@ -1677,7 +1673,8 @@ window.CUENTAS = (function () {
 
     /* Cuentas con Gmail (solo si la nube está configurada) */
     if (nubeLista && nubeLista()) {
-      const bGmail = el("button", "btn grande", "🔴 Continuar con Gmail");
+      const bGmail = el("button", "btn grande");
+      bGmail.innerHTML = LOGO_GMAIL + " Continuar con Gmail";
       bGmail.onclick = () => {
         C.Sfx.clic();
         const preg = s
