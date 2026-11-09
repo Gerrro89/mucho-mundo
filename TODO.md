@@ -419,6 +419,35 @@
       Publicado y verificado en producción (css vertical/landscape/
       grande en vivo). Zip verificado (154 archivos). Prueba real
       de orientación queda para el usuario en su celular/tablet.
+- [x] CERRAR SESIÓN + APARIENCIA DÍA/NOCHE (v201):
+      → Encabezado: nuevo botón 🌙/☀️ (#btn-tema) en la barra de
+      acciones que alterna la apariencia (día por defecto, noche
+      con `html[data-tema="noche"]`), y botón 🚪 (#btn-salir, oculto
+      sin sesión) que cierra la sesión de la cuenta dejando el
+      progreso guardado (confirm; llama CUENTAS.salir() +
+      C.Store.load()). arranque: `data-tema` desde localStorage.webleer_tema_v1 en
+      un script inline ANTES del primer dibujo (sin parpadeo).
+      Refresco del botón 🚪: `window.pintarBotonSesion()` enganchado
+      a pintarPerfilChip, a pantalla_cuenta, dentro de salir() y a
+      `document "nav:cambio"` (cubre crear cuenta desde la puerta y
+      cualquier camino). Pruebas en vivo (origen 8794 limpio):
+      crear→🚪 visible, salir→oculto, tema alterna con icono y
+      persiste, 0 errores de consola.
+      → Modo noche (css/tema-noche.css NUEVO en precache, 153
+      entradas): cielo nocturno del sitio (degradado #050b1f→
+      #0d1c44 con luna suave), estrellas fijas en body::before,
+      encabezado/botones/nav inferior en vidrio azul oscuro con
+      textos claros, deco-fondo tenue, héroe atenuado, pantalla de
+      carga nocturna (inline en index) y la PUERTA: mismo arte con
+      filtro brightness .68/saturación .75/hue -14, luna con halo
+      que tapona el sol del arte (circle 6vw at 8% 15%), estrellas
+      y velo azul (0.55→0.36→0.5); pasto prolongado vertical en
+      verdes nocturnos. NOTA: el intento de generar la versión
+      nocturna con IA falló (sin fondos en la cuenta del generador)
+      → se resolvió 100% con CSS sobre el arte original.
+      SW v201 (5ª, precache 153). Publicado y verificado en
+      producción (build 0e86724; index/tema-noche/app.js/sw en
+      vivo con las 4 piezas). Zip verificado (155 archivos).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
