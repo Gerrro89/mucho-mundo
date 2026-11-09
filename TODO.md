@@ -377,6 +377,27 @@
       ENCIMA de la puerta (abriendo CUENTAS.abrirTeclado). SW v198.
       Publicado y verificado en producción (css con position fixed
       y overlay z1600 en vivo). Zip verificado (154 archivos).
+- [x] La ILUSTRACIÓN CUBRE TODA LA PANTALLA (v199):
+      → nueva arquitectura de .puerta-dia: la ilustración vive en una
+      capa FIJA al viewport (#pantalla-cuenta.puerta-dia .puerta
+      position fixed inset 0, z -1) con la escena absolute inset 0
+      (cover, sin borde ni esquinas); el contenido real (tarjeta de
+      iniciar sesión, nota en pastilla, botones) flota ENCIMA. Con
+      cuentas el formulario rueda sobre el arte (texto del título
+      estándar oculto; contenido con aire 14vh arriba). La nota de
+      bienvenida se ancla abajo de la pantalla (pastilla translúcida
+      con sombra). Botones flotan SIEMPRE (quitada la media query
+      que los bajaba en móvil). En vivo (origen limpio 8792):
+      escena llena el viewport (menos la franja del scrollbar del
+      sistema), botones tocables, nota anclada abajo, rama con
+      cuentas con la imagen detrás y tarjeta centrada. Nota de
+      diagnóstico: en capturas del navegador de pruebas apareció
+      dos veces una marca tenue "EDUCA COLOR…"; se verificó byte a
+      byte y con estiramiento de contraste que img/marca/
+      puerta-vivo.webp está LIMPIO (hash prod = disco) → es
+      artefacto/retención del navegador de pruebas, no del sitio.
+      SW v199. Publicado y verificado (css con capa fija y cover,
+      imagen prod = disco). Zip verificado (154 archivos).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
