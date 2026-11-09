@@ -1,7 +1,7 @@
 ﻿/* Mucho Mundo — Service Worker
    Permite que el sitio funcione sin conexión después de la primera carga. */
 
-const CACHE = "webleer-v197";
+const CACHE = "webleer-v198";
 
 const ARCHIVOS = [
   "./",

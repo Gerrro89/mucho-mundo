@@ -203,12 +203,38 @@ body {
    ========================================================== */
 
 /* Cielo detrás de toda la pantalla de la cuenta */
+/* La puerta tapa TODO (barra superior incluida): capa fija a
+   pantalla completa mientras la vista "entrar" esté activa. */
 #pantalla-cuenta.puerta-dia {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding:
+    max(10px, env(safe-area-inset-top, 0px)) 14px
+    max(14px, env(safe-area-inset-bottom, 0px));
   background:
     radial-gradient(circle at 88% 10%, rgba(255, 255, 255, 0.55), transparent 32%),
     radial-gradient(circle at 8% 90%, rgba(255, 255, 255, 0.4), transparent 30%),
     linear-gradient(180deg, #77c3f5 0%, #a9e2ff 55%, #dcf7ff 100%);
-  border-radius: 0 0 34px 34px;
+}
+
+/* Centrado: margen auto centra cuando cabe y deja rodar si no */
+#pantalla-cuenta.puerta-dia .contenido {
+  margin: auto;
+  width: 100%;
+  max-width: 1080px;
+  padding: 0;
+}
+
+/* La escena no crece más allá de lo que cabe (sin perder el ratio) */
+#pantalla-cuenta.puerta-dia .puerta {
+  margin-inline: auto;
+  width: 100%;
+  max-width: min(100%, calc(62vh * 1.375));
 }
 
 .puerta {

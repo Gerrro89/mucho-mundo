@@ -1231,7 +1231,10 @@ body.letra-script .palabra {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 90;
+  /* Por encima de la puerta a pantalla completa (#pantalla-cuenta
+     .puerta-dia, z-index 1500): el teclado de la clave y los demás
+     avisos modales deben verse sobre la puerta. */
+  z-index: 1600;
   padding: 20px;
 }
 
