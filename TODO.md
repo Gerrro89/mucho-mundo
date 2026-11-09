@@ -362,6 +362,21 @@
       consola. SW v197 con la imagen en precache (152 entradas).
       Publicado (154 archivos) y verificado en producción (hash del
       webp en prod = disco; cuentas.js y css con el código nuevo).
+- [x] Login a PANTALLA COMPLETA, sin encabezado (v198):
+      → a petición del usuario: #pantalla-cuenta.puerta-dia es ahora
+      una capa FIJA a todo el viewport (position fixed, inset 0,
+      z-index 1500): tapa la barra superior, Kiko y todo lo demás;
+      contenido centrado (.contenido con margin auto, max 1080px) y
+      la escena limitada a 62 vh (ratio intacto, margin inline auto,
+      los botones flotan con la escena). Rueda si el contenido no
+      cabe. Al pasar a otra vista el render retira la clase y todo
+      vuelve al flujo normal (verificado: position static, barra
+      visible). El z-index 1500 tapaba los avisos modales (teclado
+      de la clave entra .overlay con z 90) → .overlay sube a 1600:
+      verificado en vivo que el teclado abre y es tocable por
+      ENCIMA de la puerta (abriendo CUENTAS.abrirTeclado). SW v198.
+      Publicado y verificado en producción (css con position fixed
+      y overlay z1600 en vivo). Zip verificado (154 archivos).
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
