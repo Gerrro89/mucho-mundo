@@ -274,6 +274,73 @@ body {
   color: #17527e;
 }
 
+/* ---------- Ajustes por TAMAÑO DE PANTALLA ---------- */
+
+/* Pantallas anchas/altas de escritorio: botones algo más chicos
+   (la escena sobra) y así no tapan el castillo */
+@media (min-width: 1500px) and (min-height: 860px) {
+  #pantalla-cuenta.puerta-dia .puerta-flotar { top: 50%; transform: translateY(-46%); width: min(36%, 470px); }
+  .puerta-btn { font-size: 1.42rem; padding: 15px 22px; }
+}
+
+/* Cuadradas (tablet girada, mini de escritorio): la escena cubre
+   sin recortes raramente: subo un poco los botones y ajusto puntos */
+@media (min-aspect-ratio: 0.981/1) and (max-aspect-ratio: 1.35/1) {
+  #pantalla-cuenta.puerta-dia .puerta-flotar { right: 2%; top: 51%; transform: translateY(-48%); width: min(44%, 420px); }
+}
+
+/* VERTICAL (celulares y tablets en retrato): el arte se ajusta al
+   ancho de la pantalla (sin recortes) y el pasto continúa hacia
+   abajo aunque sobre espacio; los botones bajan al centro del
+   pasto, amontonados y centrados */
+@media (max-aspect-ratio: 0.98/1) {
+  #pantalla-cuenta.puerta-dia .puerta-escena {
+    background-size: 100% auto;
+    background-position: 50% 0;
+  }
+  #pantalla-cuenta.puerta-dia .puerta-escena::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 74.8vw;      /* altura que ocupa el arte (1100x823) */
+    bottom: 0;
+    background: linear-gradient(180deg, #7dbf52 0%, #63b046 40%, #53a03c 100%);
+  }
+  #pantalla-cuenta.puerta-dia .puerta-flotar {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: max(88px, calc(64px + env(safe-area-inset-bottom, 0px)));
+    transform: translateX(-50%);
+    width: min(90%, 330px);
+    gap: 11px;
+  }
+  .puerta-btn { font-size: 1rem; padding: 11px 15px; }
+  .puerta-btn img { height: 1.55em; }
+  .puerta-dia .nota-adulto.puerta-nota {
+    bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    width: min(92%, 330px);
+    font-size: 0.72rem;
+    padding: 6px 12px;
+  }
+}
+
+/* Landscape de teléfono y ventanitas bajas: todo compacto, botones
+   a la derecha y notas chiquitas */
+@media (max-height: 520px) {
+  #pantalla-cuenta.puerta-dia .puerta-escena { background-position: 50% 42%; }
+  #pantalla-cuenta.puerta-dia .puerta-flotar { right: 2.5%; top: 50%; transform: translateY(-50%); width: min(46%, 380px); }
+  .puerta-btn { font-size: 0.98rem; padding: 9px 15px; gap: 8px; }
+  .puerta-btn img { height: 1.5em; }
+  .puerta-dia .nota-adulto.puerta-nota {
+    bottom: max(4px, env(safe-area-inset-bottom, 0px));
+    font-size: 0.78rem;
+    padding: 6px 12px;
+    width: min(72%, 470px);
+  }
+}
+
 .puerta {
   position: relative;
   margin-top: 4px;
@@ -415,11 +482,3 @@ body {
 /* Nota bajo los botones, legible sobre el cielo (fuera de la puerta
    completa no se usa; versión flotante arriba) */
 
-/* Landscape de teléfono: botones más compactos a la derecha */
-@media (max-width: 820px) and (max-height: 480px) {
-  #pantalla-cuenta.puerta-dia .puerta-escena { background-position: 50% 36%; }
-  #pantalla-cuenta.puerta-dia .puerta-flotar { right: 2.5%; top: 50%; transform: translateY(-50%); width: min(44%, 400px); }
-  .puerta-btn { font-size: 1rem; padding: 9px 16px; gap: 8px; }
-  .puerta-btn img { height: 1.5em; }
-  .puerta-dia .nota-adulto.puerta-nota { bottom: max(4px, env(safe-area-inset-bottom, 0px)); font-size: 0.8rem; }
-}
