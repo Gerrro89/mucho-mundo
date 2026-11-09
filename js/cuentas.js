@@ -294,6 +294,10 @@ window.CUENTAS = (function () {
       if (nubeEstado.auth) nubeEstado.auth.signOut();
       nubeEstado.usuario = null;
     } catch (e) {}
+    /* actualizar el botón de cerrar sesión del encabezado */
+    try {
+      if (window.pintarBotonSesion) window.pintarBotonSesion();
+    } catch (e) {}
   }
 
   function eliminar(usuario, eliminarPerfiles) {
@@ -985,6 +989,10 @@ window.CUENTAS = (function () {
     if (secCuenta) {
       secCuenta.classList.toggle("puerta-dia", estado.vista === "entrar");
     }
+    /* mantener al día el botón de cerrar sesión del encabezado */
+    try {
+      if (window.pintarBotonSesion) window.pintarBotonSesion();
+    } catch (e) {}
 
     function minCabc(titulo, sub) {
       const c = el("div", "cabecera-pantalla");

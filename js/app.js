@@ -6497,6 +6497,8 @@
     if (av) av.innerHTML = avatarInner(p);
     if (no) no.textContent = p ? p.nombre : "Crear perfil";
     if (b) b.title = p ? "Perfil de " + p.nombre : "Crear un perfil";
+    /* El botón de cerrar sesión acompaña al chip del perfil */
+    if (window.pintarBotonSesion) window.pintarBotonSesion();
   }
 
   /* Reduce una foto a 200x200 y la guarda como texto (data URL) para
@@ -7817,6 +7819,68 @@ window.pantalla_adulto = function (datos) {
         C.abrirPanelAdulto();
       };
     }
+
+    /* Apariencia día/noche: cambia el fondo del sitio y la puerta */
+    const btnTemaBarra = $("#btn-tema");
+    if (btnTemaBarra) {
+      const esNoche = () =>
+        document.documentElement.getAttribute("data-tema") === "noche";
+      const pintarTema = () => {
+        btnTemaBarra.textContent = esNoche() ? "☀️" : "🌙";
+        btnTemaBarra.title = esNoche()
+          ? "Cambiar a la apariencia de día"
+          : "Cambiar a la apariencia de noche";
+      };
+      pintarTema();
+      btnTemaBarra.onclick = () => {
+        C.Sfx.clic();
+        const nuevo = esNoche() ? "claro" : "noche";
+        document.documentElement.setAttribute("data-tema", nuevo);
+        try { localStorage.setItem("webleer_tema_v1", nuevo); } catch (e) {}
+        pintarTema();
+        C.Guia.habla(
+          nuevo === "noche"
+            ? "Apariencia de noche activada. Mira cómo cambió el cielo."
+            : "Apariencia de día activada. Ya salió el sol."
+        );
+      };
+      vozBoton(btnTemaBarra, "Cambiar la apariencia entre día y noche");
+    }
+
+    /* Botón de cerrar sesión en el encabezado (solo con cuenta abierta) */
+    window.pintarBotonSesion = () => {
+      const b = $("#btn-salir");
+      if (!b) return;
+      let abierta = false;
+      try {
+        abierta = !!(window.CUENTAS && window.CUENTAS.sesion());
+      } catch (e) {}
+      b.hidden = !abierta;
+    };
+    window.pintarBotonSesion();
+    const btnSalirBarra = $("#btn-salir");
+    if (btnSalirBarra) {
+      btnSalirBarra.onclick = () => {
+        C.Sfx.clic();
+        const c = window.CUENTAS && window.CUENTAS.sesion();
+        if (!c) return;
+        if (!confirm(
+          "Cerrar la sesión de " + c.usuario + "?\n\n" +
+            "El progreso de este equipo se queda guardado y tus perfiles siguen aquí."
+        )) return;
+        window.CUENTAS.salir();
+        C.Store.load();
+        window.pintarBotonSesion();
+        C.Guia.habla("Sesión cerrada. Tu progreso sigue guardado en este equipo.");
+      };
+      vozBoton(btnSalirBarra, "Cerrar la sesión de la cuenta");
+    }
+    /* El estado de la sesión puede cambiar en cualquier pantalla
+       (crear cuenta, entrar con Gmail, cerrar sesión): este evento
+       del navegador lo repinta en cada cambio de pantalla. */
+    document.addEventListener("nav:cambio", () => {
+      if (window.pintarBotonSesion) window.pintarBotonSesion();
+    });
 
     /* Kiko lee en voz alta qué hace cada botón del encabezado */
     vozBoton($("#btn-inicio"), "Inicio");
