@@ -398,6 +398,27 @@
       artefacto/retención del navegador de pruebas, no del sitio.
       SW v199. Publicado y verificado (css con capa fija y cover,
       imagen prod = disco). Zip verificado (154 archivos).
+- [x] Puerta ADAPTABLE al tamaño de pantalla (v200):
+      → media queries por proporción/orientación en mucho-mundo.css:
+      (a) VERTICAL (max-aspect-ratio 0.98/1): el arte se ajusta al
+      ANCHO (100% auto, así el logo nunca se recorta) y el pasto
+      continúa hacia abajo con un degradado verde (::before desde
+      74.8vw ≈ altura real del arte); los tres botones bajan abajo
+      al centro (stack con gap, width 90%/330px) y la nota se hace
+      pequeña arriba de ellos; (b) ventanitas bajas/landscape de
+      teléfono (max-height 520px, reemplazaba el bloque 820x480):
+      botones más compactos a la derecha, escena recortada al
+      centro (50% 42%), nota mini; (c) cuadradas (aspect 0.981–1.35):
+      botones algo más arriba y a la derecha (2%); (d) escritorio
+      grande (min 1500x860): botones al 36%/470px y letra mayor.
+      Validado: archivo equilibrado (94/94 llaves), extracción por
+      bloque OK, matchMedia responde bien en la ventana actual,
+      0 errores en vivo. NB: el intento de probar con iframes de
+      srcdoc a distintos tamaños dió resultados sin validez
+      (getComputedStyle cruza documentos) — descartado. SW v200.
+      Publicado y verificado en producción (css vertical/landscape/
+      grande en vivo). Zip verificado (154 archivos). Prueba real
+      de orientación queda para el usuario en su celular/tablet.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
