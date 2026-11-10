@@ -1,0 +1,156 @@
+/* ==========================================================
+   RESPONSIVE GLOBAL (v202) — correcciones de reorganización
+   medidas con la web real en iframe del mismo origen:
+   el encabezado (7 botones + chip de perfil) desbordaba el
+   borde derecho en celulares y tablets angostas, y el emblema
+   se deformaba. El resto del sitio (carruseles, tarjetas,
+   puerta, barra inferior) ya se adapta por sí solo.
+   ========================================================== */
+
+/* ---------- 1) El emblema del logo nunca se deforma ---------- */
+.logo-icone img {
+  height: auto;
+}
+
+/* ---------- 2) Encabezado a DOS FILAS en pantallas medianas ---------- */
+/* La fila superior guarda: volver + logo (izquierda) y el perfil
+   (derecha); la fila inferior centra los botones de acciones */
+@media (max-width: 860px) {
+  header.barra-superior {
+    display: grid;
+    grid-template-areas:
+      "izq    perfil"
+      "acciones acciones";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: 5px;
+    column-gap: 8px;
+    align-items: center;
+    justify-content: stretch;
+  }
+  /* los hijos del bloque derecho participan del grid directamente */
+  header.barra-superior .barra-derecha { display: contents; }
+  header.barra-superior .barra-izq { grid-area: izq; min-width: 0; }
+  header.barra-superior .barra-acciones {
+    grid-area: acciones;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  header.barra-superior .btn-perfil {
+    grid-area: perfil;
+    justify-self: end;
+    min-width: 44px;
+    min-height: 38px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+  }
+  header.barra-superior .barra-separador { display: none; }
+  header.barra-superior .btn-icono {
+    width: 38px;
+    height: 38px;
+    font-size: 1.08rem;
+    border-radius: 11px;
+    flex-shrink: 0;
+  }
+  header.barra-superior .perfil-nombre-chico { display: none; }
+  header.barra-superior .perfil-flecha { display: none; }
+}
+
+/* Tablets angostas / equipos bajos: el chip pesa menos */
+@media (max-width: 840px) {
+  .btn-perfil {
+    padding-right: 8px;
+    gap: 6px;
+  }
+  .perfil-flecha { display: none; }
+}
+
+/* Celulares muy angostos: botones algo más chicos todavía */
+@media (max-width: 380px) {
+  header.barra-superior {
+    padding: 6px 8px;
+  }
+  header.barra-superior .btn-icono {
+    width: 34px;
+    height: 34px;
+    font-size: 0.98rem;
+  }
+  header.barra-superior .logo-icone img { width: 36px; height: auto; }
+  header.barra-superior .logo-titulo { font-size: 0.95rem; }
+}
+
+/* ---------- 3) Títulos del logo sin desbordes en tamaño medio ---------- */
+@media (max-width: 700px) {
+  .logo-titulo { white-space: normal; }
+}
+
+/* ---------- 4.bis) Tarjetas de nivel: nada sobresale en celulares ---------- */
+@media (max-width: 400px) {
+  .tarjeta-nivel {
+    gap: 10px;
+    padding: 13px 12px;
+  }
+  .tarjeta-nivel > * { min-width: 0; }
+  .tarjeta-nivel .info-nivel { flex: 1 1 auto; width: auto; }
+  .tarjeta-nivel .info-nivel h3 { font-size: 1.02rem; }
+  .tarjeta-nivel .candado { font-size: 1.4rem; flex-shrink: 0; }
+}
+
+/* ---------- 4) Teléfono en HORIZONTAL (landscape Bajo) ---------- */
+@media (max-width: 840px) and (orientation: landscape) {
+  header.barra-superior {
+    row-gap: 3px;
+    padding: 5px 10px;
+  }
+  header.barra-superior .btn-icono {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+  header.barra-superior .logo-titulo { font-size: 0.95rem; }
+  header.barra-superior .logo-sub { display: none; }
+  .contenedor { margin-bottom: 20px; }
+  #guia { bottom: 6px; zoom: 0.9; }
+}
+
+/* ---------- 4.bis) Barra inferior: pistas que encogen de verdad ---------- */
+/* (el textContent de un botón largo no le permite empujar al grid
+   más allá del ancho disponible, en cualquier orientación) */
+@media (max-width: 820px) {
+  #nav-inferior {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  #nav-inferior button {
+    min-width: 0;
+  }
+  #nav-inferior button span,
+  #nav-inferior button .nav-txt {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 840px) and (max-height: 500px) {
+  #nav-inferior button {
+    padding: 3px 2px;
+    gap: 2px;
+    min-height: 46px;
+  }
+  #nav-inferior button { font-size: 0.64rem; }
+  #nav-inferior button svg { width: 18px; height: 18px; }
+}
+
+/* ---------- 5) Monitores IMMENSOS: el contenido no se estira a lo ancho ---------- */
+@media (min-width: 2100px) {
+  .contenedor { width: min(1980px, calc(100% - 32px)); }
+  body { font-size: 17px; }
+}
+
+/* ---------- 6) Accesibilidad: menos movimiento (complemento) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  header.barra-superior .btn-icono,
+  header.barra-superior .btn-perfil {
+    transition: none;
+  }
+}

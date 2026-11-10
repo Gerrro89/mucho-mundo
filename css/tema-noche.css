@@ -7,7 +7,9 @@
 
 /* ---------- Cielo nocturno del sitio ---------- */
 html[data-tema="noche"] body {
-  color: #dbe7ff;
+  /* El color de letra NO se cambia aquí: dentro de las tarjetas
+     claras el texto oscuro de día sigue siendo el legible. Lo que
+     vive directo sobre el cielo nocturno se aclara punto a punto. */
   background:
     radial-gradient(circle at 12% 14%, rgba(255, 236, 170, 0.13), transparent 22rem),
     radial-gradient(circle at 84% 78%, rgba(120, 160, 255, 0.1), transparent 26rem),
@@ -46,7 +48,13 @@ html[data-tema="noche"] .barra-superior {
   border-color: rgba(126, 178, 255, 0.32);
   box-shadow: 0 8px 0 rgba(2, 8, 26, 0.35), 0 14px 30px rgba(0, 0, 0, 0.4);
 }
-html[data-tema="noche"] .logo-titulo { color: #ffd97a; }
+html[data-tema="noche"] .logo-titulo {
+  background-image: none;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  color: #ffd97a;
+  -webkit-text-fill-color: #ffd97a;
+}
 html[data-tema="noche"] .logo-sub { color: #9ed2ff; }
 html[data-tema="noche"] .btn-icono,
 html[data-tema="noche"] .btn-perfil {
@@ -81,6 +89,11 @@ html[data-tema="noche"] .hero-inicio {
 html[data-tema="noche"] .hero-img {
   filter: brightness(0.58) saturate(0.78);
 }
+
+/* Elementos que viven DIRECTO sobre el cielo nocturno: el color
+   oscuro de día (heredado) quedaría invisible aquí, se aclara. */
+html[data-tema="noche"] .resumen-estrellas { color: #ffe08a; }
+html[data-tema="noche"] .resumen-estrellas small { color: #9bd4ff; }
 
 /* ---------- La puerta de la cuenta en modo nocturno ---------- */
 html[data-tema="noche"] #pantalla-cuenta.puerta-dia { background: #0a1730; }
