@@ -12,31 +12,26 @@
   height: auto;
 }
 
-/* ---------- 2) Encabezado a DOS FILAS en pantallas medianas ---------- */
-/* La fila superior guarda: volver + logo (izquierda) y el perfil
-   (derecha); la fila inferior centra los botones de acciones */
-@media (max-width: 860px) {
+/* ---------- 2) Encabezado con MENÚ en pantallas medianas ---------- */
+/* La fila superior guarda: volver + logo (izquierda) y perfil + ☰
+   (derecha). Los botones de acciones NO se amontonan: viven en un
+   panel-menú deslizable que muestra el botón ☰ (#btn-menu). */
+@media (max-width: 940px) {
   header.barra-superior {
     display: grid;
     grid-template-areas:
-      "izq    perfil"
-      "acciones acciones";
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
+      "izq    perfil  menu";
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto;
     row-gap: 5px;
     column-gap: 8px;
     align-items: center;
     justify-content: stretch;
+    position: relative;
   }
   /* los hijos del bloque derecho participan del grid directamente */
   header.barra-superior .barra-derecha { display: contents; }
   header.barra-superior .barra-izq { grid-area: izq; min-width: 0; }
-  header.barra-superior .barra-acciones {
-    grid-area: acciones;
-    justify-content: center;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
   header.barra-superior .btn-perfil {
     grid-area: perfil;
     justify-self: end;
@@ -44,6 +39,10 @@
     min-height: 38px;
     padding: 4px 8px;
     flex-shrink: 0;
+  }
+  header.barra-superior .btn-menu {
+    grid-area: menu;
+    justify-self: end;
   }
   header.barra-superior .barra-separador { display: none; }
   header.barra-superior .btn-icono {
@@ -55,6 +54,56 @@
   }
   header.barra-superior .perfil-nombre-chico { display: none; }
   header.barra-superior .perfil-flecha { display: none; }
+
+  /* El panel de opciones: una tarjeta completa bajo la barra */
+  header.barra-superior .barra-acciones {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 10px;
+    right: 10px;
+    z-index: 70;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px;
+    background: #ffffff;
+    border: 3px solid #cfe3f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 0 rgba(24, 100, 156, 0.14), 0 18px 34px rgba(9, 30, 66, 0.22);
+  }
+  /* abierto por el estado del encabezado (clase .menu-abierto) */
+  header.barra-superior.menu-abierto .barra-acciones { display: flex; }
+
+  /* Cada opción: fila ancha con icono y NOMBRE leído del title */
+  header.barra-superior .barra-acciones .btn-icono {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 14px;
+    font-size: 1.35rem;
+    border-radius: 14px;
+  }
+  header.barra-superior .barra-acciones .btn-icono::after {
+    content: attr(title);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #17345f;
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Fuera de celulares/tablets el botón de menú no existe */
+@media (min-width: 941px) {
+  #btn-menu { display: none; }
 }
 
 /* Tablets angostas / equipos bajos: el chip pesa menos */

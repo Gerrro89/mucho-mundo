@@ -7882,6 +7882,69 @@ window.pantalla_adulto = function (datos) {
       if (window.pintarBotonSesion) window.pintarBotonSesion();
     });
 
+    /* Menú del encabezado en celulares y tablets: el botón ☰
+       despliega el panel con TODAS las opciones de la barra. Los
+       botones siguen siendo los mismos de siempre (sin duplicar
+       funciones); el panel solo es su nueva posición visual. */
+    const headerBarra = document.querySelector("header.barra-superior");
+    const btnMenu = $("#btn-menu");
+    if (headerBarra && btnMenu && !btnMenu.dataset.menuListo) {
+      btnMenu.dataset.menuListo = "1";
+      const pintarMenu = () => {
+        const abierto = headerBarra.classList.contains("menu-abierto");
+        btnMenu.textContent = abierto ? "✖️" : "☰";
+        btnMenu.title = abierto ? "Cerrar el menú" : "Abrir el menú";
+        btnMenu.setAttribute("aria-label", btnMenu.title);
+        btnMenu.setAttribute("aria-expanded", abierto ? "true" : "false");
+      };
+      pintarMenu();
+      const cerrarMenu = () => {
+        if (!headerBarra.classList.contains("menu-abierto")) return;
+        headerBarra.classList.remove("menu-abierto");
+        pintarMenu();
+      };
+      const abrirMenu = () => {
+        headerBarra.classList.add("menu-abierto");
+        pintarMenu();
+      };
+      btnMenu.onclick = () => {
+        C.Sfx.clic();
+        if (headerBarra.classList.contains("menu-abierto")) cerrarMenu();
+        else abrirMenu();
+        C.Guia.habla(headerBarra.classList.contains("menu-abierto")
+          ? "Menú abierto. Toca una opción."
+          : "Menú cerrado.");
+      };
+      /* Tocar una opción del panel cierra el menú (el propio botón
+         sigue haciendo su función de siempre). */
+      const panel = headerBarra.querySelector(".barra-acciones");
+      if (panel) {
+        panel.addEventListener("click", (e) => {
+          const opcion = e.target.closest("button");
+          if (!opcion) return;
+          /* letra y silencio se tocan en cadena (ronda de ajustes);
+             dejar el panel abierto para volver a tocarlos. */
+          if (opcion.id === "btn-letra" || opcion.id === "btn-silencio" || opcion.id === "btn-tema") return;
+          cerrarMenu();
+        });
+      }
+      /* Tocar fuera del encabezado cierra el menú */
+      document.addEventListener("pointerdown", (e) => {
+        if (!headerBarra.contains(e.target)) cerrarMenu();
+      });
+      /* Esc cierra el menú sin retroceder en la navegación */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && headerBarra.classList.contains("menu-abierto")) {
+          cerrarMenu();
+          e.stopImmediatePropagation();
+        }
+      }, true);
+      /* Cambiar de pantalla (con botón, tap o voz) cierra el menú.
+         La voz del guia habla el destino recién ocurrido el cambio. */
+      document.addEventListener("nav:cambio", cerrarMenu);
+      vozBoton(btnMenu, "Abrir o cerrar el menú del encabezado");
+    }
+
     /* Kiko lee en voz alta qué hace cada botón del encabezado */
     vozBoton($("#btn-inicio"), "Inicio");
     vozBoton($("#btn-adulto"), "Área de adultos");

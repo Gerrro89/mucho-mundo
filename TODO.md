@@ -448,6 +448,39 @@
       SW v201 (5ª, precache 153). Publicado y verificado en
       producción (build 0e86724; index/tema-noche/app.js/sw en
       vivo con las 4 piezas). Zip verificado (155 archivos).
+- [x] RESPONSIVIDAD COMPLETA DEL SITIO (v202):
+      Todo aditivo, organizado en css/responsive.css NUEVO (agregado a
+      index.html y al precache de sw.js) y correccion de letra en
+      tema-noche.css:
+      * Encabezado a dos filas (grid areas izq/perfil/acciones con
+        .barra-derecha { display: contents }) activo ≤860px: los 7
+        botones + chip de perfil ya no desbordan el borde derecho en
+        celulares ni tablets angostas (medido 320..860: 0 salidas).
+        Botones 34px ≤=380px y chip con min-height 38px (tap).
+      * Emblema del logo height:auto: fin de la deformacion entre
+        390 y 810px de ancho.
+      * Tarjetas de nivel ≤=400px: min-width:0 y candado 1.4rem (el
+        candado ya no empuja la tarjeta fuera del borde en 320/360).
+      * Barra inferior de navegacion <=820px: pistas
+        repeat(4, minmax(0,1fr)) y etiquetas partibles en 2 lineas;
+        tambien acostada (320x457 ultrabajo: 0 desbordes).
+      * Telefono acostado <=840px y compacto <=500px de alto;
+        monitores >=2100px con contenedor de 1980px;
+        prefers-reduced-motion respetado.
+      * MODO NOCHE, letra siempre legible: el body NO hereda color
+        claro; solo se aclara lo que vive sobre el cielo nocturno.
+        logo-titulo nocturno sin degradado (relleno solido #ffd97a)
+        y resumen-estrellas de aventura #ffe08a. Auditoria de
+        contraste en puerta/home/perfil/aprender/aventura: 0 textos
+        ilegibles (solo queda el emoji decorativo deco-flota).
+      Verificacion con iframe del mismo origen en 320x568..3840x2160
+      mas horizontales 600x400/667x375/320x457: puerta, inicio,
+      perfil, aprender, pantalla-nivel, actividad "Conozco las
+      vocales", aventura y aventurero 3D: 0 desbordes reales, 0
+      imagenes deformes, sin botones pequeños críticos.
+      SW v202 (precache 154 entradas). Zip regenerado y verificado
+      (156 archivos). Publicado: build de Pages sobre 3c3c3d5.
+
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

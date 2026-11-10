@@ -95,6 +95,18 @@ html[data-tema="noche"] .hero-img {
 html[data-tema="noche"] .resumen-estrellas { color: #ffe08a; }
 html[data-tema="noche"] .resumen-estrellas small { color: #9bd4ff; }
 
+/* ---------- Panel del menú del encabezado, en modo nocturno ---------- */
+/* (la tarjeta clara de día pasa a vidrio azul oscuro; los nombres
+   de las opciones se leen con letras claras) */
+html[data-tema="noche"] header.menu-abierto .barra-acciones {
+  background: rgba(11, 24, 54, 0.97);
+  border-color: rgba(126, 178, 255, 0.32);
+  box-shadow: 0 10px 0 rgba(2, 8, 26, 0.35), 0 18px 34px rgba(0, 0, 0, 0.45);
+}
+html[data-tema="noche"] header.menu-abierto .barra-acciones .btn-icono::after {
+  color: #dbe7ff;
+}
+
 /* ---------- La puerta de la cuenta en modo nocturno ---------- */
 html[data-tema="noche"] #pantalla-cuenta.puerta-dia { background: #0a1730; }
 
