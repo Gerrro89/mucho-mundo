@@ -18,6 +18,23 @@ window.CORE = (function () {
     return n;
   }
 
+  /* Escapa texto para interpolarse de forma segura dentro de HTML
+     (nombres de perfil, valores importados de respaldos o de la nube). */
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  /* Comparacion de cadenas en tiempo constante (claves/PIN). */
+  function tiempoConstante(a, b) {
+    a = String(a == null ? "" : a);
+    b = String(b == null ? "" : b);
+    if (a.length !== b.length) return false;
+    let d = 0;
+    for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    return d === 0;
+  }
+
   function rand(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
@@ -123,6 +140,7 @@ window.CORE = (function () {
     /* Se llama con el primer clic o toque: los navegadores exigen
        un gesto del usuario antes de permitir hablar. */
     desbloquear() {
+      this._activa = true;
       if (!this.disponible) return;
       try {
         /* Un texto muy corto y sin volumen: despierta la voz del sistema
@@ -152,6 +170,15 @@ window.CORE = (function () {
       texto = String(texto === undefined || texto === null ? "" : texto);
       if (texto.trim()) this._ultimo = texto;
       if (!this.disponible || this.silenciado) return;
+      /* Los navegadores bloquean y avisan por consola si se intenta
+         hablar antes del primer gesto del usuario (toque, clic o tecla).
+         Si nadie ha interactuado todavía no hablamos: la frase queda
+         guardada en _ultimo y la burbuja de la guía ya muestra el texto,
+         así el niño puede repetirla tocando a Kiko. */
+      const gestado =
+        this._activa ||
+        (window.navigator && navigator.userActivation && navigator.userActivation.hasBeenActive);
+      if (!gestado) return;
       const sint = window.speechSynthesis;
       try {
         sint.cancel();
@@ -979,6 +1006,14 @@ window.CORE = (function () {
     actual: "home",
     pila: [],
     ir(id, datos) {
+      /* Reentrar a la pantalla en la que ya estamos (p. ej. "🔁 Otra
+         vez" lanza otra actividad desde la pantalla de actividad) no
+         debe apilar la misma pantalla dos veces: si no, "Atrás" tendria
+         que darse dos veces para salir. Se reemplaza en su lugar. */
+      if (id === this.actual) {
+        this.reemplazar(id, datos);
+        return;
+      }
       this.pila.push({ id: this.actual, datos: this._datosActuales });
       this._datosActuales = datos || null;
       this.mostrar(id, datos);
@@ -987,12 +1022,21 @@ window.CORE = (function () {
       this._datosActuales = datos || null;
       this.mostrar(id, datos);
     },
+    /* Volver al inicio de verdad: limpia la pila para que ni Escape
+       ni "Atrás" regresen a pantallas que el niño ya dejó al pulsar
+       "🏠 Menú" o "Inicio". */
+    inicio() {
+      this.pila = [];
+      this._datosActuales = null;
+      this.mostrar("home", null);
+    },
     atras() {
       const prev = this.pila.pop();
       if (prev) {
         this._datosActuales = prev.datos || null;
         this.mostrar(prev.id, prev.datos);
       } else {
+        this._datosActuales = null;
         this.mostrar("home", null);
       }
     },
@@ -1001,6 +1045,12 @@ window.CORE = (function () {
          cambió la pantalla: podrán limpiar sus fijaciones */
       try {
         document.dispatchEvent(new CustomEvent("nav:cambio", { detail: { id: id } }));
+      } catch (e) {}
+      /* El mensaje viejo de Kiko no debe cruzar de pantalla: se apaga
+         la burbuja (y su temporizador) antes de montar la nueva. Los
+         módulos hablan DESPUÉS de mostrar(), así que no los calla. */
+      try {
+        Guia.callar();
       } catch (e) {}
       Voz.parar();
       /* Libera los recursos 3D de la pantalla anterior: el navegador
@@ -1023,6 +1073,14 @@ window.CORE = (function () {
       if (guia) guia.classList.toggle("grande", id === "home");
       if (typeof window["pantalla_" + id] === "function") {
         window["pantalla_" + id](datos);
+      }
+      /* FASE 7 · accesibilidad: las tarjetas div/span con .onclick de
+         la pantalla recién pintada pasan a ser controlables con
+         teclado (la función vive en app.js; es aditiva y tolerante). */
+      if (typeof window.tecladoClicables === "function") {
+        try {
+          window.tecladoClicables();
+        } catch (e) {}
       }
       /* Refresca el personaje guia: puede haber cambiado la mascota
          o su etapa, y su dibujo 3D se libera al cambiar de pantalla. */
@@ -1092,7 +1150,7 @@ window.CORE = (function () {
     },
     verificar(pin) {
       const p = this.leer();
-      return !!(p && p.hash === hashPin(pin));
+      return !!(p && tiempoConstante(p.hash, hashPin(pin)));
     },
   };
 
@@ -1355,6 +1413,8 @@ window.CORE = (function () {
     $,
     $$,
     el,
+    esc,
+    tiempoConstante,
     rand,
     shuffle,
     shuffleFrom,

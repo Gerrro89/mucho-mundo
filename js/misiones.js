@@ -222,13 +222,13 @@ window.MISIONES = (function () {
       ],
     },
 
-    /* ---------- MISIÓN 5: La búho Sabia y las oraciones ---------- */
+    /* ---------- MISIÓN 5: El búho Sabia y las oraciones ---------- */
     {
       id: "m5",
       nivel: 5,
       mundo: "Camino de las Oraciones",
       icono: "🦉",
-      titulo: "La búho que lee de noche",
+      titulo: "El búho que lee de noche",
       personaje: { nombre: "Sabia la búho", emoji: "🦉" },
       img: "img/z8-noche.webp",
       color: "#f2b705",

@@ -765,17 +765,28 @@ window.CURRICULO_UI = (function () {
     cabeceraMat.style.setProperty("--c-materia", m.color || "#3fa34d");
     cuerpo.appendChild(cabeceraMat);
 
-    /* Repaso general de la materia (luego de completar la mitad) */
+    /* Repaso general de la materia: se desbloquea cuando el niño ya
+       completó al menos la mitad de los temas de la materia (antes no
+       había guard y salían preguntas de temas nunca vistos). */
     const evsMat = evaluacionesDelPerfil();
     const prevMat = evsMat["materia:" + grado + "-" + materia];
+    const listaTemasRepaso = CUR.listaConId(grado, materia) || [];
+    const temasHechosRepaso = listaTemasRepaso.filter(function (t) { return temaListo(t.id); }).length;
+    const mitadRepaso = Math.max(1, Math.ceil(listaTemasRepaso.length / 2));
     const fila_repaso = el("div", "repaso-materia-fila");
-    const rotuloMat = prevMat
-      ? "🏅 Repaso de la materia (tu nota: " + prevMat.nota + "/" + prevMat.total + ")"
-      : "🏅 Repaso de la materia";
-    const btnMat = boton(rotuloMat, "btn mediano repaso-materia", () =>
-      C.Nav.ir("repaso", { g: grado, m: materia, todo: true })
-    );
-    fila_repaso.appendChild(btnMat);
+    if (temasHechosRepaso >= mitadRepaso) {
+      const rotuloMat = prevMat
+        ? "🏅 Repaso de la materia (tu nota: " + prevMat.nota + "/" + prevMat.total + ")"
+        : "🏅 Repaso de la materia";
+      const btnMat = boton(rotuloMat, "btn mediano repaso-materia", () =>
+        C.Nav.ir("repaso", { g: grado, m: materia, todo: true })
+      );
+      fila_repaso.appendChild(btnMat);
+    } else {
+      fila_repaso.appendChild(el("span", "unidad-hint",
+        " Completa " + mitadRepaso + " de los " + listaTemasRepaso.length +
+        " temas de la materia para desbloquear su repaso 🌱"));
+    }
     if (window.PROFE && typeof window.PROFE.tocarAhora === "function") {
       const pendiente = CUR.listaConId(grado, materia).find((t2) => !temaListo(t2.id)) || CUR.listaConId(grado, materia)[0];
       fila_repaso.appendChild(boton("🧑‍🏫 Pídeme un consejo", "btn mediano btn-profe", () =>

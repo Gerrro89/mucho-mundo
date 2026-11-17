@@ -56,6 +56,12 @@ html[data-tema="noche"] .logo-titulo {
   -webkit-text-fill-color: #ffd97a;
 }
 html[data-tema="noche"] .logo-sub { color: #9ed2ff; }
+/* El brillo ✨ del logo, dorado como el título (no queda blanco frío) */
+html[data-tema="noche"] .logo-brillo { color: #ffd97a; }
+/* La franja decorativa bajo la barra baja de intensidad de noche */
+html[data-tema="noche"] .barra-superior::after {
+  filter: saturate(0.5) brightness(0.8);
+}
 html[data-tema="noche"] .btn-icono,
 html[data-tema="noche"] .btn-perfil {
   background: linear-gradient(180deg, #1c3161, #141f44);

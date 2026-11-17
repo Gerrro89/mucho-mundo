@@ -212,6 +212,10 @@ window.MATERIAS_HOME = (function () {
           /* mantener el perfil sincronizado con lo que ve el panel adulto */
           if (C.Store.perfilActivo && C.Store.perfilActivo.grado !== g.id) {
             C.Store.perfilActivo.grado = g.id;
+            /* el cambio del perfil debe sobrevivir la recarga: sin esto
+               solo se guardaba en memoria y el archivo de perfiles
+               seguria con el grado anterior (o sin grado) */
+            C.Store._escribirPerfiles();
           }
           C.Store.save();
         }

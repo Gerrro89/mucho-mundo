@@ -421,7 +421,11 @@ window.ACT = (function () {
         DATA.consonantes.find((v) => v.l === objetivo) ||
         null;
       const pista = info ? DATA.textoSonido(objetivo) : "";
-      const opcionesPool = pool.length >= 4 ? pool : pool.concat(["A", "E", "I", "O", "U", "M", "P", "S", "L", "T"]).slice(0, 8);
+      const baseUnica = Array.from(new Set(pool));
+      const opcionesPool =
+        baseUnica.length >= 4
+          ? baseUnica
+          : Array.from(new Set(baseUnica.concat(["A", "E", "I", "O", "U", "M", "P", "S", "L", "T"]))).slice(0, 8);
       const vals = shuffleFrom(objetivo, opcionesPool, Math.max(4, Math.min(6, opcionesPool.length)));
 
       const consigna = el("p", "consigna", "Encuentra la letra");
@@ -923,7 +927,11 @@ window.ACT = (function () {
       const card = el("div", "tarjeta-explorar mini");
       card.innerHTML = '<div class="explorar-emoji">' + palabra.emoji + "</div>";
       zona.appendChild(card);
-      const consigna = el("p", "consigna", "Ordena las sílabas de " + palabra.s);
+      const texto =
+        palabra.s.startsWith("el ")
+          ? "Ordena las sílabas del " + palabra.s.slice(3)
+          : "Ordena las sílabas de " + palabra.s;
+      const consigna = el("p", "consigna", texto);
       const altavoz = el("button", "btn-altavoz", "🔊");
       altavoz.onclick = () => api2.hablar(palabra.w);
       const fila = el("div", "fila-consigna");

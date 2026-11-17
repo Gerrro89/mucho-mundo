@@ -939,7 +939,7 @@ window.CURRICULO_DBA.g4.cnaturales = [
       "La red se reorganiza: otros seres pierden alimento o depredadores.", "Cada eslabón sostiene a otros."],
     ["La garza come peces pequeños y también ranas. Esto demuestra que...", ["un depredador puede tener varias presas", "la garza es una planta", "las ranas no sirven", "los peces no existen"], 0,
       "Las conexiones múltiples son lo que hace una red en vez de una sola línea.", "Una presa, otra presa."],
-    ["Las redes tróficas se dibujan con...", ["flechas que van de quien es comida a quien come", "líneas de colores sin sentido", "números de teléfono", "letras del alfabeto"], 2,
+    ["Las redes tróficas se dibujan con...", ["flechas que van de quien es comida a quien come", "líneas de colores sin sentido", "números de teléfono", "letras del alfabeto"], 0,
       "La flecha indica el paso de la energía: de lo que se come a quien come.", "Apunta al que come."],
     ["¿Quién se beneficia cuando hay muchas plantas en un ecosistema?", ["Solo los descomponedores", "Nadie", "Solo el agua", "Todos los niveles que dependen de ellas"], 3,
       "De las plantas dependen consumidores primarios, secundarios y más.", "Mira hacia arriba en la red."],
@@ -1227,7 +1227,7 @@ window.CURRICULO_DBA.g4.cnaturales = [
       "El sonido es el estímulo y salir es la respuesta aprendida.", "Oír y actuar."],
     ["Un pescado que huye al ver una sombra...", ["responde a un estímulo visual", "está reproduciéndose", "está haciendo digestión", "no hace nada"], 0,
       "La sombra es información visual que el cuerpo traduce en respuesta.", "Vio y reaccionó."],
-    ["Los seres vivos se relacionan con su ambiente para...", ["vivir y adaptarse", "perder energía", "dejar de respirar", "volverse piedras"], 1,
+    ["Los seres vivos se relacionan con su ambiente para...", ["vivir y adaptarse", "perder energía", "dejar de respirar", "volverse piedras"], 0,
       "Reaccionar al entorno permite buscar alimento, agua y seguridad.", "Es cuestión de sobrevivir."],
     ["¿Cuál es una respuesta ante el dolor?", ["Ignorarlo siempre", "Dormir ocho horas", "Retirar la parte afectada y llorar", "Comer más rápido"], 2,
       "Alejarse de lo que daña y avisar con el llanto son respuestas de protección.", "El cuerpo se protege."]
@@ -1695,7 +1695,7 @@ window.CURRICULO_DBA.g4.csociales = [
       "La extracción de metales fue una de las principales riquezas de la época.", "De allí salía el oro."],
     ["Las ciudades coloniales...", ["no tenían plaza", "tenían plaza, iglesia y calles trazadas", "eran todas flotantes", "no tenían gobierno"], 1,
       "Su diseño seguía normas europeas con la plaza como centro.", "Todo giraba en la plaza."],
-    ["En la Colonia, la religión católica...", ["no se practicaba", "tenía gran influencia en la vida cotidiana", "se conocía solo en África", "era prohibida"], 2,
+    ["En la Colonia, la religión católica...", ["no se practicaba", "tenía gran influencia en la vida cotidiana", "se conocía solo en África", "era prohibida"], 1,
       "Marcaba fiestas, costumbres y hasta el calendario de la época.", "Estaba en todas partes."],
     ["Muchos nombres de pueblos y ciudades...", ["son de este año", "salen del fútbol", "son inventados ayer", "conservan raíces indígenas o españolas"], 3,
       "La toponimia recuerda el origen de cada lugar.", "Escucha el nombre del pueblo."],
@@ -1849,7 +1849,7 @@ window.CURRICULO_DBA.g4.ingles = [
       "Physical Education es Educación Física, la clase de deportes.", "Es la clase de ejercicio."],
     ["Lee: «School starts at 7:30.» ¿Qué se informa?", ["La hora de inicio", "El almuerzo", "Un examen", "Las vacaciones"], 0,
       "«Starts at» marca a qué hora comienza la escuela.", "Busca la hora."],
-    ["Lee: «After class I play with my friends.» ¿Cuándo sucede?", ["Después de clase", "Antes de clase", "En la noche", "Nunca"], 1,
+    ["Lee: «After class I play with my friends.» ¿Cuándo sucede?", ["Después de clase", "Antes de clase", "En la noche", "Nunca"], 0,
       "«After class» significa después de terminar las clases.", "After = después."],
     ["¿Cuál es la forma correcta con «He»?", ["He study English.", "He studys English.", "He studies English.", "He studying English."], 2,
       "«Study» termina en -y: con «he» cambia a -ies: He studies English.", "La -y se vuelve -ies."]
@@ -2231,7 +2231,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Para investigar la garza real, ¿qué palabras uso?",
         ["la garza blanca que vive cerca del agua en Colombia", "ave", "garza real", "pájaros blancos de la ciénaga"],
-        3,
+        2,
         "'Garza real' es el nombre preciso del ave. Es mejor que 'ave', que es demasiado general.",
         "'Garza real' es el nombre preciso del ave."
       ],
@@ -2339,7 +2339,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Cuál es una buena pregunta guía sobre la cumbia?",
         ["música", "por qué la cumbia es patrimonio de Colombia", "bailar", "acordeón"],
-        3,
+        1,
         "La pregunta 'por qué' pide una explicación y te lleva a buscar textos con sentido.",
         "La pregunta 'por qué' pide una explicación y te lleva a buscar textos con sentido."
       ],
@@ -2448,7 +2448,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Cuál es una buena señal de un sitio educativo?",
         ["tiene anuncios que parpadean", "pide datos personales al entrar", "muestra autor, fecha y fuentes", "usa mayúsculas en todo"],
-        3,
+        2,
         "Autor, fecha y fuentes son la firma de un contenido responsable.",
         "Autor, fecha y fuentes son la firma de un contenido responsable."
       ],
@@ -2483,7 +2483,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Un compañero dice que un dato es cierto 'porque lo vio en internet'. ¿Qué le respondes?",
         ["internet tiene toda la verdad", "conviene comprobar la fuente antes de creerlo", "entonces está bien", "copiemos el dato"],
-        0,
+        1,
         "Internet contiene fuentes buenas y malas. La clave es evaluar quién publica y con qué pruebas.",
         "Internet contiene fuentes buenas y malas."
       ]
@@ -2589,7 +2589,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Un enlace dice 'gana un teléfono'. ¿Qué hago?",
         ["hago clic ya", "lo ignoro y le aviso al adulto", "lo comparto", "escribo mis datos"],
-        3,
+        1,
         "Los mensajes que prometen premios suelen ser trampas. Ignorarlos y avisar es lo correcto.",
         "Los premios fáciles suenan a trampa."
       ],
@@ -2684,7 +2684,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Cuál es una buena imagen para explicar el tejido wayuu?",
         ["una foto de una artesanía wayuu", "un dibujo de un tren", "un paisaje de montaña nevada", "un video sin conexión"],
-        2,
+        0,
         "La buena imagen ilustra el tema exacto del que habla el texto."
       ],
       [
@@ -2696,7 +2696,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Una imagen encontrada no se entiende sola. ¿Qué hago?",
         ["la borro", "la acompaño de un texto corto que la explique", "la giro muchas veces", "la pongo más veces"],
-        3,
+        1,
         "Texto e imagen se complementan: el texto explica lo que la imagen muestra."
       ],
       [
@@ -2811,7 +2811,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Qué hago si me equivoco al presentar?",
         ["me siento mal y me callo", "respiro, corrijo y sigo", "corro del salón", "culpo al computador"],
-        3,
+        1,
         "Un error se corrige con calma y se continúa. Es parte de aprender."
       ],
       [
@@ -2904,7 +2904,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Ubico la imagen donde estaba el título por error. ¿Qué hago?",
         ["la dejo tapando todo", "la recoloco y verifico que no tape el texto", "borro la lámina", "la agrando"],
-        3,
+        1,
         "Verificar la ubicación evita que un elemento tape a otro."
       ],
       [
@@ -2935,7 +2935,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Qué aportan los espacios en blanco?",
         ["hacen que el diseño se vea ordenado y fácil de leer", "estorban", "ocupan el trabajo", "no sirven"],
-        2,
+        0,
         "El aire visual ordena la lámina y facilita la lectura."
       ]
     ],
@@ -3011,7 +3011,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Qué hago si no sé responder una pregunta del público?",
         ["miento", "reconozco que no lo sé y lo investigaré", "me río", "culpo al computador"],
-        2,
+        1,
         "Reconocer lo que falta por aprender es honesto y valiente."
       ],
       [
@@ -3030,7 +3030,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "Si mi trabajo fue en equipo, ¿qué escribo en las conclusiones?",
         ["las ideas del grupo y el nombre de los integrantes", "solo mi nombre", "ningún nombre", "un saludo"],
-        1,
+        0,
         "Reconocer al equipo es justo y muestra trabajo colaborativo."
       ],
       [
@@ -3130,7 +3130,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Qué hago al terminar mi presentación?",
         ["agradezco y abro preguntas", "me siento sin decir nada", "me voy", "repito todo"],
-        3,
+        0,
         "Cerrar con agradecimiento y preguntas deja una buena impresión."
       ],
       [
@@ -3148,7 +3148,7 @@ window.CURRICULO_DBA.g4.tecnologia = [
       [
         "¿Por qué conviene presentar al grupo el trabajo digital?",
         ["para compartir lo aprendido y escuchar otras ideas", "para competir", "para perder el tiempo", "porque no hay más opción"],
-        1,
+        0,
         "Compartir enriquece el aprendizaje y fortalece la confianza."
       ],
       [
@@ -3253,7 +3253,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "¿Cuál de estas obras tiene volumen real (no simulado)?",
         ["un mural", "un relieve en arcilla", "un poema", "un cartel"],
-        2,
+        1,
         "El relieve en arcilla sobresale de la superficie: tiene volumen que se puede tocar.",
         "El relieve en arcilla sobresale de la superficie: tiene volumen que se puede toc..."
       ],
@@ -3267,7 +3267,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si aprietas plastilina y le das forma de pelota, estás...",
         ["pintando", "modelando volumen", "dibujando", "escribiendo"],
-        0,
+        1,
         "Modelar es dar volumen a una materia blanda con las manos.",
         "Mis manos le dan forma."
       ],
@@ -3281,7 +3281,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "La noción de volumen en el arte sirve para...",
         ["escribir mejor", "crear formas que parecen o son sólidas y ocupan espacio", "ordenar el cuaderno", "aprender verbos"],
-        3,
+        1,
         "Toda obra con volumen busca que percibamos sólidos que ocupan lugar en el espacio.",
         "Toda obra con volumen busca que percibamos sólidos que ocupan lugar en el espacio."
       ]
@@ -3490,7 +3490,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si la luz viene de la izquierda, la sombra de un objeto cae...",
         ["a la derecha", "a la izquierda", "hacia arriba", "en todos lados"],
-        2,
+        0,
         "La sombra se proyecta del lado contrario a la fuente de luz.",
         "La sombra se proyecta del lado contrario a la fuente de luz."
       ],
@@ -3504,7 +3504,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Para pasos de tono ordenados uso la técnica de...",
         ["manchas suaves", "tachar fuerte", "líneas cruzadas al azar", "borrar media hoja"],
-        3,
+        0,
         "Las manchas o tramas ligeras y repetidas permiten gradaciones limpias de claro a oscuro.",
         "Las manchas o tramas ligeras y repetidas permiten gradaciones limpias de claro a..."
       ],
@@ -3518,14 +3518,14 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si mezclo varios colores sin orden para simular sombra, la figura...",
         ["gana volumen", "puede verse sucia y sin dirección de luz", "se ve más clara", "dura más"],
-        0,
+        1,
         "Mezclar sin plan desluce; conviene elegir un color base y oscurecerlo gradualmente.",
         "Mezclar sin plan desluce; conviene elegir un color base y oscurecerlo gradualmen..."
       ],
       [
         "Dar volumen con sombras consiste en...",
         ["repetir el mismo tono en toda la figura", "transitar del claro al oscuro según la luz", "usar solo negro", "dibujar bordes dobles"],
-        3,
+        1,
         "La gradación coherente de tonos es lo que engaña al ojo y produce volumen.",
         "La gradación coherente de tonos es lo que engaña al ojo y produce volumen."
       ]
@@ -3607,28 +3607,28 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si dibujas la puerta de tu casa pequeña y el carro del vecino grande al lado, el espacio parece...",
         ["correcto", "descuadrado", "profundo", "ordenado"],
-        3,
+        1,
         "Las proporciones sin relación rompen la lógica de la distancia y el espacio se ve raro.",
         "Las proporciones sin relación rompen la lógica de la distancia y el espacio se v..."
       ],
       [
         "En una foto, un edificio lejano se ve más pequeño porque...",
         ["es un edificio pequeño", "la distancia reduce el tamaño aparente", "está pintado de claro", "hay niebla"],
-        0,
+        1,
         "A mayor distancia, menor ángulo visual: por eso el objeto ocupa menos en el encuadre.",
         "A mayor distancia, menor ángulo visual: por eso el objeto ocupa menos en el encu..."
       ],
       [
         "Para lograr profundidad en mi paisaje uso...",
         ["tres planos: primer plano, medio y fondo", "solo un color", "líneas horizontales en toda la hoja", "un único objeto"],
-        1,
+        0,
         "Organizar en tres planos es una forma sencilla de ordenar cerca y lejos.",
         "Organizar en tres planos es una forma sencilla de ordenar cerca y lejos."
       ],
       [
         "En un dibujo con perspectiva, las veredas estrechas se vuelven...",
         ["más anchas hacia el fondo", "más angostas conforme se alejan", "iguales siempre", "circular"],
-        2,
+        1,
         "Las líneas paralelas parecen acercarse al horizonte: se estrechan con la distancia.",
         "Las líneas paralelas parecen acercarse al horizonte: se estrechan con la distanc..."
       ],
@@ -3736,21 +3736,21 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "En un cuarto con paredes, las líneas del techo y el piso van...",
         ["en dirección contraria al punto de fuga", "hacia el punto de fuga", "en círculos", "no se dibujan"],
-        2,
+        1,
         "Las líneas horizontales profundas del cuarto convergen hacia el punto de fuga.",
         "Las líneas horizontales profundas del cuarto convergen hacia el punto de fuga."
       ],
       [
         "Un error típico al usar perspectiva es...",
         ["colocar todos los puntos de fuga en el horizonte", "poner puntos de fuga en lugares distintos sin lógica", "estirar las líneas", "usar regla"],
-        0,
+        1,
         "En un dibujo simple conviene un solo punto de fuga coherente; varios desordenan el espacio.",
         "En un dibujo simple conviene un solo punto de fuga coherente; varios desordenan..."
       ],
       [
         "Al dibujar varias rejas alineadas, todas comparten...",
         ["el mismo punto de fuga", "un color distinto", "diferente altura", "ninguna dirección"],
-        3,
+        0,
         "Los objetos paralelos en el espacio real comparten la misma dirección de fuga.",
         "Los objetos paralelos en el espacio real comparten la misma dirección de fuga."
       ],
@@ -3763,7 +3763,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "La perspectiva de un solo punto es útil para dibujar...",
         ["un pasillo o una carretera recta", "una cara humana", "una flor", "un texto"],
-        2,
+        0,
         "Es ideal para escenas con líneas profundas que se alejan frente al observador."
       ]
     ],
@@ -3844,7 +3844,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Para ordenar el guion uso...",
         ["escenas numeradas con su lugar", "párrafos largos sin títulos", "solo dibujos", "palabras al azar"],
-        3,
+        0,
         "Numerar escenas y situarlas ordena el trabajo del equipo teatral."
       ],
       [
@@ -3856,7 +3856,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "El lenguaje del diálogo debe sonar...",
         ["natural para los personajes y claro para el público", "igual para todos y muy técnico", "lleno de palabras raras", "sin sentido"],
-        3,
+        0,
         "Cada personaje puede tener su forma de hablar, pero el público debe entenderlo."
       ],
       [
@@ -3868,7 +3868,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Al final del guion puedo incluir...",
         ["una despedida o moraleja breve", "más conflictos nuevos", "los créditos sin más", "nada que cierre"],
-        2,
+        0,
         "Un cierre redondo deja al público con la idea principal de la obra."
       ]
     ],
@@ -3949,13 +3949,13 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si todos hablan al mismo tiempo en la escena, el público...",
         ["entiende todo", "no entiende nada", "se divierte más", "aplaude más"],
-        2,
+        1,
         "Turnarse los parlamentos permite que el mensaje llegue claro."
       ],
       [
         "Antes de actuar, para no repetir ideas conviene...",
         ["escuchar las propuestas previas", "ignorar todo", "imponer la mía", "empezar de cero"],
-        3,
+        0,
         "Partir de lo ya dicho evita repeticiones y enriquece la escena."
       ],
       [
@@ -3967,7 +3967,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Si me bloqueo en escena, ¿qué hago?",
         ["me quedo paralizado", "repito o pregunto en el personaje para ganar tiempo", "me río parando la escena", "me voy"],
-        3,
+        1,
         "Los nervios se sortean con recursos del personaje: preguntar, observar o repetir."
       ],
       [
@@ -4055,25 +4055,25 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Un error común al actuar es...",
         ["modular la voz", "hablar tan bajo que no se escucha", "gestualizar mucho", "mirar al público"],
-        0,
+        1,
         "No modular (articular y proyectar) hace que el mensaje se pierda."
       ],
       [
         "Para representar sorpresa, un buen gesto es...",
         ["la boca abierta y ojos muy abiertos", "dormir", "toser", "caminar lento"],
-        3,
+        0,
         "Los gestos faciales claros ayudan al público a leer la emoción a distancia."
       ],
       [
         "Gesticular de más, sin relación con el texto...",
         ["ayuda siempre", "puede distraer y desorientar", "es mejor que hablar", "no se nota"],
-        0,
+        1,
         "El gesto debe acompañar el sentido; si es excesivo, compite con la palabra."
       ],
       [
         "Si el personaje habla en secreto, mi voz...",
         ["sube de volumen", "baja y se vuelve pausada", "se vuelve cantarina", "no cambia"],
-        3,
+        1,
         "Bajar la voz y el ritmo comunica confidencia y tensión en la escena."
       ],
       [
@@ -4085,7 +4085,7 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Para darle vida al personaje, integro...",
         ["voz, gesto, mirada y postura", "solo la voz", "solo las manos", "solo el texto"],
-        2,
+        0,
         "La actuación es un todo coordinado: todos los canales expresivos se suman."
       ]
     ],
@@ -4161,37 +4161,37 @@ window.CURRICULO_DBA.g4.artistica = [
       [
         "Un apagón o error en escena, lo mejor es...",
         ["parar en pánico", "seguir con calma y recuperar el hilo", "reírse fuerte", "pedir que se retiren"],
-        2,
+        1,
         "La improvisación y la calma permiten retomar sin romper la ficción."
       ],
       [
         "Los decorados deben ubicarse...",
         ["tapando a los actores", "sin estorbar pasos ni la visión", "en el centro siempre", "donde caigan"],
-        0,
+        1,
         "La seguridad y la visibilidad guían la colocación del espacio escénico."
       ],
       [
         "Si un actor se le olvida una línea, otro puede...",
         ["ignorarla y ayudar con una pista natural", "burlarse", "salir de escena", "reírse en su cara"],
-        1,
+        0,
         "El apoyo entre compañeros sostiene la escena y evita el ridículo."
       ],
       [
         "Para ocupar el espacio escénico bien, debo...",
         ["quedarme pegado en un punto", "moverme con sentido según la acción", "caminar sin parar", "bloquear la salida"],
-        2,
+        1,
         "Los desplazamientos tienen motivo: acercarse, alejarse, buscar, huir."
       ],
       [
         "El ruido detrás del telón durante la función...",
         ["es normal e ideal", "distrae y se evita ensayando", "ayuda al suspenso", "no importa"],
-        0,
+        1,
         "Se cuida el silencio en camerinos y pasillos para no interrumpir la escena."
       ],
       [
         "Reconocer al público al final fortalece porque...",
         ["mejora la relación y agradece la atención", "alarga la obra", "evita el ensayo", "no aporta"],
-        3,
+        0,
         "El teatro es un diálogo entre escena y sala; el agradecimiento lo simboliza."
       ]
     ],
@@ -4298,28 +4298,28 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Los tendones son importantes durante el calentamiento porque...",
         ["conectan músculo con hueso y al estirarse se preparan", "no participan", "solo sirven para correr", "se calientan solos"],
-        3,
+        0,
         "Al estirar gradualmente, los tendones ganan flexibilidad y resisten mejor el esfuerzo.",
         "Al estirar gradualmente, los tendones ganan flexibilidad y resisten mejor el esf..."
       ],
       [
         "¿Qué señal indica que mi cuerpo ya está caliente?",
         ["escalofríos", "sensación de calor y pulso un poco más alto", "sueño", "frío en las manos"],
-        0,
+        1,
         "Calor corporal y pulsaciones elevadas son señales de que la sangre llega a los músculos.",
         "Calorcito y pulso arriba."
       ],
       [
         "Si siento dolor agudo al calentar, debo...",
         ["seguir igual para acostumbrarme", "detenerme y avisar al docente", "calentar más fuerte", "ignorarlo"],
-        2,
+        1,
         "El dolor es una alerta: parar y consultar evita una lesión mayor.",
         "El dolor es una alerta: parar y consultar evita una lesión mayor."
       ],
       [
         "La sangre durante el ejercicio se distribuye...",
         ["hacia los músculos que trabajan", "al estómago para digerir", "solo a la cabeza", "no cambia"],
-        1,
+        0,
         "El cuerpo redirige el flujo sanguíneo a los músculos activos; por eso no es bueno comer mucho antes.",
         "El cuerpo redirige el flujo sanguíneo a los músculos activos; por eso no es buen..."
       ]
@@ -4413,14 +4413,14 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Si el día es frío, el calentamiento debe...",
         ["ser más largo y progresivo", "omtirse", "consistir solo en estirar", "durar un minuto"],
-        3,
+        0,
         "Con frío el cuerpo tarda más en calentar; conviene alargar la fase inicial.",
         "Con frío el cuerpo tarda más en calentar; conviene alargar la fase inicial."
       ],
       [
         "Un rebote tipo estiramiento dinámico controlado se hace...",
         ["a saltones sin fin", "con movimiento lento y amplitud progresiva", "en seco y rápido", "sin respirar"],
-        0,
+        1,
         "La amplitud creciente y el control evitan tirones y preparan la musculatura.",
         "La amplitud creciente y el control evitan tirones y preparan la musculatura."
       ],
@@ -4535,7 +4535,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "En una carrera de velocidad, los brazos ayudan...",
         ["impulsando con fuerza coordinada", "sin moverse", "bloqueados arriba", "tirando del aire"],
-        3,
+        0,
         "La fuerza de brazos se coordina con las piernas para ganar impulso.",
         "La fuerza de brazos se coordina con las piernas para ganar impulso."
       ],
@@ -4549,21 +4549,21 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Si mis hombros están subidos y tensos al correr, debo...",
         ["subirlos más", "relajarlos y bajarlos", "tensar el cuello", "correr más rápido"],
-        0,
+        1,
         "La tensión gasta energía y acorta la respiración; conviene soltar hombros y manos.",
         "La tensión gasta energía y acorta la respiración; conviene soltar hombros y manos."
       ],
       [
         "Las manos al correr se mantienen...",
         ["apretadas con fuerza excesiva", "relajadas, casi como si sujetaran un huevo", "abiertas en cruz", "en los bolsillos"],
-        2,
+        1,
         "Manos relajadas evitan tensión que se transmite a brazos y hombros.",
         "Manos relajadas evitan tensión que se transmite a brazos y hombros."
       ],
       [
         "Al final de una carrera larga, mantener la técnica...",
         ["se abandona y se arrastra", "es clave para llegar mejor y respirar bien", "no importa", "se cambia por caminar siempre"],
-        0,
+        1,
         "La técnica sostenida permite mantener el ritmo y una llegada controlada.",
         "La técnica sostenida permite mantener el ritmo y una llegada controlada."
       ]
@@ -4650,28 +4650,28 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Al recibir, la mejor posición de los pies es...",
         ["juntos y rígidos", "separados, listos para ajustar el cuerpo", "uno atrás muy lejos", "saltando siempre"],
-        2,
+        1,
         "Base amplia y rodillas flexibles permiten reaccionar y amortiguar.",
         "Base amplia y rodillas flexibles permiten reaccionar y amortiguar."
       ],
       [
         "La comunicación en el pase incluye...",
         ["callarse siempre", "nombrar o señalar al compañero", "gritar sin sentido", "esperar el error"],
-        0,
+        1,
         "Señales o llamados claros evitan malentendidos y pases perdidos.",
         "Señales o llamados claros evitan malentendidos y pases perdidos."
       ],
       [
         "Si el balón viene alto hacia mi pecho, lo recibo...",
         ["dejándolo pasar", "con las manos o el pecho amortiguando", "pateándolo lejos", "con los talones"],
-        2,
+        1,
         "Absorber la energía del balón con la superficie del cuerpo evita que se dispare.",
         "Absorber la energía del balón con la superficie del cuerpo evita que se dispare."
       ],
       [
         "Una buena recepción se logra...",
         ["mirando el balón hasta que se detenga", "cerrando los ojos", "con los brazos tiesos", "de espaldas"],
-        3,
+        0,
         "Seguir el balón con la vista y amortiguarlo garantiza el control.",
         "Seguir el balón con la vista y amortiguarlo garantiza el control."
       ],
@@ -4781,26 +4781,26 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Al lanzar, conviene soltar el objeto...",
         ["en el punto más alto del arco con buena dirección", "en cualquier momento", "después de pasar el cuerpo", "con la mirada al suelo"],
-        2,
+        0,
         "Soltar en el punto óptimo del arco traduce todo el esfuerzo en trayectoria útil.",
         "Soltar en el punto óptimo del arco traduce todo el esfuerzo en trayectoria útil."
       ],
       [
         "El seguimiento del movimiento después de lanzar...",
         ["provoca lesiones", "ayuda a mantener la trayectoria y evitar tirones", "es opcional e inútil", "frena el objeto antes"],
-        0,
+        1,
         "Decelerar gradualmente protege el hombro y completa la mecánica del gesto."
       ],
       [
         "Si quiero acertar a un objetivo fijo, lo mejor es...",
         ["variar el ángulo a cada intento", "repetir la técnica y ajustar según el resultado", "lanzar con fuerza sin mirar", "cambiar de mano siempre"],
-        2,
+        1,
         "Repetir el patrón y corregir poco a poco lleva a la precisión."
       ],
       [
         "Coordinar piernas, cadera y brazo al lanzar se llama...",
         ["fuerza bruta", "encadenamiento coordinado", "equilibrio pasivo", "resistencia"],
-        0,
+        1,
         "La cadena de segmentos hace que la fuerza se acumule en lugar de perderse por partes."
       ]
     ],
@@ -4877,7 +4877,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Para saltar más alto, el impulso de los brazos...",
         ["se ignora", "se coordina con el estiramiento de piernas", "se usa al final del vuelo", "no influye"],
-        3,
+        1,
         "Brazos y piernas trabajando juntos suman altura al salto."
       ],
       [
@@ -4889,25 +4889,25 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Caer de frente en un juego es mejor...",
         ["golpeando con las manos rígidas", "rolándose y absorbiendo con piernas flexionadas", "de espaldas", "sin flexionar"],
-        2,
+        1,
         "La caída con rodillo y piernas blandas distribuye la fuerza y evita lesiones."
       ],
       [
         "En un salto concreto, la secuencia es...",
         ["impulso, vuelo, aterrizaje absorbido", "aterrizaje, vuelo, impulso", "vuelo solo", "correr y sentarse"],
-        3,
+        0,
         "Las tres fases ocurren en orden y cada una prepara a la siguiente."
       ],
       [
         "Saltar repetidamente sin control...",
         ["mejora la resistencia", "puede sobrecargar rodillas y tobillos", "es la mejor técnica", "no tiene efectos"],
-        0,
+        1,
         "El impacto acumulado sin técnica fatiga las articulaciones; por eso se enseña a caer blando."
       ],
       [
         "La técnica del aterrizaje también sirve cuando...",
         ["corro en línea recta", "caigo sin querer en el recreo o en un juego", "estoy sentado", "me acuesto"],
-        2,
+        1,
         "Saber caer con flexión protege en situaciones cotidianas fuera del aula."
       ]
     ],
@@ -4989,7 +4989,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Contar latidos con el pulgar...",
         ["es lo recomendable", "puede sumar el pulgar al conteo y dar error", "es más preciso", "no influye"],
-        2,
+        1,
         "El pulgar tiene arteria propia; por eso se usan los otros dos dedos."
       ],
       [
@@ -5013,7 +5013,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Si siento el corazón muy acelerado y me marea al medir...",
         ["insisto fuerte", "descanso y le aviso al docente", "sigo corriendo", "ignoro la sensación"],
-        3,
+        1,
         "Mareo o molestia son señales para detenerse y pedir ayuda."
       ],
       [
@@ -5095,13 +5095,13 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Un estiramiento sostenido suave dura aproximadamente...",
         ["1 segundo", "10 a 20 segundos", "2 minutos mínimo", "media hora"],
-        0,
+        1,
         "Ese tiempo permite que el músculo se relaje y gane amplitud sin forzar."
       ],
       [
         "La respiración profunda al final...",
         ["acelera el corazón", "ayuda a oxigenar y a bajar la frecuencia", "no tiene efecto", "causa mareo"],
-        2,
+        1,
         "Inspirar y expirar largo activa la recuperación y calma el sistema nervioso."
       ],
       [
@@ -5119,13 +5119,13 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "La vuelta a la calma completa el trabajo porque...",
         ["cierra la sesión de forma segura", "la hace más corta", "la alarga sin motivo", "sirve solo para competir"],
-        3,
+        0,
         "Es la etapa final que integra esfuerzo y recuperación con seguridad."
       ],
       [
         "Al terminar, mis músculos deben sentirse...",
         ["agujetas ya mismo", "recuperándose gradualmente sin dolor agudo", "muy fríos", "insensibles"],
-        0,
+        1,
         "La recuperación normal no genera dolor intenso; molestias fuertes se informan."
       ]
     ],
@@ -5206,7 +5206,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Ganar con humildad se ve cuando...",
         ["me jacto de ser el mejor", "reconozco el esfuerzo de todos", "menosprecio al rival", "repito que gané"],
-        0,
+        1,
         "Reconocer a los demás y al esfuerzo compartido es señal de madurez deportiva."
       ],
       [
@@ -5218,13 +5218,13 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Las reglas del juego sirven para...",
         ["limitar por limitar", "proteger a los jugadores y hacerlo justo", "favorecer a uno", "complicar todo"],
-        0,
+        1,
         "Las reglas garantizan seguridad e igualdad de condiciones."
       ],
       [
         "Si un compañero critica a otro por un error...",
         ["me sumo a criticar", "le pido que respete y lo animemos", "grito igual", "me callo y no hago nada"],
-        2,
+        1,
         "Animar en el error fortalece al equipo y la convivencia."
       ],
       [
@@ -5236,7 +5236,7 @@ window.CURRICULO_DBA.g4.efisica = [
       [
         "Después del juego, una buena actitud es...",
         ["agradecer y reconocer el esfuerzo de todos", "discutir el marcador", "irme sin avisar", "quejarme"],
-        3,
+        0,
         "El cierre con gratitud mantiene la amistad y las ganas de volver a jugar."
       ]
     ],
@@ -5336,14 +5336,14 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Para que el equipo confíe en ti como líder, es importante...",
         ["cumplir lo que prometes", "prometer mucho y no hacer", "cambiar de opinión sin avisar", "mandar sin escuchar"],
-        1,
+        0,
         "La coherencia entre palabras y actos genera confianza en el grupo.",
         "La coherencia entre palabras y actos genera confianza en el grupo."
       ],
       [
         "Si un compañero es tímido y casi no habla, yo...",
         ["lo invito a decir su idea", "lo dejo de lado", "hablo por él", "lo apuro en voz alta"],
-        3,
+        0,
         "Invitar con calma es un gesto de liderazgo que incluye a todos.",
         "Invitar con calma es un gesto de liderazgo que incluye a todos."
       ],
@@ -5357,7 +5357,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Cuando un líder admite un error, el grupo siente...",
         ["vergüenza de él", "respeto y confianza", "que ya no sirve", "que debe obedecer"],
-        2,
+        1,
         "Reconocer el error es señal de fortaleza y enseña que todos aprendemos.",
         "Reconocer el error es señal de fortaleza y enseña que todos aprendemos."
       ],
@@ -5450,7 +5450,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Asumir un trabajo del grupo que nadie quiere...",
         ["es pérdida de tiempo", "es una oportunidad de servir y liderar", "es cosa de ingenuos", "es solo para recibir nota"],
-        3,
+        1,
         "El líder positivo sirve al equipo y no busca solo aplausos.",
         "El líder positivo sirve al equipo y no busca solo aplausos."
       ],
@@ -5464,7 +5464,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Dar ejemplo sin palabras se logra...",
         ["con acciones constantes y respeto", "con castigos", "con amenazas", "con premios"],
-        3,
+        0,
         "La acción repetida con coherencia comunica más que cualquier discurso.",
         "La acción repetida con coherencia comunica más que cualquier discurso."
       ],
@@ -5485,7 +5485,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Un líder que cuida el salón y el material enseña...",
         ["a cuidar lo común", "a desperdiciar", "a no involucrarse", "a culpar"],
-        3,
+        0,
         "Cuidar lo compartido es un acto de respeto que el grupo reconoce y sigue.",
         "Cuidar lo compartido es un acto de respeto que el grupo reconoce y sigue."
       ]
@@ -5571,7 +5571,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Un grupo inclusivo es mejor porque...",
         ["solo ganan los más hábiles", "aprovecha los talentos de todos", "es más lento", "nadie aprende"],
-        2,
+        1,
         "La diversidad de fortalezas multiplica lo que el equipo puede lograr.",
         "La diversidad de fortalezas multiplica lo que el equipo puede lograr."
       ],
@@ -5585,21 +5585,21 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Como líder, celebro los logros de...",
         ["solo mí", "todos los integrantes", "los que trabajaron conmigo", "nadie"],
-        3,
+        1,
         "Reconocer cada aporte motiva y refuerza el sentido de equipo.",
         "Reconocer cada aporte motiva y refuerza el sentido de equipo."
       ],
       [
         "Si el grupo se divierte a costa de un compañero, yo...",
         ["me uno a la burla", "defiendo al compañero y paro la burla", "me callo", "grabo el momento"],
-        0,
+        1,
         "Defender al otro es liderazgo valiente; la burla nunca es divertida para quien la recibe.",
         "Defender al otro es liderazgo valiente; la burla nunca es divertida para quien l..."
       ],
       [
         "Para incluir a todos en la recreación, es útil...",
         ["proponer juegos variados y accesibles", "solo jugar al mismo deporte", "no dejar que nadie juegue", "hacer equipos excluyentes"],
-        1,
+        0,
         "Juegos diversos permiten que cada cual encuentre su lugar.",
         "Juegos diversos permiten que cada cual encuentre su lugar."
       ],
@@ -5699,7 +5699,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Cuando alguien celebra un logro, lo empático es...",
         ["envidiar", "felicitarse con él genuinamente", "restarle valor", "callarse"],
-        0,
+        1,
         "Compartir la alegría ajena fortalece los vínculos.",
         "Compartir la alegría ajena fortalece los vínculos."
       ],
@@ -5713,7 +5713,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Una señal de empatía hacia un compañero es...",
         ["esconder su error", "acompañarlo y no exponerlo", "contarlo en el grupo", "grabarlo"],
-        2,
+        1,
         "Cuidar la privacidad del otro es respeto y empatía.",
         "Cuidar la privacidad del otro es respeto y empatía."
       ],
@@ -5727,7 +5727,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "La empatía evita conflictos porque...",
         ["hace que nadie opine", "me permite comprender antes de reaccionar", "todos piensen igual", "elimina las diferencias"],
-        3,
+        1,
         "Comprender al otro suaviza mi respuesta y previene peleas.",
         "Comprender al otro suaviza mi respuesta y previene peleas."
       ]
@@ -5814,28 +5814,28 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Un compañero llora al perder un partido. Le digo...",
         ["no es para tanto", "entiendo que estés decepcionado; yo también lo sentí", "eres malo", "vete"],
-        0,
+        1,
         "Validar el sentimiento ajeno, sin minimizarlo, es empatía.",
         "Validar el sentimiento ajeno, sin minimizarlo, es empatía."
       ],
       [
         "Cuando estoy nervioso antes de una exposición, puedo...",
         ["respirar profundo y recordar que me prepare", "no presentar", "copiar", "gritar"],
-        2,
+        0,
         "Técnicas simples de respiración calman el cuerpo y la mente.",
         "Técnicas simples de respiración calman el cuerpo y la mente."
       ],
       [
         "Las emociones se comparten mejor...",
         ["con gritos", "con palabras respetuosas", "con empujones", "con silencios raros"],
-        0,
+        1,
         "Las palabras respetuosas comunican sin agredir.",
         "Las palabras respetuosas comunican sin agredir."
       ],
       [
         "Si me confundo de emociones, puedo...",
         ["pedir ayuda a un adulto de confianza", "ocultarlo siempre", "inventar", "castigarme"],
-        3,
+        0,
         "Buscar apoyo es una estrategia madura para entender lo que siento.",
         "Buscar apoyo es una estrategia madura para entender lo que siento."
       ],
@@ -5848,7 +5848,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Cuando alguien expresa una emoción difícil, lo primero es...",
         ["escuchar sin juzgar", "dar consejos largos", "cambiar de tema", "reír"],
-        3,
+        0,
         "La escucha sin juicio es el mejor primer apoyo emocional."
       ]
     ],
@@ -5924,19 +5924,19 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Alejarse un momento de la situación...",
         ["es huir siempre", "puede ayudar a calmarse para volver mejor", "es malo siempre", "no cambia nada"],
-        2,
+        1,
         "Cuando la emoción está muy alta, la distancia temporal es útil."
       ],
       [
         "Antes de reaccionar, me pregunto...",
         ["cómo puedo hacerme daño", "qué pasará si hago esto", "quién gana", "cómo vencerlo"],
-        0,
+        1,
         "Anticipar las consecuencias frena respuestas impulsivas."
       ],
       [
         "Para no lastimar con palabras, conviene...",
         ["pensar antes de hablar", "decir lo primero que me pasa", "insultar", "gritar"],
-        3,
+        0,
         "Filtrar lo que diré evita heridas que el tiempo no borra fácilmente."
       ],
       [
@@ -5948,7 +5948,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "La autorregulación es...",
         ["controlar mis emociones y mis actos", "no sentir nada", "esconder el enojo", "obedecer siempre"],
-        3,
+        0,
         "No se trata de no sentir, sino de manejar lo que hago con ese sentimiento."
       ],
       [
@@ -6041,7 +6041,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Si no logro acuerdo, puedo pedir...",
         ["que intervenga el docente", "pelear más fuerte", "que el otro se vaya", "romper todo"],
-        3,
+        0,
         "Buscar mediación adulta es una estrategia madura, no una rendición."
       ],
       [
@@ -6053,7 +6053,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Un acuerdo escrito o recordado sirve para...",
         ["que ambos cumplan lo prometido", "olvidarlo rápido", "culpar después", "no sirve"],
-        2,
+        0,
         "Acordar y recordar lo hablado hace el diálogo efectivo."
       ],
       [
@@ -6065,7 +6065,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Si el conflicto se repite, puedo...",
         ["aplicar los mismos pasos cada vez", "desistir y pelear", "castigar por mi cuenta", "aislarme"],
-        3,
+        0,
         "La constancia en los pasos hace del diálogo un hábito de convivencia."
       ]
     ],
@@ -6146,7 +6146,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Si el conflicto es por un error mío, lo justo es...",
         ["disculparme y reparar", "esconderlo", "echar la culpa", "olvidar"],
-        3,
+        0,
         "Asumir mi parte es el primer paso hacia una solución honesta."
       ],
       [
@@ -6158,7 +6158,7 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Cuando una solución no funciona, puedo...",
         ["insistir y probar ajustes", "romper todo", "pelear", "abandonar"],
-        2,
+        0,
         "Ajustar la solución con paciencia es parte del proceso de resolver."
       ],
       [
@@ -6170,13 +6170,13 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Después de acordar, es importante...",
         ["cumplir lo prometido", "cambiar de idea", "olvidarlo", "criticar"],
-        2,
+        0,
         "El cumplimiento da credibilidad al diálogo y a las personas."
       ],
       [
         "Si otro grupo tiene un conflicto parecido, yo...",
         ["ofrezco ayudar a mediar con calma", "me burlo", "participo en el pleito", "lo ignoro"],
-        3,
+        0,
         "Ayudar a otros a resolver refuerza una cultura de paz en la escuela."
       ]
     ],
@@ -6257,13 +6257,13 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Cuando pido disculpas, evito...",
         ["decir 'fue sin querer' repetido", "reconocer mi parte", "ofrecer ayuda", "hablar con calma"],
-        1,
+        0,
         "Las excusas constantes diluyen la responsabilidad; conviene asumir el error."
       ],
       [
         "Si un compañero no acepta mi disculpa aún, yo...",
         ["insisto respetuosamente y le doy tiempo", "lo presiono", "me enojo", "lo excluyo"],
-        3,
+        0,
         "El perdón del otro toma su tiempo; respeto ese proceso."
       ],
       [
@@ -6275,19 +6275,19 @@ window.CURRICULO_DBA.g4.etica = [
       [
         "Después de una disculpa reparadora, la relación...",
         ["puede reconstruirse con tiempo", "nunca mejora", "se rompe", "da igual"],
-        3,
+        0,
         "La confianza se recupera con actos coherentes y constantes."
       ],
       [
         "Un buen cierre tras un conflicto es...",
         ["quedar en silencio", "agradecer y desear lo bueno", "seguir peleando", "olvidar a la persona"],
-        0,
+        1,
         "El agradecimiento y el buen deseo cierran el conflicto con dignidad."
       ],
       [
         "Si yo soy el que recibe el daño, puedo...",
         ["practicar el perdón y poner límites", "vengarme", "guardar rencor", "contarlo a todos"],
-        3,
+        0,
         "Perdonar con límites es una decisión madura de paz interior."
       ]
     ],
@@ -6380,7 +6380,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Los ritos de gratitud buscan...",
         ["agradecer lo bueno recibido", "pedir un castigo", "olvidar", "competir"],
-        3,
+        0,
         "Muchas tradiciones tienen momentos para agradecer la vida, la familia o la tierra.",
         "Muchas tradiciones tienen momentos para agradecer la vida, la familia o la tierra."
       ],
@@ -6394,7 +6394,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Si una comunidad realiza un rito, es importante...",
         ["respetarlo aunque yo lo viva distinto", "burlarme", "impedirlo", "grabarlo sin permiso"],
-        3,
+        0,
         "El respeto por la diversidad de expresiones es esencial en una convivencia sana.",
         "Respeto aunque sea distinto."
       ],
@@ -6408,7 +6408,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "¿Qué le da valor a un rito?",
         ["el significado simbólico que comparte el grupo", "su duración", "su costo", "el número de personas"],
-        3,
+        0,
         "Es el significado compartido lo que hace que un rito tenga valor para la comunidad.",
         "Es el significado compartido lo que hace que un rito tenga valor para la comunid..."
       ],
@@ -6510,7 +6510,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El árbol como símbolo en algunas convicciones representa...",
         ["raíces, crecimiento y vida", "un edificio", "un carro", "una tarea"],
-        2,
+        0,
         "El árbol, arraigado y crecido, evoca la vida firme y el desarrollo espiritual.",
         "El árbol, arraigado y crecido, evoca la vida firme y el desarrollo espiritual."
       ],
@@ -6538,7 +6538,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Respetar un símbolo ajeno es señal de...",
         ["madurez y buena convivencia", "debilidad", "indiferencia", "miedo"],
-        3,
+        0,
         "Honrar los símbolos de otros, sin renunciar a los propios, es convivir con respeto.",
         "Honrar los símbolos de otros, sin renunciar a los propios, es convivir con respe..."
       ]
@@ -6632,7 +6632,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El tiempo sagrado de una tradición...",
         ["tiene significado especial para sus practicantes", "no vale nada", "es solo un día libre", "se prohíbe"],
-        2,
+        0,
         "Cada tradición consagra tiempos que considera especialmente valiosos.",
         "Cada tradición consagra tiempos que considera especialmente valiosos."
       ],
@@ -6646,7 +6646,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Si mi familia no celebra una fiesta de otra tradición, yo...",
         ["la conozco igual con respeto", "la critico", "la olvido", "la impido"],
-        1,
+        0,
         "El conocimiento respetuoso no exige adoptar la práctica, sino valorar al otro.",
         "El conocimiento respetuoso no exige adoptar la práctica, sino valorar al otro."
       ],
@@ -6660,7 +6660,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El valor de una celebración está en...",
         ["el significado que comparte la comunidad", "el dinero gastado", "la duración", "el número de regalos"],
-        3,
+        0,
         "No es el lujo, sino el sentido compartido, lo que hace valiosa una celebración.",
         "No es el lujo, sino el sentido compartido, lo que hace valiosa una celebración."
       ]
@@ -6742,7 +6742,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "La gratitud hacia la tierra en algunas tradiciones expresa...",
         ["respeto por la naturaleza y sus frutos", "miedo", "indiferencia", "dominio"],
-        3,
+        0,
         "Muchas comunidades agradecen la tierra y aprenden a cuidarla.",
         "Muchas comunidades agradecen la tierra y aprenden a cuidarla."
       ],
@@ -6756,7 +6756,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Agradecer un favor implica...",
         ["reconocer la bondad del otro", "olvidarlo", "devolverlo con enojo", "exigir más"],
-        2,
+        0,
         "Reconocer la generosidad ajena honra a quien nos ayudó.",
         "Reconocer la generosidad ajena honra a quien nos ayudó."
       ],
@@ -6777,7 +6777,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "La gratitud fortalece la convivencia porque...",
         ["fomenta el respeto y la unión", "crea rivalidades", "no influye", "divide"],
-        3,
+        0,
         "Agradecer mutuamente teje confianza y buen trato entre las personas.",
         "Agradecer mutuamente teje confianza y buen trato entre las personas."
       ]
@@ -6864,7 +6864,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "La reconciliación fortalece la convivencia porque...",
         ["restaura la confianza", "crea más conflicto", "no influye", "divide"],
-        2,
+        0,
         "Cuando se restaura la confianza, la comunidad vuelve a vivir en paz.",
         "Cuando se restaura la confianza, la comunidad vuelve a vivir en paz."
       ],
@@ -6878,14 +6878,14 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El perdón no significa...",
         ["aceptar el daño", "dejar de cuidarme", "permitir que se repita", "olvidar la lección"],
-        0,
+        2,
         "Perdonar no es exponerse: puedo perdonar y a la vez poner límites claros.",
         "Perdonar no es exponerse: puedo perdonar y a la vez poner límites claros."
       ],
       [
         "En la escuela, practicar el perdón evita...",
         ["que los conflictos se acumulen", "la amistad", "el aprendizaje", "la alegría"],
-        2,
+        0,
         "Perdonar pronto impide que los rencores crezcan y dañen el grupo.",
         "Perdonar pronto impide que los rencores crezcan y dañen el grupo."
       ],
@@ -6899,7 +6899,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El perdón es también un camino interior...",
         ["que libera de la amargura", "que produce tristeza", "que no sirve", "que aísla"],
-        3,
+        0,
         "Al soltar el rencor, el corazón se llena de paz y libertad.",
         "Al soltar el rencor, el corazón se llena de paz y libertad."
       ]
@@ -6980,7 +6980,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Si quiero servir, primero debo...",
         ["observar la necesidad real del otro", "imponer mi ayuda", "esperar un premio", "grabarme"],
-        3,
+        0,
         "Servir bien implica atender lo que la persona realmente necesita."
       ],
       [
@@ -6992,7 +6992,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Ayudar a quien no puede retribuir es...",
         ["el corazón del servicio genuino", "una pérdida de tiempo", "una obligación molesta", "algo sin valor"],
-        2,
+        0,
         "El servicio más puro es el que se ofrece a quien no puede devolverlo.",
         "Amor desinteresado."
       ],
@@ -7005,7 +7005,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Servir también es cuidar...",
         ["la naturaleza y los bienes comunes", "solo lo mío", "nada", "los juguetes"],
-        3,
+        0,
         "Cuidar lo común es una forma de servir a todos los que compartimos ese bien."
       ],
       [
@@ -7091,7 +7091,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Los cantos y música en algunas tradiciones...",
         ["expresan alegría y devoción", "molestan", "no significan nada", "sirven para competir"],
-        2,
+        0,
         "La música es una hermosa forma de expresar la fe y la identidad de un grupo."
       ],
       [
@@ -7103,7 +7103,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Si mi amigo celebra una fiesta religiosa distinta a la mía, yo...",
         ["le pregunto con respeto y lo felicito", "lo critico", "lo excluyo", "me burlo"],
-        3,
+        0,
         "Preguntar con cariño y felicitar es un gesto de amistad verdadera."
       ],
       [
@@ -7115,7 +7115,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Reconocer las expresiones ajenas me ayuda a...",
         ["ser más tolerante y amable", "discutir", "compararme", "aislarme"],
-        3,
+        0,
         "El conocimiento respetuoso reduce prejuicios y fortalece la amistad."
       ],
       [
@@ -7201,7 +7201,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Los ritos de paso en distintas tradiciones...",
         ["varían en forma pero acompañan valores humanos", "son idénticos", "no existen", "solo son fiestas"],
-        2,
+        0,
         "Cada cultura tiene sus formas, pero todas celebran los grandes momentos de la vida."
       ],
       [
@@ -7213,7 +7213,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Cuando un familiar vive un rito de paso, yo...",
         ["lo acompaño con cariño y respeto", "lo ignoro", "lo burla", "lo olvido"],
-        3,
+        0,
         "Acompañar con presencia y respeto fortalece los lazos familiares."
       ],
       [
@@ -7225,7 +7225,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El valor de un rito de paso está en...",
         ["el significado y el acompañamiento que ofrece", "el dinero gastado", "la duración", "el número de invitados"],
-        2,
+        0,
         "No es el lujo, sino el sentido compartido lo que enriquece el rito."
       ],
       [
@@ -7307,7 +7307,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "Los prejuicios sobre la fe ajena...",
         ["distorsionan la realidad", "ayudan", "unen", "esclarecen"],
-        3,
+        0,
         "Los prejuicios impiden ver al otro como realmente es; el diálogo los disipa."
       ],
       [
@@ -7319,7 +7319,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "La paz entre convicciones se construye con...",
         ["diálogo, respeto y acciones amables", "silencio", "competencias", "aislamiento"],
-        3,
+        0,
         "El diálogo respetuoso es el puente entre convicciones distintas."
       ],
       [
@@ -7331,7 +7331,7 @@ window.CURRICULO_DBA.g4.religiosa = [
       [
         "El diálogo entre convicciones promueve...",
         ["la paz y la fraternidad", "la rivalidad", "el olvido", "el miedo"],
-        3,
+        0,
         "La fraternidad entre personas de distintas convicciones es un bien para toda la sociedad."
       ],
       [

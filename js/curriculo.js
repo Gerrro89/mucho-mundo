@@ -4585,7 +4585,7 @@ window.CURRICULO = (function () {
         { id: "g5-f-2a", tipo: "explica", titulo: "Salud y respeto", n: 4, instr: "Elige la opción más saludable y respetuosa.", params: { preguntas: [
           P("Un hábito saludable sostenible...", ["Es un esfuerzo aislado", "Se practica con frecuencia y se integra a la vida", "Es una dieta", "No existe"], 1, "Los hábitos duraderos se construyen con constancia.", ""),
           P("Si un compañero tiene una discapacidad...", ["No debe jugar", "Se adapta la actividad para que participe", "Se burlan", "No se le ve"], 1, "La adaptación garantiza el derecho a la actividad.", ""),
-          P("Para prevenir lesiones...", ["Caliento y uso protección", "Juego sin calentar", "Ignoro el dolor", "No hago nada"], 1, "La prevención protege el cuerpo.", ""),
+          P("Para prevenir lesiones...", ["Caliento y uso protección", "Juego sin calentar", "Ignoro el dolor", "No hago nada"], 0, "La prevención protege el cuerpo.", ""),
           P("El descanso...", ["Es pérdida de tiempo", "Permite la recuperación y el aprendizaje", "Solo es para niños", "Nunca es necesario"], 1, "El cuerpo se repara durante el descanso.", ""),
         ] } },
       ],

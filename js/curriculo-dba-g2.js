@@ -966,7 +966,7 @@ window.CURRICULO_DBA.g2.csociales = [
       ["¿Cuál de estos NO es un derecho?", ["Jugar y descansar", "Ser respetado", "Hacer daño a otros", "Expresar mi opinión"], 2, "Dañar a otros atenta contra los derechos de las demás personas.", "Mis derechos terminan donde empiezan los de los demás."],
       ["Si un niño no puede ir a la escuela por falta de dinero, se vulnera su derecho...", ["al juguete", "a la televisión", "al dulce", "a la educación"], 3, "La educación debe estar disponible para todos, sin importar la economía.", "Nadie debería quedarse sin estudiar."],
       ["El derecho a tener un nombre significa...", ["que debo ser registrado al nacer", "que debo cambiarlo siempre", "que solo los adultos tienen nombre", "que el nombre no importa"], 0, "El nombre es parte de mi identidad y queda registrado oficialmente.", "Es el primero de mis derechos."],
-      ["Las personas con derechos también tienen...", ["solo privilegios", "problemas únicos", "responsabilidades", "ventajas"], 0, "Convivir bien implica respetar derechos y cumplir responsabilidades.", "Derechos y deberes van juntos."],
+      ["Las personas con derechos también tienen...", ["solo privilegios", "problemas únicos", "responsabilidades", "ventajas"], 2, "Convivir bien implica respetar derechos y cumplir responsabilidades.", "Derechos y deberes van juntos."],
       ["¿Dónde puedo aprender más sobre mis derechos?", ["En ningún lugar", "Solo en internet", "En la escuela y con mi familia", "En los cuentos de hadas"], 2, "La escuela y la familia son las primeras fuentes para conocer derechos.", "Pregunta a tus maestros."],
     ],
     cl: {
@@ -2811,7 +2811,7 @@ window.CURRICULO_DBA.g2.etica = [
       ["Al principio dije una mentira. ¿Puedo corregir?", ["No, ya no sirve", "Solo si me obligan", "Sí, puedo aclararlo y pedir disculpas", "Es mejor seguir mintiendo"], 2, "Corregir a tiempo repara la confianza dañada.", "Nunca es tarde para aclarar."],
       ["Cuando soy sincero, mi voz y mi cara...", ["Reflejan tranquilidad", "Me traen un castigo", "Se vuelven invisibles", "Se olvidan"], 0, "Ser sincero permite mirar a los ojos con tranquilidad.", "La sinceridad se nota en la cara."],
       ["Contar lo que pasó tal como fue significa que...", ["Agrego detalles", "No invento ni exagero", "Cuento solo la parte mía", "Me olvido de todo"], 1, "No inventar ni exagerar es contar la verdad completa.", "Sin adornos ni fantasía."],
-      ["Decir la verdad a tiempo ayuda a...", ["Esperar a que lo descubran", "Arreglar el daño pronto", "Echar la culpa a otro", "Escapar del problema"], 3, "Reparar pronto evita que el problema crezca.", "Arreglar rápido es más fácil."],
+      ["Decir la verdad a tiempo ayuda a...", ["Esperar a que lo descubran", "Arreglar el daño pronto", "Echar la culpa a otro", "Escapar del problema"], 1, "Reparar pronto evita que el problema crezca.", "Arreglar rápido es más fácil."],
       ["¿Con quién debo ser siempre sincero?", ["Solo con los mayores", "Solo en la escuela", "Con todos: familia, amigos y maestros", "Con los que me convienen"], 2, "La honestidad es un valor que se practica en todos los ámbitos.", "En la casa, en la escuela y en la calle."],
     ],
     cl: {

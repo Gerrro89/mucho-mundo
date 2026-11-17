@@ -1070,7 +1070,7 @@
     }
 
     const saludo = d.nombre
-      ? (perfil ? avatarHTML(perfil, "avatar-saludo") + " " : "") + "¡Hola, " + d.nombre + "!"
+      ? (perfil ? avatarHTML(perfil, "avatar-saludo") + " " : "") + "¡Hola, " + C.esc(d.nombre) + "!"
       : "¡Hola! Soy Kiko 🦜";
 
     /* Ilustración principal de la bienvenida */
@@ -1604,14 +1604,15 @@
 
       const card = el("div", "tarjeta-nivel" + (abierto ? "" : " bloqueada"));
       card.style.setProperty("--c", n.color);
-      vozBoton(card, n.nombre + ". " + n.descripcion);
+      vozBoton(card, abierto ? n.nombre + ". " + n.descripcion : n.nombre + ". Bloqueado: completa el nivel anterior.");
+      if (!abierto) card.setAttribute("aria-label", n.nombre + " (bloqueado)");
       card.style.setProperty("--cc", n.colorClaro);
       const pct = total ? Math.round((hechas / total) * 100) : 0;
       card.innerHTML =
         '<span class="icono-nivel">' +
         n.icono +
         "</span>" +
-        "<div class='info-nivel'><h3>" +
+        "<div class='info-nivel'><h2>" +
         n.nombre +
         "</h3><p>" +
         n.descripcion +
@@ -2161,7 +2162,7 @@
     cont.appendChild(mapaIlus);
 
     /* Insignias */
-    cont.appendChild(el("h3", "subtitulo", "🏅 Mis medallas"));
+    cont.appendChild(el("h2", "subtitulo", "🏅 Mis medallas"));
     const insignias = el("div", "rejilla-insignias");
     D.insignias.forEach((i) => {
       const tiene = d.insignias.indexOf(i.id) !== -1;
@@ -2262,7 +2263,7 @@
     cont.appendChild(insignias);
 
     /* Animales desbloqueados */
-    cont.appendChild(el("h3", "subtitulo", "🐾 Mis animales"));
+    cont.appendChild(el("h2", "subtitulo", "🐾 Mis animales"));
     const rejillaAnimales = el("div", "rejilla-animales");
     D.animales.forEach((a) => {
       const tiene = d.animales.indexOf(a.id) !== -1;
@@ -2291,7 +2292,7 @@
     cont.appendChild(rejillaAnimales);
 
     /* Personalizar al guía */
-    cont.appendChild(el("h3", "subtitulo", "🎩 Mi amigo Kiko"));
+    cont.appendChild(el("h2", "subtitulo", "🎩 Mi amigo Kiko"));
     const accs = el("div", "rejilla-animales");
     D.accesorios.forEach((a) => {
       const activo = d.accesorio === a.id;
@@ -2391,7 +2392,7 @@
     cont.appendChild(mapa);
 
     /* Zonas secretas descubiertas */
-    cont.appendChild(el("h3", "subtitulo", "Zonas descubiertas"));
+    cont.appendChild(el("h2", "subtitulo", "Zonas descubiertas"));
     if (!zonas.length) {
       cont.appendChild(el("p", "mundo-vacio", "Aún no hay zonas secretas. ¡Completa una misión para descubrir la primera!"));
     } else {
@@ -2503,7 +2504,7 @@
     const bMenu = el("button", "btn grande", "🏠 Menú");
     bMenu.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     fila.appendChild(bMenu);
     cont.appendChild(fila);
@@ -2631,7 +2632,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -2818,7 +2819,7 @@
         }
         cerrarCon(cuerpo, [
           { t: "🔐 Volver a la sala", fn: () => { overlay.classList.remove("visible"); C.Nav.reemplazar("sala", { id: sala.id }); } },
-          { t: "🏠 Menú", fn: () => { overlay.classList.remove("visible"); C.Nav.reemplazar("home"); } },
+          { t: "🏠 Menú", fn: () => { overlay.classList.remove("visible"); C.Nav.inicio(); } },
         ]);
       } else {
         C.Sfx.mal();
@@ -2950,7 +2951,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -3252,7 +3253,7 @@
               t: "🏠 Menú",
               fn: () => {
                 overlay.classList.remove("visible");
-                C.Nav.reemplazar("home");
+                C.Nav.inicio();
               },
             },
           ]);
@@ -3374,7 +3375,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -3580,7 +3581,7 @@
           t: "🏠 Menú",
           fn: () => {
             overlay.classList.remove("visible");
-            C.Nav.reemplazar("home");
+            C.Nav.inicio();
           },
         },
       ]);
@@ -3835,7 +3836,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -4512,7 +4513,7 @@
         t: "🏠 Menú",
         fn: () => {
           overlay.classList.remove("visible");
-          C.Nav.reemplazar("home");
+          C.Nav.inicio();
         },
       },
     ]);
@@ -4579,7 +4580,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -4668,10 +4669,13 @@
       const b = el("button", "btn grande opcion-candado");
       if (reto.tipo === "sonido-inverso") {
         b.innerHTML = "<span class='opcion-texto'>" + op.s + "</span>";
-      } else if (op.emoji) {
-        b.innerHTML = "<span class='opcion-emoji'>" + op.emoji + "</span><span class='opcion-texto'>" + op.n + "</span>";
+      } else if (typeof op === "string") {
+        b.textContent = op;
       } else {
-        b.textContent = String(op);
+        /* Retos de tipo «sonido»: cada opción es {t,n,e,s}; se muestra
+           solo el nombre (el emoji o el texto del sonido revelarían
+           la respuesta).                                          */
+        b.innerHTML = "<span class='opcion-texto'>" + (op.n || op.s || "?") + "</span>";
       }
       b.onclick = () => {
         if (b.classList.contains("usada")) return;
@@ -5527,7 +5531,7 @@
 
     /* Pistas: el nombre del niño */
     const nombre = C.Store.data.nombre || "Amiguito";
-    const chapa = el("div", "chapa-nombre", nombre);
+    const chapa = el("div", "chapa-nombre", C.esc(nombre));
     escena.appendChild(chapa);
     cont.appendChild(escena);
 
@@ -5569,7 +5573,7 @@
     const bMisiones = el("button", "btn grande", "🏅 Mis misiones");
     bMisiones.onclick = () => {
       C.Sfx.clic();
-      C.Nav.ir("misiones-av");
+      C.Nav.ir("misiones_av");
     };
     fila.appendChild(bMisiones);
 
@@ -5596,7 +5600,7 @@
       const bIr = el("button", "btn grande primario", "➡️ Vamos");
       bIr.onclick = () => {
         C.Sfx.clic();
-        C.Nav.ir("misiones-av");
+        C.Nav.ir("misiones_av");
       };
       caja.appendChild(bIr);
       cont.appendChild(caja);
@@ -5605,7 +5609,7 @@
     const volver = el("button", "btn grande", "🏠 Menú");
     volver.onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     cont.appendChild(volver);
 
@@ -5695,7 +5699,7 @@
 
     /* ---- Cuadrícula de objetos ---- */
     const cat = window.AV_ACCESORIOS.categoria(catActual);
-    cont.appendChild(el("h3", "subtitulo", cat ? cat.nombre : "Objetos"));
+    cont.appendChild(el("h2", "subtitulo", cat ? cat.nombre : "Objetos"));
     const rejilla = el("div", "rejilla-armario");
     window.AV_ACCESORIOS.deCategoria(catActual).forEach((acc) => {
       const info = window.AVENTURERO.estadoAccesorio(acc.id);
@@ -5928,7 +5932,7 @@
     areas.forEach((a) => {
       const lista = todas.filter((m) => m.area === a.id);
       if (!lista.length) return;
-      cont.appendChild(el("h3", "subtitulo", a.icono + " " + a.nombre));
+      cont.appendChild(el("h2", "subtitulo", a.icono + " " + a.nombre));
       const rejilla = el("div", "rejilla-misiones-av");
       lista.forEach((m) => {
         const hecha = window.AVENTURERO.misionCompletada(m.id);
@@ -6223,8 +6227,9 @@
     /* -------- Resumen de lo conseguido -------- */
     const resumen = el("div", "mascota-resumen");
     const cs = window.MASCOTA.casa();
+    const nComidas = _mascotaDato("comida");
     resumen.innerHTML =
-      "<span class='mascota-dato'>🍽️ " + _mascotaDato("comida") + " comidas</span>" +
+      "<span class='mascota-dato'>🍽️ " + nComidas + (nComidas === 1 ? " comida" : " comidas") + "</span>" +
       "<span class='mascota-dato'>💬 " + window.MASCOTA.palabrasEnsenadas().length + " palabras</span>" +
       "<span class='mascota-dato'>✍️ " + inf.aciertos + " aciertos</span>" +
       "<span class='mascota-dato'>🏠 " + cs.hechas + " de " + cs.total + " de la casa</span>";
@@ -6481,7 +6486,15 @@
   /* Devuelve el HTML del avatar de un perfil: su foto o un dibujo si
      los tiene, y si no el animalito elegido. */
   function avatarInner(p) {
-    if (p && p.foto) return "<img class='perfil-foto' src='" + p.foto + "' alt=''>";
+    if (p && p.foto) {
+      /* La foto puede venir de un respaldo importado o de la nube:
+         no se interpola cruda en HTML (M2), se crea el nodo. */
+      const img = document.createElement("img");
+      img.className = "perfil-foto";
+      img.src = p.foto;
+      img.alt = "";
+      return img.outerHTML;
+    }
     return (p && p.avatar) || "🙂";
   }
 
@@ -6699,6 +6712,8 @@
       const campo = el("label", "campo-perfil");
       campo.appendChild(el("span", "", "✏️ ¿Cómo te llamas?"));
       const input = document.createElement("input");
+      input.id = "perfil-nombre";
+      input.name = "perfil-nombre";
       input.className = "input-perfil";
       input.type = "text";
       input.maxLength = 15;
@@ -6722,7 +6737,17 @@
       const btnSinFoto = el("button", "btn-avatar-especial", "❌ Quitar");
       btnSinFoto.type = "button";
       const refrescarAvatar = () => {
-        previa.innerHTML = avatarFoto ? "<img src='" + avatarFoto + "' alt=''>" : avatarElegido;
+        /* Foto borrada al editar la vista previa: nodo en lugar de
+           interpolación cruda (la foto puede venir de respaldo/nube). */
+        previa.textContent = "";
+        if (avatarFoto) {
+          const img = document.createElement("img");
+          img.src = avatarFoto;
+          img.alt = "";
+          previa.appendChild(img);
+        } else {
+          previa.innerHTML = avatarElegido;
+        }
         btnSinFoto.style.display = avatarFoto ? "" : "none";
       };
 
@@ -6808,7 +6833,7 @@
           C.Store.crearPerfil(nombre, avatarElegido, avatarFoto);
           pintarPerfilChip();
           C.Guia.habla("¡Hola, " + nombre + "! Soy Kiko 🦜 ¡Vamos a aprender!");
-          C.Nav.reemplazar("home");
+          C.Nav.inicio();
         }
       };
       fila.appendChild(listo);
@@ -6831,7 +6856,7 @@
         b.innerHTML =
           avatarHTML(p) +
           "<strong>" +
-          p.nombre +
+          C.esc(p.nombre) +
           "</strong><small>⭐ " +
           (dp.estrellas || 0) +
           " · 🎒 " +
@@ -6843,7 +6868,7 @@
           C.Store.cambiarPerfil(p.id);
           pintarPerfilChip();
           C.Guia.habla("¡Hola, " + p.nombre + "! Seguimos donde quedamos.");
-          C.Nav.reemplazar("home");
+          C.Nav.inicio();
         };
         rejilla.appendChild(b);
       });
@@ -6877,7 +6902,7 @@
       const volver = el("button", "btn grande", "🏠 Volver al inicio");
       volver.onclick = () => {
         C.Sfx.clic();
-        C.Nav.reemplazar("home");
+        C.Nav.inicio();
       };
       cont.appendChild(volver);
     }
@@ -6935,7 +6960,7 @@
     caja.innerHTML =
       "<h1>Informe de progreso</h1>" +
       "<p class='fila-info'><strong>" +
-      perfil.nombre +
+      C.esc(perfil.nombre) +
       "</strong>" +
       (perfil.foto ? " · con foto" : " · " + (perfil.avatar || "")) +
       "</p>" +
@@ -7030,7 +7055,7 @@ function montarReportesDocente(cont2) {
       if (!resp2 || !resp2.ok) return;
 
       const frag = document.createDocumentFragment();
-      frag.appendChild(el("h3", "subtitulo", "\u{1F4C4} Reportes para el docente"));
+      frag.appendChild(el("h2", "subtitulo", "\u{1F4C4} Reportes para el docente"));
       const caja = el("div", "caja-reportes");
       REPORTES.forEach(function (rep, i) {
         const b = el("button", "tarjeta-reporte" + (i === 0 ? " c-duplicados" : " c-unidades"));
@@ -7092,7 +7117,7 @@ window.pantalla_adulto = function (datos) {
         b.innerHTML =
           avatarHTML(p, "chip-avatar") +
           "<span class='chip-nombre'>" +
-          p.nombre +
+          C.esc(p.nombre) +
           "</span><small>⭐ " +
           (dp.estrellas || 0) +
           "</small>";
@@ -7131,7 +7156,7 @@ window.pantalla_adulto = function (datos) {
     ficha.innerHTML =
       avatarHTML(visto, "ficha-avatar") +
       "<div class='ficha-datos'><strong>" +
-      visto.nombre +
+      C.esc(visto.nombre) +
       (esActivo ? " <em>(en uso)</em>" : "") +
       "</strong><small>Creado: " +
       fechaCorta(visto.creado) +
@@ -7141,7 +7166,7 @@ window.pantalla_adulto = function (datos) {
     cont.appendChild(ficha);
 
     if (!esActivo) {
-      const usar = el("button", "btn grande primario", "✅ Que " + visto.nombre + " siga aprendiendo");
+      const usar = el("button", "btn grande primario", "✅ Que " + C.esc(visto.nombre) + " siga aprendiendo");
       usar.onclick = () => {
         C.Store.usarPerfil(visto.id);
         pintarPerfilChip();
@@ -7168,7 +7193,7 @@ window.pantalla_adulto = function (datos) {
     });
     cont.appendChild(tarjetas);
 
-    cont.appendChild(el("h3", "subtitulo", "📈 Avance por nivel"));
+    cont.appendChild(el("h2", "subtitulo", "📈 Avance por nivel"));
     const tabla = el("div", "tabla-adulto");
     C.Niveles.todos().forEach((n) => {
       const info = d.niveles[n.id] || { hechas: [], total: 0, dominio: 0 };
@@ -7205,7 +7230,7 @@ window.pantalla_adulto = function (datos) {
       const gInfo = CUR.gradoPorId(visto.grado);
       if (gInfo) {
         cont.appendChild(
-          el("h3", "subtitulo", "📚 Materias del colegio · " + gInfo.nombre)
+          el("h2", "subtitulo", "📚 Materias del colegio · " + gInfo.nombre)
         );
         const elegidas = CUI.materiasActuales ? CUI.materiasActuales() : [] ;
         const tablaMate = el("div", "tabla-adulto");
@@ -7262,7 +7287,7 @@ window.pantalla_adulto = function (datos) {
         const UNIDP = window.UNID;
         const CUIP = window.CURRICULO_UI;
         cont.appendChild(
-          el("h3", "subtitulo", "\u{1F4D8} Unidades y repasos")
+          el("h2", "subtitulo", "\u{1F4D8} Unidades y repasos")
         );
         const elegidasUni = CUIP.materiasActuales ? CUIP.materiasActuales() : [];
         const lineasMaterias = [];
@@ -7334,7 +7359,7 @@ window.pantalla_adulto = function (datos) {
     montarReportesDocente(cont);
 
     /* ---- Logros conseguidos ---- */
-    cont.appendChild(el("h3", "subtitulo", "🏅 Logros conseguidos"));
+    cont.appendChild(el("h2", "subtitulo", "🏅 Logros conseguidos"));
     const insigs = d.insignias || [];
     if (insigs.length) {
       const rejLogros = el("div", "rejilla-logros");
@@ -7354,7 +7379,7 @@ window.pantalla_adulto = function (datos) {
     }
 
     /* Contenidos por reforzar */
-    cont.appendChild(el("h3", "subtitulo", "💡 Sugerencias de refuerzo"));
+    cont.appendChild(el("h2", "subtitulo", "💡 Sugerencias de refuerzo"));
     const debilesGlobales = [];
     C.Niveles.todos().forEach((n) => {
       debilesDe(d, n.id).forEach((k) => debilesGlobales.push(n.icono + " " + n.nombre + ": " + k));
@@ -7375,7 +7400,7 @@ window.pantalla_adulto = function (datos) {
     }
 
     /* Configuración */
-    cont.appendChild(el("h3", "subtitulo", "⚙️ Sonido y ayuda"));
+    cont.appendChild(el("h2", "subtitulo", "⚙️ Sonido y ayuda"));
     const config = el("div", "config-adulto");
 
     const chkAyuda = el("label", "chk");
@@ -7398,6 +7423,8 @@ window.pantalla_adulto = function (datos) {
 
     const volLabel = el("label", "", "Volumen de la voz: ");
     const vol = el("input", "");
+    vol.id = "cfg-volumen";
+    vol.name = "volumen-voz";
     vol.type = "range";
     vol.min = 0;
     vol.max = 1;
@@ -7414,7 +7441,7 @@ window.pantalla_adulto = function (datos) {
     cont.appendChild(config);
 
     /* ---- Informe para el colegio ---- */
-    cont.appendChild(el("h3", "subtitulo", "🖨️ Informe para el colegio"));
+    cont.appendChild(el("h2", "subtitulo", "🖨️ Informe para el colegio"));
     const btnInforme = el("button", "btn grande primario", "🖨️ Exportar el progreso (imprimir o PDF)");
     btnInforme.onclick = () => {
       C.Sfx.clic();
@@ -7430,7 +7457,7 @@ window.pantalla_adulto = function (datos) {
     );
 
     /* ---- Seguridad (PIN de adulto) ---- */
-    cont.appendChild(el("h3", "subtitulo", "🔒 Seguridad"));
+    cont.appendChild(el("h2", "subtitulo", "🔒 Seguridad"));
     const seg = el("div", "config-adulto");
     const hayPin = C.Pin.hay();
 
@@ -7471,10 +7498,10 @@ window.pantalla_adulto = function (datos) {
     if (window.CUENTAS) window.CUENTAS.panelAdulto(cont, visto);
 
     /* ---- Gestión de perfiles ---- */
-    cont.appendChild(el("h3", "subtitulo", "🧒 Perfiles"));
+    cont.appendChild(el("h2", "subtitulo", "🧒 Perfiles"));
     const gestion = el("div", "config-adulto");
 
-    const editar = el("button", "btn grande", "✏️ Cambiar nombre o animal de " + visto.nombre);
+    const editar = el("button", "btn grande", "✏️ Cambiar nombre o animal de " + C.esc(visto.nombre));
     editar.onclick = () => {
       C.Sfx.clic();
       C.Nav.ir("perfil", { editar: visto.id });
@@ -7514,7 +7541,7 @@ window.pantalla_adulto = function (datos) {
       gestion.appendChild(cardPapel);
     }
 
-    const btnReiniciar = el("button", "btn grande peligro", "🧹 Borrar el progreso de " + visto.nombre);
+    const btnReiniciar = el("button", "btn grande peligro", "🧹 Borrar el progreso de " + C.esc(visto.nombre));
     btnReiniciar.onclick = () => {
       if (
         confirm(
@@ -7530,7 +7557,7 @@ window.pantalla_adulto = function (datos) {
     };
     gestion.appendChild(btnReiniciar);
 
-    const btnEliminar = el("button", "btn grande peligro", "🗑️ Eliminar el perfil de " + visto.nombre);
+    const btnEliminar = el("button", "btn grande peligro", "🗑️ Eliminar el perfil de " + C.esc(visto.nombre));
     btnEliminar.onclick = () => {
       if (
         confirm(
@@ -7584,6 +7611,45 @@ window.pantalla_adulto = function (datos) {
 
   /* Cuando el ratón pasa por encima de un botón (o el teclado lo enfoca),
      Kiko lee en voz alta qué hace. Muy útil para quien aún no lee solo. */
+  /* FASE 7 · accesibilidad de teclado: muchas tarjetas y filas son
+     div/span con .onclick (no <button>): solo reaccionaban a ratón y
+     touch. Tras cada cambio de pantalla esta función les pone
+     tabindex="0" + role="button" y activa el clic con Enter/Espacio.
+     Los elementos reales (button, a, input, label) se dejan intactos. */
+  function hacerEnfocables() {
+    const zonas = document.querySelectorAll(".pantalla.activa, .overlay.visible");
+    zonas.forEach((zona) => {
+      zona.querySelectorAll("*").forEach((el) => {
+        const t = el.tagName;
+        if (t === "BUTTON" || t === "A" || t === "INPUT" || t === "SELECT" || t === "TEXTAREA" || t === "LABEL") return;
+        if (!el.onclick) return;
+        if (el.hasAttribute("tabindex")) return;
+        el.setAttribute("role", "button");
+        el.setAttribute("tabindex", "0");
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            e.stopPropagation();
+            el.click();
+          }
+        });
+      });
+    });
+    /* El foco sigue al contenido nuevo: sin esto, tras cambiar de
+       pantalla el foco caía en <body> y el lector/teclado empezaba
+       desde el principio sin referencia. Va al primer título de la
+       pantalla, sin saltar el scroll (Nav.mostrar ya sube arriba). */
+    const pant = document.querySelector(".pantalla.activa");
+    if (pant && !pant.contains(document.activeElement)) {
+      const titulo = pant.querySelector("h1, h2");
+      if (titulo) {
+        if (!titulo.hasAttribute("tabindex")) titulo.setAttribute("tabindex", "-1");
+        titulo.focus({ preventScroll: true });
+      }
+    }
+  }
+  window.tecladoClicables = hacerEnfocables;
+
   function vozBoton(btn, texto) {
     if (!btn || !texto) return;
     const decir = () => {
@@ -7770,7 +7836,7 @@ window.pantalla_adulto = function (datos) {
     /* botones globales */
     $("#btn-inicio").onclick = () => {
       C.Sfx.clic();
-      C.Nav.reemplazar("home");
+      C.Nav.inicio();
     };
     $("#btn-perfil").onclick = () => {
       C.Sfx.clic();
@@ -7830,6 +7896,9 @@ window.pantalla_adulto = function (datos) {
         btnTemaBarra.title = esNoche()
           ? "Cambiar a la apariencia de día"
           : "Cambiar a la apariencia de noche";
+        /* aria-label sincronizado con el título: el estático del HTML
+           decía siempre "noche" aunque estuviera en modo día. */
+        btnTemaBarra.setAttribute("aria-label", btnTemaBarra.title);
       };
       pintarTema();
       btnTemaBarra.onclick = () => {
@@ -7958,6 +8027,17 @@ window.pantalla_adulto = function (datos) {
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
+        /* Escribiendo en un campo, Escape no navega: evita perder lo tecleado. */
+        const t = e.target;
+        if (
+          t &&
+          (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")
+        )
+          return;
+        /* Con una ventana abierta (recompensa, PIN de adultos, cuenta,
+           dibujo) Escape no debe cambiar de pantalla por detrás: la
+           ventana se cierra con sus propios botones. */
+        if (document.querySelector(".overlay.visible")) return;
         C.Nav.atras();
       }
     });
@@ -7966,8 +8046,10 @@ window.pantalla_adulto = function (datos) {
     const desbloquearVoz = () => {
       C.Voz.desbloquear();
       window.removeEventListener("pointerdown", desbloquearVoz);
+      window.removeEventListener("keydown", desbloquearVoz);
     };
     window.addEventListener("pointerdown", desbloquearVoz);
+    window.addEventListener("keydown", desbloquearVoz);
 
     C.Nav.reemplazar(
       window.CUENTAS
@@ -7976,6 +8058,10 @@ window.pantalla_adulto = function (datos) {
         ? "home"
         : "perfil"
     );
+    /* La primera pantalla también se pinta con teclado activo
+       (Nav.mostrar ya llama a tecladoClicables; esta llamada es de
+       refuerzo por si CUENTAS reemplaza después de pintar). */
+    try { window.tecladoClicables(); } catch (e) {}
 
     /* Mascota: lleva la cuenta de la visita (sin castigos). Si el
        niño vuelve después de días, se alegra y le da un extra.  */

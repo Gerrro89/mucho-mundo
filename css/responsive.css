@@ -7,9 +7,13 @@
    puerta, barra inferior) ya se adapta por sí solo.
    ========================================================== */
 
-/* ---------- 1) El emblema del logo nunca se deforma ---------- */
+/* ---------- 1) El emblema del logo nunca se deforma ni crece:
+   tamaño fijo (la imagen natural es 240×167 y con 'height:auto'
+   se salta los atributos del HTML e infla la barra superior) ---------- */
 .logo-icone img {
-  height: auto;
+  height: 2.4rem;
+  width: auto; /* el emblema es apaisado (1,44:1) */
+  max-height: 2.6rem;
 }
 
 /* ---------- 2) Encabezado con MENÚ en pantallas medianas ---------- */
@@ -46,10 +50,10 @@
   }
   header.barra-superior .barra-separador { display: none; }
   header.barra-superior .btn-icono {
-    width: 38px;
-    height: 38px;
-    font-size: 1.08rem;
-    border-radius: 11px;
+    width: 44px; /* objetivo táctil mínimo recomendado */
+    height: 44px;
+    font-size: 1.15rem;
+    border-radius: 12px;
     flex-shrink: 0;
   }
   header.barra-superior .perfil-nombre-chico { display: none; }
@@ -121,15 +125,21 @@
     padding: 6px 8px;
   }
   header.barra-superior .btn-icono {
-    width: 34px;
-    height: 34px;
-    font-size: 0.98rem;
+    width: 44px; /* el objetivo táctil no baja de 44px */
+    height: 44px;
+    font-size: 1.02rem;
   }
   header.barra-superior .logo-icone img { width: 36px; height: auto; }
   header.barra-superior .logo-titulo { font-size: 0.95rem; }
 }
 
 /* ---------- 3) Títulos del logo sin desbordes en tamaño medio ---------- */
+@media (max-width: 1100px) {
+  /* El lema "Aprende jugando" solo aporta en pantallas anchas: fuera
+     de ellas estorba y compite con el título por el ancho. */
+  .logo-sub { display: none; }
+  .barra-superior { padding: 8px 12px; }
+}
 @media (max-width: 700px) {
   .logo-titulo { white-space: normal; }
 }
@@ -142,7 +152,7 @@
   }
   .tarjeta-nivel > * { min-width: 0; }
   .tarjeta-nivel .info-nivel { flex: 1 1 auto; width: auto; }
-  .tarjeta-nivel .info-nivel h3 { font-size: 1.02rem; }
+  .tarjeta-nivel .info-nivel h2 { font-size: 1.02rem; }
   .tarjeta-nivel .candado { font-size: 1.4rem; flex-shrink: 0; }
 }
 

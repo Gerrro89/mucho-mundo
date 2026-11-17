@@ -481,6 +481,54 @@
       SW v202 (precache 154 entradas). Zip regenerado y verificado
       (156 archivos). Publicado: build de Pages sobre 3c3c3d5.
 
+- [x] MENU DEL ENCABEZADO EN TABLET/CELULAR (v203):
+  Nuevo boton de menu en el encabezado: en tablet y celular
+  aparece #btn-menu y despliega un panel con TODAS las opciones
+  de la barra (mi aventura, mi personaje, letras, sonido, tema,
+  area adulta, cerrar sesion) como filas anchas con su nombre
+  (tomado del title de cada boton, nunca texto estatico).
+  Comportamiento comprobado: abre/cierra con el mismo boton
+  (icono cambia a X), se cierra al tocar fuera, con Escape
+  (sin retroceder pantalla) y al cambiar de pantalla; cada
+  opcion sigue siendo el boton real de siempre (sin duplicados);
+  letra/silencio/tema dejan el panel abierto para encadenar.
+  En modo noche el panel pasa a vidrio azul con letras claras.
+  Quiebre en 940px: la fila de escritorio con 7 botones + chip
+  necesita ~940px para caber (medido en 861/880/900/940 con
+  salidas de 3..18px); desde 941 la fila normal, hasta 940 el
+  menu. Barrido con el menu ABIERTO (320/360/390/430/600/
+  667x375/768/920) y despues de cerrarlo (941/1000/1024/1280/
+  1920): 0 desbordes en los 15 tamanos.
+  Archivos: index.html (boton), app.js (wire completo),
+  responsive.css (grid de una fila + panel + etiquetas),
+  tema-noche.css (panel nocturno), sw.js v203 (precache 154).
+  Zip verificado (156 archivos). Publicado: build de Pages
+  sobre 76da549.
+
+- [x] AUDITORÍA TOTAL (v204): barrido completo del sitio (precarga, seguridad,
+  funcional, visual, responsive, accesibilidad, rendimiento) con Playwright +
+  revisores especializados; 50 lotes del PDF verificados (PROGRESO.md).
+  Corregido y re-probado en runtime:
+  · Contraste y header: coral accesible #e54878 (styles.css), emblema 2.4rem
+    (header 68px, logo completo), .logo-sub oculto ≤1100px, .btn-icono 44×44,
+    tema-noche ajustado.
+  · Kiko no cruza de pantalla: Guia.callar() en Nav.mostrar (core.js:1032).
+  · Responsive: .recomendacion-colegio{flex-wrap:wrap} ≤600px (styles.css);
+    barrido 320-1920 (11 ventanas × 21 pantallas): 0 desbordes reales.
+  · Funcional: opciones duplicadas en "Encuentra la letra" (activities.js ~424);
+    "1 comida" (app.js:6231); lecciones completas jugadas de punta a punta.
+  · Accesibilidad: figura del animalito en home 108×8 → 108×108
+    (line-height:normal + min-height en .figura-inicial, styles.css:10161);
+    saltos de heading h1→h3 corregidos a h1→h2 en 6 pantallas (app.js,
+    cuentas.js, selectores CSS); re-barrido final: 0 hallazgos (foco visible,
+    nombres accesibles, Escape, reduced-motion, targets ≥24px, headings).
+  · Rendimiento medido: LCP 876 ms, CLS 0.01, transferencia inicial 18 KB —
+    dentro de Core Web Vitals; sin cambios de arquitectura.
+  · Currículo: correcciones de los lotes del PDF aprobadas por el usuario
+    (curriculo.js, curriculo-dba-g2.js, curriculo-dba-g4.js, curriculo-ui.js,
+    materias-home.js, misiones.js); erratas del PDF conservadas tal cual.
+  SW v204 (precache sin cambios). Zip regenerado y verificado (156 archivos).
+
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

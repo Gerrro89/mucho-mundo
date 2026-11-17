@@ -277,7 +277,7 @@ window.CUENTAS = (function () {
   function entrar(usuario, pin) {
     const c = porUsuario(usuario);
     if (!c) return false;
-    if (String(c.hash) !== hashPin(pin)) return false;
+    if (!C.tiempoConstante(c.hash, hashPin(pin))) return false;
     const o = leer();
     o.sesion = c.usuario;
     escribir(o);
@@ -1164,6 +1164,8 @@ window.CUENTAS = (function () {
           const campo = el("label", "campo-perfil");
           campo.appendChild(el("span", "", "👤 Usuario"));
           const input = document.createElement("input");
+          input.id = "cuenta-entrar-usuario";
+          input.name = "usuario";
           input.className = "input-perfil";
           input.type = "text";
           input.maxLength = 15;
@@ -1329,6 +1331,8 @@ window.CUENTAS = (function () {
         const campo = el("label", "campo-perfil");
         campo.appendChild(el("span", "", "👤 Elige el usuario"));
         const input = document.createElement("input");
+        input.id = "cuenta-crear-usuario";
+        input.name = "usuario";
         input.className = "input-perfil";
         input.type = "text";
         input.maxLength = 15;
@@ -1680,7 +1684,7 @@ window.CUENTAS = (function () {
      ========================================================= */
   function panelAdulto(cont) {
     const s = sesion();
-    cont.appendChild(el("h3", "subtitulo", "👤 Cuentas de usuario"));
+    cont.appendChild(el("h2", "subtitulo", "👤 Cuentas de usuario"));
     const caja = el("div", "config-adulto");
 
     if (s) {
@@ -1688,7 +1692,7 @@ window.CUENTAS = (function () {
         el(
           "p",
           "",
-          "Sesión abierta: <strong>" + s.usuario + "</strong> · copia automática: " +
+          "Sesión abierta: <strong>" + C.esc(s.usuario) + "</strong> · copia automática: " +
             (s.guardado ? fhc(s.guardado) : "pendiente")
         )
       );
