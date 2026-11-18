@@ -529,6 +529,18 @@
     materias-home.js, misiones.js); erratas del PDF conservadas tal cual.
   SW v204 (precache sin cambios). Zip regenerado y verificado (156 archivos).
 
+- [x] NUEVO DIBUJO DEL LORO GUÍA (v205): el personaje sigue llamándose Kiko en todos
+      los mensajes y aria-labels, pero ahora se dibuja con el arte de Pipo (Mascota.zip):
+      js/pipo.js nuevo (window.PIPO.svg(), pose estática, sin sombreros ni animaciones).
+      pintarGuia() siempre dibuja a Pipo; el armario de mascotas se conserva pero ya no
+      afecta a la guía; retirada la sección inerte "Mi amigo Kiko" (selector de sombreros
+      que había quedado sin efecto). Revisión de calidad: pintarGuia no fija su estado si
+      el módulo o el nodo faltan (la próxima llamada reintenta). SW v205 (js/pipo.js en
+      precache). Pruebas reales: sw.test.js 13/13, gestos.test.js 103/103, barrido
+      Playwright 320/768/1920 día/noche (28 verificaciones, 0 fallos; viewBox 0 0 400 560,
+      aria "Kiko el loro", sin solape con el globo), capturas revisadas visualmente.
+      Pendiente de limpieza futura: CSS de kiko-* sin uso (styles.css).
+
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

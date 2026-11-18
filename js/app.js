@@ -2291,23 +2291,9 @@
     });
     cont.appendChild(rejillaAnimales);
 
-    /* Personalizar al guía */
-    cont.appendChild(el("h2", "subtitulo", "🎩 Mi amigo Kiko"));
-    const accs = el("div", "rejilla-animales");
-    D.accesorios.forEach((a) => {
-      const activo = d.accesorio === a.id;
-      const b = el("button", "animal" + (activo ? " activo" : ""));
-      b.innerHTML = "<span class='icono-animal'>" + a.icono + "</span><span class='nombre-animal'>" + a.nombre + "</span>";
-      b.onclick = () => {
-        d.accesorio = a.id;
-        C.Store.save();
-        pintarGuia();
-        C.Sfx.clic();
-        window.pantalla_aventura();
-      };
-      accs.appendChild(b);
-    });
-    cont.appendChild(accs);
+    /* La sección de sombreros se retiró (ronda 2026-11-17): la
+       guía siempre dibuja a Pipo y los sombreros dejaron de
+       afectar al personaje. Los datos quedan en Store. */
 
     cont.appendChild(volverAtras());
     C.Guia.habla("¡Mira todo lo que has logrado! Cada estrella es tuya por esforzarte.");
@@ -7660,138 +7646,24 @@ window.pantalla_adulto = function (datos) {
     btn.addEventListener("focus", decir);
   }
 
-  /* Personaje guía dibujado en SVG (Kiko, rediseñado y animado)
-     Si el niño eligió una mascota, Kiko se transforma en esa
-     criatura y crece con ella (bebé → joven → legendaria).     */
+  /* Personaje guía: dibujo de Pipo (pose estática). El personaje
+     sigue llamándose Kiko en todos los mensajes y aria-labels.
+     El armario de mascotas se conserva en mascota.js pero ya no
+     afecta a la guía. */
   let guiaEstado = "";
   function pintarGuia() {
-    const acc = C.Store.data.accesorio || "ninguno";
-
-    /* Transformación: la mascota reemplaza al loro */
-    if (window.MASCOTA && window.MASCOTA.tiene()) {
-      const inf = window.MASCOTA.info();
-      const dfz = window.MASCOTA.disfrazActivo();
-      const guiaM = $("#guia-svg");
-      if (guiaM) {
-        /* Si la mascota no ha cambiado, no se rehace el dibujo */
-        const estado = inf.criatura.id + ":" + inf.etapaId + ":" + (dfz ? dfz.id : "-");
-        if (guiaEstado === estado) return;
-        guiaEstado = estado;
-        /* Primero se limpia lo anterior (incluido un motor 3D viejo) */
-        if (guiaM._motor3d) {
-          guiaM._motor3d.liberar();
-          guiaM._motor3d = null;
-        }
-        guiaM.innerHTML = "";
-        const extra = dfz && dfz.id !== "ninguno" ? "<span class='guia-disfraz'>" + dfz.icono + "</span>" : "";
-        const figura = window.DIBUJOCRIATURA
-          ? window.DIBUJOCRIATURA.svg(inf.criatura.id, inf.etapaId, window.MASCOTA.nombreFase(inf.criatura.id, inf.etapaId))
-          : "<span class='guia-mascota-emoji'>" + window.MASCOTA.emojiFase(inf.criatura.id, inf.etapaId) + "</span>";
-        guiaM.innerHTML =
-          "<div class='guia-mascota' style='--tam:" + inf.etapa.escala + "'>" +
-          figura +
-          extra +
-          "</div>";
-      }
-      return;
-    }
-
-    /* Sin mascota: vuelve a ser Kiko el loro (SVG con sombrero) */
-    if (guiaEstado !== "kiko") {
-      guiaEstado = "kiko";
-      const guiaV = $("#guia-svg");
-      if (guiaV) {
-        if (guiaV._motor3d) {
-          guiaV._motor3d.liberar();
-          guiaV._motor3d = null;
-        }
-        guiaV.innerHTML = "";
-      }
-    }
-
-    /* Sombreros reposicionados sobre la cabeza de Kiko
-       (cabeza: centro 110,78 — radio 52) */
-    const sombreros = {
-      gorro: '<path d="M66 40 q44 -34 88 0 z" fill="#ef476f"/><rect x="56" y="38" width="108" height="10" rx="5" fill="#d62f57"/>',
-      sombrero: '<rect x="72" y="16" width="76" height="28" fill="#2d3142"/><ellipse cx="110" cy="20" rx="74" ry="8" fill="#2d3142"/>',
-      flor: '<circle cx="142" cy="24" r="9" fill="#ffd166"/><circle cx="154" cy="32" r="9" fill="#ef476f"/><circle cx="134" cy="34" r="9" fill="#4cc9f0"/>',
-      estrella: '<polygon points="110,2 120,26 146,26 125,42 133,68 110,52 87,68 95,42 74,26 100,26" fill="#ffd166" stroke="#e0a800" stroke-width="2"/>',
-      corona: '<path d="M60 46 L72 16 L92 38 L110 10 L128 38 L148 16 L160 46 Z" fill="#ffd166" stroke="#e0a800" stroke-width="2"/>',
-    };
-    const svg =
-      '<svg viewBox="0 0 220 244" role="img" aria-label="Kiko el loro">' +
-      '<defs>' +
-      '<linearGradient id="kgCuerpo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0ec98f"/><stop offset="1" stop-color="#06a379"/></linearGradient>' +
-      '<radialGradient id="kgCabeza" cx="0.5" cy="0.28" r="0.85"><stop offset="0" stop-color="#14d397"/><stop offset="1" stop-color="#079e74"/></radialGradient>' +
-      '<radialGradient id="kgBarriga" cx="0.5" cy="0.4" r="0.75"><stop offset="0" stop-color="#fff8dc"/><stop offset="1" stop-color="#fce9b8"/></radialGradient>' +
-      '<linearGradient id="kgPico" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc95e"/><stop offset="1" stop-color="#e88f1f"/></linearGradient>' +
-      '</defs>' +
-      '<ellipse cx="110" cy="234" rx="54" ry="9" fill="rgba(0,0,0,.12)"/>' +
-      /* cola: tres plumas largas con raquis (M150 168...) */
-      '<g class="kiko-cola"><path d="M142 154 Q202 166 215 226 Q184 226 146 200 Z" fill="#e63946" stroke="#b02339" stroke-width="2" stroke-linejoin="round"/><path d="M150 164 Q192 178 208 222" stroke="rgba(255,255,255,.28)" stroke-width="2" fill="none" stroke-linecap="round"/></g>' +
-      '<g class="kiko-cola"><path d="M148 162 Q196 182 204 230 Q170 222 150 204 Z" fill="#059d78" stroke="#047f68" stroke-width="2" stroke-linejoin="round"/><path d="M154 172 Q184 190 196 226" stroke="rgba(255,255,255,.22)" stroke-width="2" fill="none" stroke-linecap="round"/></g>' +
-      '<g class="kiko-cola"><path d="M153 172 Q182 194 190 234 Q161 224 152 210 Z" fill="#35a7e8" stroke="#1f88c6" stroke-width="2" stroke-linejoin="round"/><path d="M157 182 Q172 198 180 228" stroke="rgba(255,255,255,.25)" stroke-width="2" fill="none" stroke-linecap="round"/></g>' +
-      /* cuerpo: torso con barriga implumada y patas con garras */
-      '<g class="kiko-cuerpo">' +
-      '<path d="M110 112 C72 114 60 150 64 184 C68 214 86 226 110 228 C134 226 152 214 156 184 C160 150 148 114 110 112 Z" fill="url(#kgCuerpo)" stroke="#048070" stroke-width="2.5"/>' +
-      '<ellipse cx="110" cy="180" rx="38" ry="46" fill="url(#kgBarriga)"/>' +
-      '<path d="M80 166 q15 12 30 0 q15 12 30 0" stroke="#e6d69d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.75"/>' +
-      '<path d="M83 190 q13.5 11 27 0 q13.5 11 27 0" stroke="#e6d69d" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.75"/>' +
-      '<path d="M92 210 q-13 7 -10 18 q6 6 14 5 q8 1 13 -4 q4 -10 -3 -17 q-7 -4 -14 -2 z" fill="#f6ae2d" stroke="#e09b2d" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M85 233 l-3 4 M93 235 v4 M101 232 l3 4" stroke="#d9822b" stroke-width="2" stroke-linecap="round" fill="none"/>' +
-      '<path d="M126 210 q13 7 10 18 q-6 6 -14 5 q-8 1 -13 -4 q-4 -10 3 -17 q7 -4 14 -2 z" fill="#f6ae2d" stroke="#e09b2d" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M116 233 l-3 4 M124 235 v4 M132 232 l3 4" stroke="#d9822b" stroke-width="2" stroke-linecap="round" fill="none"/>' +
-      "</g>" +
-      /* alas plegadas con plumas que se apartan (aletean al hablar) */
-      '<g class="kiko-ala-izq">' +
-      '<path d="M64 128 Q26 148 34 196 Q52 216 86 206 Q74 168 78 132 Z" fill="#059d78" stroke="#047f68" stroke-width="2.5" stroke-linejoin="round"/>' +
-      '<path d="M52 148 Q42 172 50 198" stroke="#04806b" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M64 150 Q60 176 70 202" stroke="#04806b" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M40 188 q10 16 28 13 q-16 -4 -22 -19 z" fill="#35a7e8" opacity="0.9"/>' +
-      "</g>" +
-      '<g class="kiko-ala-der">' +
-      '<path d="M156 128 Q194 148 186 196 Q168 216 134 206 Q146 168 142 132 Z" fill="#059d78" stroke="#047f68" stroke-width="2.5" stroke-linejoin="round"/>' +
-      '<path d="M168 148 Q178 172 170 198" stroke="#04806b" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M156 150 Q160 176 150 202" stroke="#04806b" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M180 188 q-10 16 -28 13 q16 -4 22 -19 z" fill="#35a7e8" opacity="0.9"/>' +
-      "</g>" +
-      /* cabeza con penacho de plumas curvadas hacia atrás */
-      '<circle cx="110" cy="78" r="52" fill="url(#kgCabeza)" stroke="#048070" stroke-width="2.5"/>' +
-      '<g class="kiko-penacho">' +
-      '<path d="M88 36 Q80 12 96 4 Q94 20 102 32 Z" fill="#059d78" stroke="#04806b" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M106 30 Q108 6 124 2 Q116 16 118 30 Z" fill="#0bb18b" stroke="#04806b" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M124 32 Q134 10 152 6 Q142 22 138 34 Z" fill="#ffd166" stroke="#e0a800" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M92 28 Q90 18 95 10 M112 24 Q115 12 120 6 M132 26 Q138 16 146 10" stroke="rgba(255,255,255,.35)" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
-      "</g>" +
-      /* cara de amazona: máscara clara alrededor de ojos y pico */
-      '<ellipse cx="86" cy="82" rx="24" ry="26" fill="#eefbe9" stroke="#d5e8cf" stroke-width="2"/>' +
-      '<ellipse cx="134" cy="82" rx="24" ry="26" fill="#eefbe9" stroke="#d5e8cf" stroke-width="2"/>' +
-      '<rect x="86" y="64" width="48" height="24" rx="12" fill="#eefbe9"/>' +
-      /* ojos reales: esclerótica, iris ámbar, pupila y dos brillos */
-      '<circle cx="86" cy="76" r="15" fill="#fff" stroke="#cfe3c8" stroke-width="1.5"/>' +
-      '<circle cx="134" cy="76" r="15" fill="#fff" stroke="#cfe3c8" stroke-width="1.5"/>' +
-      '<circle cx="86" cy="76" r="9.5" fill="#f2a93b" stroke="#c97b1c" stroke-width="2"/>' +
-      '<circle cx="134" cy="76" r="9.5" fill="#f2a93b" stroke="#c97b1c" stroke-width="2"/>' +
-      '<circle cx="86" cy="76" r="5" fill="#2d3142"/><circle cx="134" cy="76" r="5" fill="#2d3142"/>' +
-      '<circle cx="88.5" cy="73" r="2.6" fill="#fff"/><circle cx="136.5" cy="73" r="2.6" fill="#fff"/>' +
-      '<circle cx="82.5" cy="79" r="1.3" fill="#fff"/><circle cx="130.5" cy="79" r="1.3" fill="#fff"/>' +
-      '<ellipse class="kiko-parpado" cx="86" cy="76" rx="16.5" ry="15.5" fill="#0ec98f"/>' +
-      '<ellipse class="kiko-parpado kiko-parpado-2" cx="134" cy="76" rx="16.5" ry="15.5" fill="#0ec98f"/>' +
-      '<path d="M74 61 q12 -7 24 -1 M122 60 q12 -6 24 1" stroke="#078f6e" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
-      /* cachetes */
-      '<circle cx="68" cy="100" r="7.5" fill="#ef476f" opacity="0.32"/>' +
-      '<circle cx="152" cy="100" r="7.5" fill="#ef476f" opacity="0.32"/>' +
-      /* cere con fosas nasales y pico curvo en dos partes */
-      '<path d="M86 92 Q110 100 134 92 Q139 98 134 104 Q110 111 86 104 Q81 98 86 92 Z" fill="#cfe4f2" stroke="#a9c8dd" stroke-width="2" stroke-linejoin="round"/>' +
-      '<circle cx="100" cy="100" r="2.2" fill="#8fb4c9"/><circle cx="120" cy="100" r="2.2" fill="#8fb4c9"/>' +
-      '<path d="M88 100 Q110 108 132 100 Q142 110 134 121 Q124 129 110 129 Q96 129 90 119 Q85 109 88 100 Z" fill="url(#kgPico)" stroke="#d97b1a" stroke-width="2.5" stroke-linejoin="round"/>' +
-      '<path d="M96 117 Q110 125 124 117" stroke="#c47214" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
-      '<path d="M100 127 q10 7 20 0 q-4 7 -10 7 q-6 0 -10 -7 z" fill="#e08b1f" stroke="#d97b1a" stroke-width="2" stroke-linejoin="round"/>' +
-      '<path d="M95 104 Q104 110 114 107" stroke="rgba(255,255,255,.55)" stroke-width="3" fill="none" stroke-linecap="round"/>' +
-      (sombreros[acc] || "") +
-      "</svg>";
+    if (guiaEstado === "pipo") return;
     const guia = $("#guia-svg");
-    if (guia) guia.innerHTML = svg;
+    /* Sin módulo o sin nodo, NO fijar el estado: la próxima llamada
+       reintenta en vez de dejar la guía en blanco para siempre. */
+    if (!guia || !window.PIPO) return;
+    guiaEstado = "pipo";
+    /* Limpieza de motores viejos (igual que antes) */
+    if (guia._motor3d) {
+      guia._motor3d.liberar();
+      guia._motor3d = null;
+    }
+    guia.innerHTML = window.PIPO ? window.PIPO.svg() : "";
   }
 
   function refrescarBotonSilencio() {
