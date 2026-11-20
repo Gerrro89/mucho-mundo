@@ -541,6 +541,23 @@
       aria "Kiko el loro", sin solape con el globo), capturas revisadas visualmente.
       Pendiente de limpieza futura: CSS de kiko-* sin uso (styles.css).
 
+- [x] INTERFAZ EN INGLÉS CON BOTÓN EN (v206): la interfaz se puede ver en inglés sin tocar
+      el contenido pedagógico. js/idioma.js nuevo (diccionario ES→EN, mapa inverso y patrones
+      para textos con números o nombres, MutationObserver para las pantallas que se repintan,
+      aviso aria-live); botón EN en la barra (escritorio y panel móvil) y preferencia guardada
+      en localStorage (webleer_idioma_v1); el español sigue siendo el idioma por defecto.
+      Alcance: botones, menús, títulos, instrucciones, avisos, burbujas de Kiko y atributos
+      (title/aria-label/placeholder); NO se traducen cuentos, ejercicios, unidades, nombres de
+      materias/lecciones/accesorios ni el contenido de data.js. SW v206 (js/idioma.js en
+      precache). Pruebas reales: sw.test.js 13/13, gestos.test.js 103/103, barrido ES/EN en
+      puerto nuevo (28/28: botón, lang, atributos, aviso aria-live, persistencia tras recargar,
+      burbujas de tema día/noche, vuelta a ES, botón visible a 320 px). Diccionario: 343
+      claves, 0 duplicados en inglés, ida y vuelta sin fallos; se sacaron las categorías del
+      armario (son contenido, no interfaz).
+      Pendiente conocido: el aviso de voz del botón de tema solo existe en español
+      (degradación permitida); algunas palabras son interfaz y contenido a la vez (Inicio,
+      Jugar, Memoria, Patrones) y se traducen también cuando aparecen como contenido.
+
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,
