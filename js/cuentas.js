@@ -53,6 +53,12 @@ window.CUENTAS = (function () {
     '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
     '<path fill="currentColor" d="M12 3l7 7h-4v11h-6V10H5z"/></svg>';
 
+  /* Vistas que solo tienen sentido DENTRO del asistente de registro.
+     Si se entra a la pantalla sin pedir una vista concreta (desde el
+     perfil, el menú o el botón Atrás) no se reabren: se vuelve a la
+     puerta de entrada, o al panel si ya hay sesión. */
+  const VISTAS_ASISTENTE = ["aviso", "datos", "clave-google", "creada"];
+
 
   /* Producto y formato del archivo de respaldo
      (sirve para rechazar archivos que no son de esta app).
@@ -971,6 +977,13 @@ window.CUENTAS = (function () {
     if (datos && datos.vista) {
       estado.vista = datos.vista;
       if (datos.usuario !== undefined) estado.usuario = datos.usuario;
+    } else if (VISTAS_ASISTENTE.indexOf(estado.vista) !== -1) {
+      /* Entrar a la cuenta sin pedir una vista concreta no debe reabrir
+         un paso del asistente que ya terminó (p. ej. "Cuenta creada"):
+         se vuelve a la puerta; con sesión abierta, las reglas de abajo
+         la convierten en el panel. */
+      estado.vista = "entrar";
+      estado.error = "";
     }
 
     const conSesion = sesion();

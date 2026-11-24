@@ -541,22 +541,41 @@
       aria "Kiko el loro", sin solape con el globo), capturas revisadas visualmente.
       Pendiente de limpieza futura: CSS de kiko-* sin uso (styles.css).
 
-- [x] INTERFAZ EN INGLÉS CON BOTÓN EN (v206): la interfaz se puede ver en inglés sin tocar
+- [x] INTERFAZ EN INGLÉS CON BOTÓN EN (v206-v207): la interfaz se puede ver en inglés sin tocar
       el contenido pedagógico. js/idioma.js nuevo (diccionario ES→EN, mapa inverso y patrones
       para textos con números o nombres, MutationObserver para las pantallas que se repintan,
       aviso aria-live); botón EN en la barra (escritorio y panel móvil) y preferencia guardada
       en localStorage (webleer_idioma_v1); el español sigue siendo el idioma por defecto.
       Alcance: botones, menús, títulos, instrucciones, avisos, burbujas de Kiko y atributos
       (title/aria-label/placeholder); NO se traducen cuentos, ejercicios, unidades, nombres de
-      materias/lecciones/accesorios ni el contenido de data.js. SW v206 (js/idioma.js en
+      materias/lecciones/accesorios ni el contenido de data.js. SW v207 (js/idioma.js en
       precache). Pruebas reales: sw.test.js 13/13, gestos.test.js 103/103, barrido ES/EN en
       puerto nuevo (28/28: botón, lang, atributos, aviso aria-live, persistencia tras recargar,
-      burbujas de tema día/noche, vuelta a ES, botón visible a 320 px). Diccionario: 343
-      claves, 0 duplicados en inglés, ida y vuelta sin fallos; se sacaron las categorías del
-      armario (son contenido, no interfaz).
+      burbujas de tema día/noche, vuelta a ES, botón visible a 320 px). Diccionario: 447
+      claves y 81 patrones, 0 duplicados en inglés, ida y vuelta sin fallos; se sacaron las
+      categorías del armario (son contenido, no interfaz).
       Pendiente conocido: el aviso de voz del botón de tema solo existe en español
       (degradación permitida); algunas palabras son interfaz y contenido a la vez (Inicio,
       Jugar, Memoria, Patrones) y se traducen también cuando aparecen como contenido.
+      Ronda v207: se cubrieron las pantallas que faltaban (bienvenida sin cuentas, aviso del
+      adulto, entrada, asistente de creación de cuenta, teclados de PIN, "Cuenta creada",
+      panel Mi cuenta, perfil y compuerta del PIN de adulto) y el saludo de Kiko de la
+      portada. Censo del asistente en inglés: 15 vistas, 0 faltas; barrido 28 vistas x 3
+      anchos con los mismos desbordes a 320 px que ya existían en español (icono de nivel de
+      Aprender y textos de la pantalla de adulto; no se tocó el CSS). Siguen sin traducir
+      los alert/confirm nativos y el aviso de voz. Observación anterior a esta ronda: tras
+      crear la cuenta, volver a "Mi cuenta" desde el perfil muestra otra vez "Cuenta
+      creada" hasta recargar (window.CUENTAS_estado.vista queda en "creada").
+
+- [x] "MI CUENTA" YA NO REABRE "CUENTA CREADA" (v208): js/cuentas.js conservaba la última
+      vista del asistente en window.CUENTAS_estado.vista y pantalla_cuenta la reutilizaba al
+      entrar sin pedir una vista, así que el botón "Mi cuenta de usuario" del perfil (y
+      Nav.ir("cuenta")) repetían "Cuenta creada" hasta recargar. Ahora, al entrar sin
+      datos.vista, las vistas internas del asistente (aviso, datos, clave-google, creada) se
+      descartan: panel con sesión, puerta sin sesión. SW v208. Reproducción y verificación con
+      Playwright en puerto nuevo: 8/8 (incluye vistas residuales creada/aviso sin sesión);
+      sw.test.js 13/13, gestos.test.js 103/103, censo del asistente en inglés 16 vistas/0
+      faltas. Límite: entrar a mitad del asistente (p. ej. con Atrás) descarta el paso.
 
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
