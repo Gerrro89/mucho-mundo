@@ -577,6 +577,18 @@
       sw.test.js 13/13, gestos.test.js 103/103, censo del asistente en inglés 16 vistas/0
       faltas. Límite: entrar a mitad del asistente (p. ej. con Atrás) descarta el paso.
 
+
+- [x] LA MASCOTA Y EL PROFE HABLAN EN INGLÉS (v209): con la interfaz en inglés la voz seguía
+      saliendo en español. Ahora CORE.Voz.decir traduce el texto justo antes de hablar con
+      IDIOMA.traducir (solo cadenas del diccionario; el contenido pedagógico se queda en
+      español) y elige voz/lang ingleses (vozEn, en-US) o españoles (es-MX) según el idioma
+      activo. profe.js llamaba a un Voz inexistente y su try/catch se tragaba el error: el
+      profe nunca hablaba; ahora usa CORE.Voz. Se añadieron 16 frases y 9 patrones (saludo de
+      vuelta, consejos del profe, feedback de actividades) y se tradujeron la intro de la
+      mascota y el toque de la criatura sin traducir nombres de criatura/etapa. SW v209.
+      Verificación Playwright en puerto nuevo: 7/7 pasos con voz en-US/EN y vuelta a es-MX/ES;
+      sw.test.js 13/13, gestos.test.js 103/103, barrido 84 mediciones (4 desbordes a 320 px
+      preexistentes), censo del asistente 16 vistas/0 faltas.
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

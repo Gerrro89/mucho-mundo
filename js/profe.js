@@ -26,7 +26,12 @@ window.PROFE = (function () {
   function decir(texto, opc) {
     opc = opc || {};
     try {
-      Voz.decir(String(texto || ""), Object.assign({ pitch: 0.92 }, opc));
+      /* profe.js se carga antes que core.js: se consulta en tiempo
+         de ejecución, no al definir el módulo. */
+      const core = window.CORE;
+      if (core && core.Voz && core.Voz.decir) {
+        core.Voz.decir(String(texto || ""), Object.assign({ pitch: 0.92 }, opc));
+      }
     } catch (e) {}
   }
 

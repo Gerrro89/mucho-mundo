@@ -63,6 +63,7 @@ window.CORE = (function () {
   const Voz = {
     disponible: "speechSynthesis" in window,
     voz: null,
+    vozEn: null,
     volumen: 0.95,
     tono: 1.28, /* tono cálido y alegre, sin sonar estridente */
     rapido: false,
@@ -103,6 +104,23 @@ window.CORE = (function () {
         }
         if (!voces.length) return;
         const espanol = voces.filter((v) => /^es/i.test(v.lang || ""));
+        const ingles = voces.filter((v) => /^en/i.test(v.lang || ""));
+        if (ingles.length) {
+          const puntuarEn = (v) => {
+            let puntos = 0;
+            const lang = (v.lang || "").toLowerCase();
+            const nombre = (v.name || "").toLowerCase();
+            if (/^en[-_]us/.test(lang)) puntos += 60;
+            else if (/^en[-_]gb/.test(lang)) puntos += 40;
+            else if (/^en[-_]/.test(lang)) puntos += 35;
+            if (/microsoft/.test(nombre)) puntos += 14;
+            if (/google/.test(nombre)) puntos += 12;
+            if (/natural|online|neural/.test(nombre)) puntos += 10;
+            return puntos;
+          };
+          ingles.sort((a, b) => puntuarEn(b) - puntuarEn(a));
+          this.vozEn = ingles[0];
+        }
         if (!espanol.length) {
           this.voz = null;
           return;
@@ -133,7 +151,7 @@ window.CORE = (function () {
       const esperar = setInterval(() => {
         intentos++;
         cargar();
-        if (this.voz || intentos >= 12) clearInterval(esperar);
+        if ((this.voz && this.vozEn) || intentos >= 12) clearInterval(esperar);
       }, 400);
     },
 
@@ -179,15 +197,29 @@ window.CORE = (function () {
         this._activa ||
         (window.navigator && navigator.userActivation && navigator.userActivation.hasBeenActive);
       if (!gestado) return;
+      const en = !!(window.IDIOMA && window.IDIOMA.actual && window.IDIOMA.actual() === "en");
+      let hablado = texto;
+      if (en && window.IDIOMA && typeof window.IDIOMA.traducir === "function") {
+        try {
+          hablado = window.IDIOMA.traducir(texto);
+        } catch (e) {
+          hablado = texto;
+        }
+      }
       const sint = window.speechSynthesis;
       try {
         sint.cancel();
-        const u = new SpeechSynthesisUtterance(texto);
-        if (this.voz) u.voice = this.voz;
-        u.lang = (this.voz && this.voz.lang) || "es-CO";
+        const u = new SpeechSynthesisUtterance(hablado);
+        if (en) {
+          if (this.vozEn) u.voice = this.vozEn;
+          u.lang = (this.vozEn && this.vozEn.lang) || "en-US";
+        } else {
+          if (this.voz) u.voice = this.voz;
+          u.lang = (this.voz && this.voz.lang) || "es-CO";
+        }
         /* Voz alegre y entusiasmada: tono agudo, ritmo vivo y algo de
            variación para que no suene monótona. */
-        const animado = /[¡!]/.test(texto);
+        const animado = /[¡!]/.test(hablado);
         u.rate = (opc.rapido || this.rapido ? 1.10 : animado ? 1.04 : 0.98) + (Math.random() - 0.5) * 0.04;
         u.pitch = (opc.pitch || this.tono) + (animado ? 0.10 : 0) + (Math.random() - 0.5) * 0.08;
         u.volume = Math.max(0.1, Math.min(1, this.volumen));

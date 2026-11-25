@@ -6162,7 +6162,9 @@
     }
     bicho.onclick = () => {
       C.Sfx.clic();
-      C.Guia.habla(cri.sonido + " " + window.MASCOTA.frase());
+      const frase = window.MASCOTA.frase();
+      const en = window.IDIOMA && window.IDIOMA.actual && window.IDIOMA.actual() === "en";
+      C.Guia.habla(cri.sonido + " " + (en && window.IDIOMA ? window.IDIOMA.traducir(frase) : frase));
     };
     escena.appendChild(bicho);
     hogar.appendChild(escena);
@@ -6222,8 +6224,13 @@
     cont.appendChild(resumen);
 
     if (C.Voz && !C.Voz.silenciado) {
+      const frase = window.MASCOTA.frase();
+      const en = window.IDIOMA && window.IDIOMA.actual && window.IDIOMA.actual() === "en";
+      const nombreCri = cri.nombre.toLowerCase() + " " + inf.etapa.nombre.toLowerCase();
       C.Guia.habla(
-        "Esta es tu mascota, el " + cri.nombre.toLowerCase() + " " + inf.etapa.nombre.toLowerCase() + ". " + window.MASCOTA.frase()
+        en
+          ? "This is your pet, the " + nombreCri + ". " + window.IDIOMA.traducir(frase)
+          : "Esta es tu mascota, el " + nombreCri + ". " + frase
       );
     }
   };

@@ -510,6 +510,26 @@
     "¡Qué dibujo tan bonito! Va a ser tu nueva cara.": "What a lovely drawing! It will be your new face.",
     "Listo, vuelves a tener tu animalito.": "Done, you have your little animal back.",
     "¡Qué foto tan linda! La voy a usar en tu perfil.": "What a lovely photo! I will use it in your profile.",
+
+    /* Mascota: frases amables (mascota.js FRASES) */
+    "¡Me encanta aprender contigo!": "I love learning with you!",
+    "Cada letra que aprendes me hace más fuerte.": "Every letter you learn makes me stronger.",
+    "¿Jugamos otro poquito? ¡Me divierto mucho!": "Shall we play a little more? I'm having so much fun!",
+    "Estoy orgullosa de ti, lo estás haciendo genial.": "I'm proud of you, you're doing great.",
+    "Cuando lees bien, a mí me salen chispitas de alegría.": "When you read well, I get little sparks of joy.",
+    "No hay prisa. Aprender despacito también cuenta.": "No rush. Learning slowly counts too.",
+    /* Profesor virtual (profe.js) */
+    "Tu profe dice": "Your teacher says",
+    "Cerrar el consejo del profe": "Close the teacher's tip",
+    "¡Excelente trabajo! Dominas esta unidad. Puedes avanzar con confianza.": "Excellent work! You've mastered this unit. You can move on with confidence.",
+    "Progreso borrado. ¡Empezamos de nuevo!": "Progress cleared. Let's start again!",
+    /* Actividades (activities.js) */
+    "¡Muy bien!": "Well done!",
+    "¡Bien! Encontraste una pareja.": "Good! You found a pair.",
+    "No son iguales. Volteamos otra vez.": "They're not the same. Let's turn them back over.",
+    "Sigue la línea punteada, ve poco a poco.": "Follow the dotted line, take it slowly.",
+    "¡Bien! Sigue con la siguiente letra.": "Good! Go on to the next letter.",
+    "¿Quién está jugando? Toca tu nombre.": "Who is playing? Tap your name.",
   };
 
   /* Mapa inverso para VOLVER al español: al cambiar ES→EN se
@@ -621,6 +641,19 @@
     [/^¡Hola (.+)! ¡Hola! Soy Kiko, tu amigo loro\. Hoy vamos a descubrir letras, números y nuevas ideas jugando\. ¡Tú marcas el ritmo! Toca el botón grande cuando quieras comenzar\.$/, "Hi $1! Hi! I'm Kiko, your parrot friend. Today we'll discover letters, numbers and new ideas by playing. You set the pace! Tap the big button when you want to start.", /^Hi (.+)! Hi! I'm Kiko, your parrot friend\. Today we'll discover letters, numbers and new ideas by playing\. You set the pace! Tap the big button when you want to start\.$/, "¡Hola $1! ¡Hola! Soy Kiko, tu amigo loro. Hoy vamos a descubrir letras, números y nuevas ideas jugando. ¡Tú marcas el ritmo! Toca el botón grande cuando quieras comenzar."],
     [/^¡Hola! Soy Kiko, tu amigo loro\. Hoy vamos a descubrir letras, números y nuevas ideas jugando\. ¡Tú marcas el ritmo! Toca el botón grande cuando quieras comenzar\.$/, "Hi! I'm Kiko, your parrot friend. Today we'll discover letters, numbers and new ideas by playing. You set the pace! Tap the big button when you want to start.", /^Hi! I'm Kiko, your parrot friend\. Today we'll discover letters, numbers and new ideas by playing\. You set the pace! Tap the big button when you want to start\.$/, "¡Hola! Soy Kiko, tu amigo loro. Hoy vamos a descubrir letras, números y nuevas ideas jugando. ¡Tú marcas el ritmo! Toca el botón grande cuando quieras comenzar."],
     [/^¡Qué alegría verte otra vez! Tu aventura continúa justo donde la dejaste\. ¡Vamos por el siguiente descubrimiento!$/, "So glad to see you again! Your adventure continues right where you left off. Let's go for the next discovery!", /^So glad to see you again! Your adventure continues right where you left off\. Let's go for the next discovery!$/, "¡Qué alegría verte otra vez! Tu aventura continúa justo donde la dejaste. ¡Vamos por el siguiente descubrimiento!"],
+
+    /* Saludo de regreso de la mascota (nombre de la criatura) */
+    [/^¡Qué alegría verte otra vez! Te guardé un abrazo y un poquito de cariño\. Tu (.+) te estaba esperando\.$/, "How lovely to see you again! I saved you a hug and a little love. Your $1 was waiting for you.", /^How lovely to see you again! I saved you a hug and a little love\. Your (.+) was waiting for you\.$/, "¡Qué alegría verte otra vez! Te guardé un abrazo y un poquito de cariño. Tu $1 te estaba esperando."],
+    /* Profesor virtual: tema con nombre y objetivo */
+    [/^Hola\. Hoy vamos a aprender: (.+)\. Primero lee las tarjetas con calma\.$/, "Hi. Today we're going to learn: $1. First, read the cards calmly.", /^Hi\. Today we're going to learn: (.+)\. First, read the cards calmly\.$/, "Hola. Hoy vamos a aprender: $1. Primero lee las tarjetas con calma."],
+    [/^Este tema se llama «(.+)»\. La meta es: (.+) Vamos paso a paso\.$/, "This topic is called «$1». The goal is: $2 Let's go step by step.", /^This topic is called «(.+)»\. The goal is: (.+) Let's go step by step\.$/, "Este tema se llama «$1». La meta es: $2 Vamos paso a paso."],
+    [/^Así se trabaja el tema «(.+)»: 1\) Descubrir: lee las tarjetas nuevas\. 2\) Practicar: haz los ejercicios\. 3\) Jugar: un juego con lo aprendido\. 4\) Demostrar: responde la evaluación para ganar tus estrellas\. Puedes hacer las fases en orden\.$/, "Here's how to work on the topic «$1»: 1) Discover: read the new cards. 2) Practise: do the exercises. 3) Play: a game with what you've learned. 4) Show: answer the quiz to earn your stars. You can do the phases in order.", /^Here's how to work on the topic «(.+)»: 1\) Discover: read the new cards\. 2\) Practise: do the exercises\. 3\) Play: a game with what you've learned\. 4\) Show: answer the quiz to earn your stars\. You can do the phases in order\.$/, "Así se trabaja el tema «$1»: 1) Descubrir: lee las tarjetas nuevas. 2) Practicar: haz los ejercicios. 3) Jugar: un juego con lo aprendido. 4) Demostrar: responde la evaluación para ganar tus estrellas. Puedes hacer las fases en orden."],
+    [/^Mi recomendación: empieza por «(.+)»\. Cuando lo termines, sigue con el siguiente\.$/, "My recommendation: start with «$1». When you finish it, go on to the next one.", /^My recommendation: start with «(.+)»\. When you finish it, go on to the next one\.$/, "Mi recomendación: empieza por «$1». Cuando lo termines, sigue con el siguiente."],
+    [/^¡Muy bien! Aunque salió casi todo perfecto, repasa «(.+)» para dominar el tema completo\.$/, "Well done! Although almost everything was perfect, review «$1» to master the whole topic.", /^Well done! Although almost everything was perfect, review «(.+)» to master the whole topic\.$/, "¡Muy bien! Aunque salió casi todo perfecto, repasa «$1» para dominar el tema completo."],
+    [/^Buen intento\. Para mejorar: repasa (.+) y vuelve al repaso\. ¡Los errores ayudan a aprender!$/, "Good try. To improve: review $1 and go back to the review. Mistakes help us learn!", /^Good try\. To improve: review (.+) and go back to the review\. Mistakes help us learn!$/, "Buen intento. Para mejorar: repasa $1 y vuelve al repaso. ¡Los errores ayudan a aprender!"],
+    /* Actividades: trazo y escritura con la letra */
+    [/^¡Muy bien! Trazaste la letra (.+)\.$/, "Well done! You traced the letter $1.", /^Well done! You traced the letter (.+)\.$/, "¡Muy bien! Trazaste la letra $1."],
+    [/^Casi\. Ahora va la letra (.+)\.$/, "Almost. Now comes the letter $1.", /^Almost\. Now comes the letter (.+)\.$/, "Casi. Ahora va la letra $1."],
   ];
 
   function actual() {
@@ -663,6 +696,17 @@
       }
     }
     return null;
+  }
+
+  /* Traduce para hablar o mostrar: devuelve el texto traducido
+     si hay entrada, o el texto original tal cual (degradación
+     segura para el contenido pedagógico). */
+  function traducir(texto) {
+    const t = traducirCadena(texto);
+    if (t === null || t === undefined) {
+      return String(texto === undefined || texto === null ? "" : texto);
+    }
+    return t;
   }
 
   /* NOTA: `aplicando` NO evita bucles del observer: las mutaciones
@@ -846,5 +890,5 @@
     iniciar();
   }
 
-  window.IDIOMA = { actual: actual, cambiar: cambiar, aplicar: aplicar };
+  window.IDIOMA = { actual: actual, cambiar: cambiar, aplicar: aplicar, traducir: traducir };
 })();
