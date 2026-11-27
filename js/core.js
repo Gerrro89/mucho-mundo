@@ -938,10 +938,14 @@ window.CORE = (function () {
   /* ---------------- Guía (personaje) ---------------- */
   const Guia = {
     _temporizador: null,
+    /* Última frase EN ESPAÑOL (el original). Se guarda así para
+       poder volver a pintarla y a hablarla al cambiar de idioma. */
+    _ultimo: null,
     habla(texto, opc) {
+      this._ultimo = { texto: texto, opc: opc };
       const burbuja = $("#burbuja-guia");
       if (burbuja) {
-        burbuja.textContent = texto;
+        this.pintar();
         burbuja.title = "Toca aquí para cerrar";
         burbuja.setAttribute("role", "button");
         burbuja.classList.add("visible");
@@ -952,6 +956,29 @@ window.CORE = (function () {
         }, 9000);
       }
       Voz.decir(texto, opc);
+    },
+    /* Pinta el último mensaje en el idioma vigente. Si el motor de
+       idioma aún no está cargado (core.js va antes), deja el texto
+       original: nunca rompe la burbuja. */
+    pintar() {
+      const burbuja = $("#burbuja-guia");
+      if (!burbuja || !this._ultimo) return;
+      let t = this._ultimo.texto;
+      if (window.IDIOMA && typeof window.IDIOMA.traducir === "function") {
+        try {
+          t = window.IDIOMA.traducir(t);
+        } catch (e) { /* se queda el original */ }
+      }
+      burbuja.textContent = t;
+    },
+    /* Cambio de idioma en vivo: si la burbuja está visible, la
+       repinta y repite la frase con la voz del idioma nuevo. */
+    retraducir() {
+      if (!this._ultimo) return;
+      const burbuja = $("#burbuja-guia");
+      if (!burbuja || !burbuja.classList.contains("visible")) return;
+      this.pintar();
+      Voz.decir(this._ultimo.texto, this._ultimo.opc);
     },
     callar() {
       const burbuja = $("#burbuja-guia");

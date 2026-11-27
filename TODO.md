@@ -589,6 +589,22 @@
       Verificación Playwright en puerto nuevo: 7/7 pasos con voz en-US/EN y vuelta a es-MX/ES;
       sw.test.js 13/13, gestos.test.js 103/103, barrido 84 mediciones (4 desbordes a 320 px
       preexistentes), censo del asistente 16 vistas/0 faltas.
+- [x] EL CAMBIO DE IDIOMA EN VIVO LLEGA A LA MASCOTA (v210): al pasar a inglés sin
+      recargar, la burbuja y el globo de la mascota, el resumen y los botones de cuidado se
+      quedaban en español y la voz seguía saliendo en español. Guia.habla guarda ahora el
+      texto original ({texto, opc}) en _ultimo, pinta IDIOMA.traducir(texto) y expone
+      retraducir(), que repinta y re-habla solo si la burbuja está visible; IDIOMA.cambiar()
+      lo llama en try/catch (hook opcional, sin acoplar módulos). Voz.repetir y la voz
+      retraducen desde el texto original. Se añadieron ~50 claves (modales de comida,
+      palabra, disfraces y casa; resumen; "Sin disfraz") y patrones con función de
+      reemplazo para las frases compuestas (intro "This is your pet, the …", "Time to eat",
+      resumen meals/words/correct/of the house, "Choose the pet …"), sin pre-traducir en
+      app.js. Corregida la frase mixta preexistente "These are los detectives…" de app.js.
+      SW v210. Verificación Playwright en puerto 8837: recorrido ES→EN→ES con modales,
+      0 fallos; verificación estática: DICC 507 claves sin duplicados, FRASES 6/6, ETAPAS
+      4/4, 57 cadenas de pantalla/modal con 0 sin traducción; sw.test.js 13/13,
+      gestos.test.js 103/103.
+
 - [ ] Validación docente de textos DBA y de los objetivos de las 150 unidades.
       → Listo para la reunión: Web Leer/reportes-docente/validacion-unidades.html con las
       150 unidades (título, objetivo, temas con su objetivo y el DBA usado por la app,

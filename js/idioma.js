@@ -530,6 +530,57 @@
     "Sigue la línea punteada, ve poco a poco.": "Follow the dotted line, take it slowly.",
     "¡Bien! Sigue con la siguiente letra.": "Good! Go on to the next letter.",
     "¿Quién está jugando? Toca tu nombre.": "Who is playing? Tap your name.",
+    /* Pantalla de mascota (app.js) */
+    "Escoge una criatura. Nacerá de un huevo y crecerá cada vez que aprendas: le darás de comer, le enseñarás palabras y le construirás su casa. ¡Nunca se pone triste!": "Pick a creature. It will hatch from an egg and grow every time you learn: you'll feed it, teach it words and build its house. It never gets sad!",
+    "Nace de un huevo y crece hasta ser legendaria": "Hatches from an egg and grows until it becomes legendary",
+    "¡Llegó a su forma legendaria! 🎉": "It reached its legendary form! 🎉",
+    "Cuida a tu mascota": "Take care of your pet",
+    "Darle de comer": "Feed it",
+    "Resuelve sumas": "Solve sums",
+    "Enseñarle palabras": "Teach it words",
+    "Toca y escucha": "Tap and listen",
+    "Disfraces": "Costumes",
+    "Al leer bien": "By reading well",
+    "Su casa": "Its house",
+    "Con materiales": "With materials",
+    "Darle de comer. Resuelve sumas": "Feed it. Solve sums",
+    "Enseñarle palabras. Toca y escucha": "Teach it words. Tap and listen",
+    "Disfraces. Al leer bien": "Costumes. By reading well",
+    "Su casa. Con materiales": "Its house. With materials",
+    "Aún está dentro del huevo, escuchándote.": "It's still inside the egg, listening to you.",
+    "¡Ya salió del cascarón! Es pequeñita.": "It just hatched! It's tiny.",
+    "Creció y quiere aprender más contigo.": "It grew and wants to learn more with you.",
+    "¡Es una criatura fuerte, sabia y feliz!": "It's a strong, wise and happy creature!",
+    /* Alimentar a la mascota */
+    "Resuelve la suma para darle la comida:": "Solve the sum to give it the food:",
+    "😋 ¡Qué rico!": "😋 Yummy!",
+    "🍽️ Otra comida": "🍽️ Another meal",
+    "🏠 Ver mi mascota": "🏠 See my pet",
+    "¡Muy bien! Tu mascota comió y creció un poquito.": "Well done! Your pet ate and grew a little.",
+    "Casi. Cuenta otra vez con calma.": "Almost. Count again calmly.",
+    "Resuelve la suma para darle de comer a tu mascota.": "Solve the sum to feed your pet.",
+    /* Enseñarle palabras */
+    "💬 Enséñale una palabra": "💬 Teach it a word",
+    "Toca la palabra para escucharla y mostrársela a tu mascota.": "Tap the word to listen to it and show it to your pet.",
+    "📚 ¡Ya se la sabe!": "📚 It knows it now!",
+    "💬 Otra palabra": "💬 Another word",
+    "Toca la palabra para escucharla y enseñársela a tu mascota.": "Tap the word to listen to it and teach it to your pet.",
+    /* Disfraces */
+    "🎀 Disfraces de tu mascota": "🎀 Your pet's costumes",
+    "Se desbloquean cuando lees bien. ¡Sigue practicando para abrir más!": "They unlock when you read well. Keep practising to open more!",
+    "Puesto": "On",
+    "Tocar para poner": "Tap to put on",
+    "Sin disfraz": "No costume",
+    /* Casa */
+    "Gana materiales al terminar actividades y construye su hogar paso a paso.": "Earn materials by finishing activities and build its home step by step.",
+    "¡Construido!": "Built!",
+    "🔨 Construir": "🔨 Build",
+    "Faltan": "Missing",
+    "Necesitas más materiales. ¡Sigue aprendiendo y los consigues!": "You need more materials. Keep learning and you'll get them!",
+    /* Pantalla de detectives (frase corregida en app.js) */
+    "Estos son los detectives de letras y números. Toca un caso para empezar la investigación.": "These are the letter and number detectives. Tap a case to start the investigation.",
+    /* Texto alternativo del búho maestro (atributo alt) */
+    "Búho maestro": "Teacher owl",
   };
 
   /* Mapa inverso para VOLVER al español: al cambiar ES→EN se
@@ -654,7 +705,58 @@
     /* Actividades: trazo y escritura con la letra */
     [/^¡Muy bien! Trazaste la letra (.+)\.$/, "Well done! You traced the letter $1.", /^Well done! You traced the letter (.+)\.$/, "¡Muy bien! Trazaste la letra $1."],
     [/^Casi\. Ahora va la letra (.+)\.$/, "Almost. Now comes the letter $1.", /^Almost\. Now comes the letter (.+)\.$/, "Casi. Ahora va la letra $1."],
-  ];
+  
+    /* ---- Pantalla de mascota: cadenas con interpolación ---- */
+    /* Crecimiento y elección (se conservan los nombres propios) */
+    [/^Cariño: (\d+) de (\d+) para ser (.+)$/, "Love: $1 of $2 to become $3", /^Love: (\d+) of (\d+) to become (.+)$/, "Cariño: $1 de $2 para ser $3"],
+    [/^Etapa (.+) · tu mascota crece cuando aprendes$/, "Stage $1 · your pet grows as you learn", /^Stage (.+) · your pet grows as you learn$/, "Etapa $1 · tu mascota crece cuando aprendes"],
+    [/^Elegir a la mascota (.+)$/, "Choose the pet $1", /^Choose the pet (.+)$/, "Elegir a la mascota $1"],
+    [/^¡Elegiste al (.+)! Cuídalo mucho, va a crecer contigo\.$/, "You chose the $1! Take good care of it, it will grow with you.", /^You chose the (.+)! Take good care of it, it will grow with you\.$/, "¡Elegiste al $1! Cuídalo mucho, va a crecer contigo."],
+    /* Resumen de lo conseguido */
+    [/^🍽️ (\d+) comidas$/, "🍽️ $1 meals", /^🍽️ (\d+) meals$/, "🍽️ $1 comidas"],
+    [/^🍽️ 1 comida$/, "🍽️ 1 meal", /^🍽️ 1 meal$/, "🍽️ 1 comida"],
+    [/^💬 (\d+) palabras$/, "💬 $1 words", /^💬 (\d+) words$/, "💬 $1 palabras"],
+    [/^💬 1 palabra$/, "💬 1 word", /^💬 1 word$/, "💬 1 palabra"],
+    [/^✍️ (\d+) aciertos$/, "✍️ $1 correct", /^✍️ (\d+) correct$/, "✍️ $1 aciertos"],
+    [/^✍️ 1 acierto$/, "✍️ 1 correct", /^✍️ 1 correct$/, "✍️ 1 acierto"],
+    [/^(\d+) aciertos$/, "$1 correct", /^(\d+) correct$/, "$1 aciertos"],
+    [/^1 acierto$/, "1 correct", /^1 correct$/, "1 acierto"],
+    [/^🏠 (\d+) de (\d+) de la casa$/, "🏠 $1 of $2 of the house", /^🏠 (\d+) of (\d+) of the house$/, "🏠 $1 de $2 de la casa"],
+    /* Alimentar */
+    [/^🍽️ (.+) ¡A comer!$/, "🍽️ $1 Time to eat!", /^🍽️ (.+) Time to eat!$/, "🍽️ $1 ¡A comer!"],
+    [/^Tu (.+) comió (.+) y está muy contenta\. (¡[^!]+!)$/, "Your $1 ate $2 and is very happy. $3", /^Your (.+) ate (.+) and is very happy\. (¡[^!]+!)$/, "Tu $1 comió $2 y está muy contenta. $3"],
+    [/^Ganaste un material: (.+)$/, "You earned a material: $1", /^You earned a material: (.+)$/, "Ganaste un material: $1"],
+    [/^✨ ¡Tu mascota creció a (.+)!$/, "✨ Your pet grew to $1!", /^✨ Your pet grew to (.+)!$/, "✨ ¡Tu mascota creció a $1!"],
+    /* Enseñarle palabras */
+    [/^Le enseñaste «(.+)» a tu (.+)\. ¡Era una palabra nueva y ganaste cariño!$/, "You taught «$1» to your $2. It was a new word and you earned love!", /^You taught «(.+)» to your (.+)\. It was a new word and you earned love!$/, "Le enseñaste «$1» a tu $2. ¡Era una palabra nueva y ganaste cariño!"],
+    [/^Le enseñaste «(.+)» a tu (.+)\. Ya la conocía, ¡pero le encanta repetirla!$/, "You taught «$1» to your $2. It already knew it, but it loves repeating it!", /^You taught «(.+)» to your (.+)\. It already knew it, but it loves repeating it!$/, "Le enseñaste «$1» a tu $2. Ya la conocía, ¡pero le encanta repetirla!"],
+    /* Disfraces */
+    [/^Todavía no\. Lee bien (\d+) veces y se abre\.$/, "Not yet. Read well $1 times and it opens.", /^Not yet\. Read well (\d+) times and it opens\.$/, "Todavía no. Lee bien $1 veces y se abre."],
+    /* Casa */
+    [/^(\S+) La casa de tu mascota$/, "$1 Your pet's house", /^(\S+) Your pet's house$/, "$1 La casa de tu mascota"],
+    [/^¡Construiste (.+)! Qué bonita queda\.$/, "You built $1! It looks so nice.", /^You built (.+)! It looks so nice\.$/, "¡Construiste $1! Qué bonita queda."],
+    [/^Tu mascota creció a (.+)\.$/, "Your pet grew to $1.", /^Your pet grew to (.+)\.$/, "Tu mascota creció a $1."],
+    /* Voz de la mascota: sonido + frase amable (el sonido se queda igual) */
+    [/^(¡[^!]+!)\s+(.+)$/, function (s) {
+      const m = s.match(/^(¡[^!]+!)\s+(.+)$/);
+      const t = m && DICC[m[2]];
+      return t ? m[1] + " " + t : null;
+    }, /^(¡[^!]+!)\s+(.+)$/, function (s) {
+      const m = s.match(/^(¡[^!]+!)\s+(.+)$/);
+      const t = m && REV[m[2]];
+      return t ? m[1] + " " + t : null;
+    }],
+    /* Introducción hablada de la mascota (solo se traduce la frase final) */
+    [/^Esta es tu mascota, el ([^.]+)\. (.+)$/, function (s) {
+      const m = s.match(/^Esta es tu mascota, el ([^.]+)\. (.+)$/);
+      const t = m && DICC[m[2]];
+      return t ? "This is your pet, the " + m[1] + ". " + t : null;
+    }, /^This is your pet, the ([^.]+)\. (.+)$/, function (s) {
+      const m = s.match(/^This is your pet, the ([^.]+)\. (.+)$/);
+      const t = m && REV[m[2]];
+      return t ? "Esta es tu mascota, el " + m[1] + ". " + t : null;
+    }],
+];
 
   function actual() {
     try {
@@ -689,9 +791,22 @@
     if (destino) return String(texto).replace(limpio, destino);
     for (const pat of PATRONES) {
       if (en && pat[0].test(limpio)) {
+        /* Un reemplazo puede ser una función: devuelve el texto ya
+           traducido, o null para que se pruebe el siguiente patrón
+           (así un patrón genérico no eclipsa a uno específico). */
+        if (typeof pat[1] === "function") {
+          const t = pat[1](limpio);
+          if (t !== null && t !== undefined) return t;
+          continue;
+        }
         return limpio.replace(pat[0], pat[1]);
       }
       if (!en && pat[2].test(limpio)) {
+        if (typeof pat[3] === "function") {
+          const t = pat[3](limpio);
+          if (t !== null && t !== undefined) return t;
+          continue;
+        }
         return limpio.replace(pat[2], pat[3]);
       }
     }
@@ -820,6 +935,14 @@
     }
     aplicar(document.body);
     pintarBoton();
+    /* La guía guarda la frase original: al cambiar de idioma se
+       repinta la burbuja visible y se vuelve a hablar con la voz
+       nueva. Se resuelve en tiempo de ejecución para no acoplar
+       este motor con core.js. */
+    try {
+      const guia = window.CORE && window.CORE.Guia;
+      if (guia && typeof guia.retraducir === "function") guia.retraducir();
+    } catch (e) { /* sin guía: solo cambia el resto de la interfaz */ }
     anunciar(
       nuevo === "en"
         ? "Interface switched to English"
